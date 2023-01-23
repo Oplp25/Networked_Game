@@ -12,21 +12,28 @@
 #include<chrono>
 #include<future>
 #include <format>
+#include "SQlite/sqlite3.h"
+
+#include "GraphicsFunctions/Intro/intro.h"
+#include "GraphicsFunctions/Menu/menu.h"
 
 using namespace std;
+
+void connectToServer(promise<bool>);
 
 int main() {
 	sf::RenderWindow win(sf::VideoMode(800, 600), "Welcome to the Dungeon");//the main window
 	win.setVerticalSyncEnabled(true);
-	sf::Event event;
-	while (win.isOpen()) {
-		while (win.pollEvent(event)) {
-			if (event.type == sf::Event::Closed){
-				win.close();
-			}
-		}
-		win.clear(sf::Color::Blue);
-		win.display();
-	}
+
+	promise<bool> serverConProm;
+	future<bool> serverConFut = serverConProm.get_future();
+
+	thread serverConnectionThread(connectToServer, serverConProm);
+
+	runIntro(win);
+
+	bool online = serverConFut.get();
+	
+	runMenu(win);
 	return 0;
 }
