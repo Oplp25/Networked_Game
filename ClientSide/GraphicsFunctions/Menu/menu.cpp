@@ -1,15 +1,31 @@
 #include "menu.h"
 #include<SFML\Graphics.hpp>
+#include "../Colours/colourConsts.h"
+#include<vector>
 
+using namespace std;
+using namespace colours;
 void runMenu(sf::RenderWindow& win) {
+	int width = win.getSize().x;
+	int height = win.getSize().y;
+	sf::RectangleShape dungeonButton(sf::Vector2f(width/2,height/5));
+	dungeonButton.setPosition(sf::Vector2f(width/4, 7 * height/10));
+	dungeonButton.setFillColor(cinereous);
+	sf::RectangleShape arenaButton(sf::Vector2f(width / 2,  height / 5));
+	arenaButton.setPosition(sf::Vector2f(width / 4, 2 * height / 5));
+	arenaButton.setFillColor(cinereous);
+	vector<sf::RectangleShape> buttonList = {arenaButton,dungeonButton};
 	sf::Event event;
 	while (win.isOpen()) {
 		while (win.pollEvent(event)) {
-			if (event.type == sf::Event::Closed or sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 				win.close();
 			}
 		}
-		win.clear(sf::Color::Blue);
+		win.clear(pistachio);
+		for (sf::RectangleShape i : buttonList) {
+			win.draw(i);
+		}
 		win.display();
 	}
 }

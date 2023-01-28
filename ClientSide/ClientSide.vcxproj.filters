@@ -32,5 +32,8 @@
     <ClInclude Include="GraphicsFunctions\Menu\menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="colourConsts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

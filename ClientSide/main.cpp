@@ -22,17 +22,16 @@ using namespace std;
 void connectToServer(promise<bool>);
 
 int main() {
-	sf::RenderWindow win(sf::VideoMode(800, 600), "Welcome to the Dungeon");//the main window
-	win.setVerticalSyncEnabled(true);
+	sf::RenderWindow win(sf::VideoMode(800, 800), "Welcome to the Dungeon",sf::Style::Fullscreen);//the main window
 
-	promise<bool> serverConProm;
-	future<bool> serverConFut = serverConProm.get_future();
+	//promise<bool> serverConProm;
+	//future<bool> serverConFut = serverConProm.get_future();
 
-	thread serverConnectionThread(connectToServer, serverConProm);
+	//thread serverConnectionThread(connectToServer, serverConProm);
 
 	runIntro(win);
 
-	bool online = serverConFut.get();
+	//bool online = serverConFut.get();
 	
 	runMenu(win);
 	return 0;
