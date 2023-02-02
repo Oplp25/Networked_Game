@@ -21,7 +21,19 @@
     <ClCompile Include="GraphicsFunctions\Intro\intro.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicsFunctions\Menu\menu.cpp">
+    <ClCompile Include="DungeonCrawler\dungeonCrawlerMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsFunctions\Menus\menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsFunctions\Menus\dungeonCrawlerMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsFunctions\Menus\arenaFighterMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ArenaFighter\arenaFighterMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,10 +41,22 @@
     <ClInclude Include="GraphicsFunctions\Intro\intro.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsFunctions\Menu\menu.h">
+    <ClInclude Include="colourConsts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="colourConsts.h">
+    <ClInclude Include="DungeonCrawler\dungeonCrawlerMain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsFunctions\Menus\dungeonCrawlerMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsFunctions\Menus\menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsFunctions\Menus\arenaFighterMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ArenaFighter\arenaFighterMain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

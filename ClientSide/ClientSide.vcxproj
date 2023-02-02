@@ -154,8 +154,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArenaFighter\arenaFighterMain.cpp" />
+    <ClCompile Include="DungeonCrawler\dungeonCrawlerMain.cpp" />
     <ClCompile Include="GraphicsFunctions\Intro\intro.cpp" />
-    <ClCompile Include="GraphicsFunctions\Menu\menu.cpp" />
+    <ClCompile Include="GraphicsFunctions\Menus\arenaFighterMenu.cpp" />
+    <ClCompile Include="GraphicsFunctions\Menus\dungeonCrawlerMenu.cpp" />
+    <ClCompile Include="GraphicsFunctions\Menus\menu.cpp" />
     <ClCompile Include="main.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\jakob\OneDrive\Documents\C++\SFML\SFML-2.5.1\include</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\jakob\OneDrive\Documents\C++\SFML\SFML-2.5.1\include</AdditionalIncludeDirectories>
@@ -164,9 +168,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArenaFighter\arenaFighterMain.h" />
     <ClInclude Include="colourConsts.h" />
+    <ClInclude Include="DungeonCrawler\dungeonCrawlerMain.h" />
     <ClInclude Include="GraphicsFunctions\Intro\intro.h" />
-    <ClInclude Include="GraphicsFunctions\Menu\menu.h" />
+    <ClInclude Include="GraphicsFunctions\Menus\arenaFighterMenu.h" />
+    <ClInclude Include="GraphicsFunctions\Menus\dungeonCrawlerMenu.h" />
+    <ClInclude Include="GraphicsFunctions\Menus\menu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

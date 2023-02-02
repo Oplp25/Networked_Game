@@ -15,7 +15,7 @@
 #include "SQlite/sqlite3.h"
 
 #include "GraphicsFunctions/Intro/intro.h"
-#include "GraphicsFunctions/Menu/menu.h"
+#include "GraphicsFunctions/Menus/menu.h"
 
 using namespace std;
 
