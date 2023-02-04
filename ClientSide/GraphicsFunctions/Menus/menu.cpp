@@ -2,13 +2,15 @@
 #include<SFML\Graphics.hpp>
 #include<iostream>
 #include<vector>
-
+#include<filesystem>
 #include "../Colours/colourConsts.h"
 #include "dungeonCrawlerMenu.h"
 #include "arenaFighterMenu.h"
 
 using namespace std;
 using namespace colours;
+
+const filesystem::path cwd = filesystem::current_path();
 
 struct button {
 	button(char sType, void (*func)(sf::RenderWindow&), sf::RectangleShape RectangleP = sf::RectangleShape(), sf::Sprite spriteP = sf::Sprite()) {
@@ -35,7 +37,7 @@ void runMenu(sf::RenderWindow& win) {
 	int width = win.getSize().x;
 	int height = win.getSize().y;
 
-
+	//RectShapes
 	sf::RectangleShape dungeonButtonShape(sf::Vector2f(width/2,height/9));
 	dungeonButtonShape.setPosition(sf::Vector2f(width/4, 7 * height/9));
 	dungeonButtonShape.setFillColor(cinereous);
@@ -45,11 +47,38 @@ void runMenu(sf::RenderWindow& win) {
 
 	vector<sf::RectangleShape> rectShapeList = { arenaButtonShape, dungeonButtonShape };
 
+	//Sprites
 	vector<sf::Sprite> spriteList;
+
+	//buttonsdungeonTest
 	button arenaButton = button('r', &runArenaFighterMenu, arenaButtonShape);
 	button dungeonButton = button('r', & runDungeonCrawlerMenu, dungeonButtonShape);
 
 	vector<button> buttonList = {arenaButton,dungeonButton};
+	//text
+
+	sf::Font comicsans;
+	if (!comicsans.loadFromFile(cwd.string() + "\\Resources\\Fonts\\ComicSans.ttf")) {
+		cout << "Error. Failed to load font Comic Sans" << endl;
+	}
+	sf::Text arenaText;
+	arenaText.setString("Arena Fighter");
+	arenaText.setCharacterSize(90);
+	arenaText.setFillColor(sf::Color(0, 0, 0));
+	arenaText.setStyle(sf::Text::Bold);
+	arenaText.setFont(comicsans);
+	arenaText.setPosition(sf::Vector2f(arenaButtonShape.getPosition().x+(arenaButtonShape.getLocalBounds().width - arenaText.getLocalBounds().width)/2, arenaButtonShape.getPosition().y));
+
+	sf::Text dungeonText;
+	dungeonText.setString("Dungeon Crawler");
+	dungeonText.setCharacterSize(90);
+	dungeonText.setFillColor(sf::Color(0, 0, 0));
+	dungeonText.setStyle(sf::Text::Bold);
+	dungeonText.setFont(comicsans);
+	dungeonText.setPosition(sf::Vector2f(dungeonButtonShape.getPosition().x + (dungeonButtonShape.getLocalBounds().width - dungeonText.getLocalBounds().width) / 2, dungeonButtonShape.getPosition().y));
+
+	vector<sf::Text> textList = { arenaText, dungeonText };
+
 	sf::Event event;
 	while (win.isOpen()) {
 		while (win.pollEvent(event)) {
@@ -72,6 +101,10 @@ void runMenu(sf::RenderWindow& win) {
 		}
 #
 		for (sf::Sprite i : spriteList) {
+			win.draw(i);
+		}
+
+		for (sf::Text i : textList) {
 			win.draw(i);
 		}
 		win.display();
