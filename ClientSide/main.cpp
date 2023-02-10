@@ -11,15 +11,15 @@
 #include<thread>
 #include<chrono>
 #include<future>
-#include <format>
+#include<format>
 #include "SQlite/sqlite3.h"
 
 #include "GraphicsFunctions/Intro/intro.h"
 #include "GraphicsFunctions/Menus/menu.h"
+#include "ConnectionFunctions/serverConnection.h"
 
 using namespace std;
 
-void connectToServer(promise<bool>);
 
 int main() {
 	sf::RenderWindow win(sf::VideoMode(800, 800), "Welcome to the Dungeon",sf::Style::Fullscreen);//the main window
@@ -27,12 +27,12 @@ int main() {
 	//promise<bool> serverConProm;
 	//future<bool> serverConFut = serverConProm.get_future();
 
-	//thread serverConnectionThread(connectToServer, serverConProm);
+	//thread serverConnectionThread(connectToServerThreaded, serverConProm);
 
-	runIntro(win);
+	//runIntro(win);
 
 	//bool online = serverConFut.get();
-	
-	runMenu(win);
+	bool online = false;
+	runMenu(win, online);
 	return 0;
 }

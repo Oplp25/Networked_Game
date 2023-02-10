@@ -2,41 +2,70 @@
 #include<SFML\Graphics.hpp>
 #include<iostream>
 #include<vector>
+#include<future>
 #include<filesystem>
+
 #include "../Colours/colourConsts.h"
 #include "dungeonCrawlerMenu.h"
 #include "arenaFighterMenu.h"
-
+#include "../../ConnectionFunctions/serverConnection.h"
 using namespace std;
 using namespace colours;
 
 const filesystem::path cwd = filesystem::current_path();
 
 struct button {
-	button(char sType, void (*func)(sf::RenderWindow&), sf::RectangleShape RectangleP = sf::RectangleShape(), sf::Sprite spriteP = sf::Sprite()) {
-		if (sType == 115) {// s
-			sprite = spriteP;
-			hitbox = sprite.getGlobalBounds();
-		}
-		else if (sType == 114) {// r
-			Rectangle = RectangleP;
-			hitbox = Rectangle.getGlobalBounds();
-		}
-		else {
-			cout << "Error, wrong symbol entered in struct button" << endl;
-		}
+	button(void (*func)(sf::RenderWindow&), sf::RectangleShape RectangleP) {
+		Rectangle = RectangleP;
+		hitbox = Rectangle.getGlobalBounds();
 		fncPtr = func;
 	}
+	button(void (*func)(sf::RenderWindow&),sf::Sprite spriteP) {
+		sprite = spriteP;
+		hitbox = sprite.getGlobalBounds();
+		fncPtr = func;
+	}
+	button(sf::RectangleShape RectangleP) {
+		Rectangle = RectangleP;
+		hitbox = Rectangle.getGlobalBounds();
+	}
+	button(){}
 	sf::RectangleShape Rectangle;
 	sf::Sprite sprite;
 	sf::FloatRect hitbox;
 	void(*fncPtr)(sf::RenderWindow&);
+	char des = 'm';
 };
 
-void runMenu(sf::RenderWindow& win) {
+void runMenu(sf::RenderWindow& win, bool online) {
 	int width = win.getSize().x;
 	int height = win.getSize().y;
+	sf::Font comicsans;
+	if (!comicsans.loadFromFile(cwd.string() + "\\Resources\\Fonts\\ComicSans.ttf")) {
+		cout << "Error. Failed to load font Comic Sans" << endl;
+	}
 
+	sf::RectangleShape networkStatusShape;
+	button networkStatusButton;
+	sf::Text networkStatusText;
+	if (online) {
+		
+	}
+	else {
+		networkStatusShape = sf::RectangleShape(sf::Vector2f(width/6,height/12));
+		networkStatusShape.setPosition(sf::Vector2f(width/20,height/20));
+		networkStatusShape.setFillColor(cinereous);
+
+		networkStatusButton = button(networkStatusShape);
+		networkStatusButton.des = 's';
+
+		networkStatusText.setString("Reconnect");
+		networkStatusText.setCharacterSize(60);
+		networkStatusText.setFillColor(sf::Color(0, 0, 0));
+		networkStatusText.setStyle(sf::Text::Bold);
+		networkStatusText.setFont(comicsans);
+		networkStatusText.setPosition(sf::Vector2f(networkStatusShape.getPosition().x + (networkStatusShape.getLocalBounds().width - networkStatusText.getLocalBounds().width) / 2, networkStatusShape.getPosition().y+width/190));
+	}
 	//RectShapes
 	sf::RectangleShape dungeonButtonShape(sf::Vector2f(width/2,height/9));
 	dungeonButtonShape.setPosition(sf::Vector2f(width/4, 7 * height/9));
@@ -45,22 +74,18 @@ void runMenu(sf::RenderWindow& win) {
 	arenaButtonShape.setPosition(sf::Vector2f(width / 4, 5 * height / 9));
 	arenaButtonShape.setFillColor(cinereous);
 
-	vector<sf::RectangleShape> rectShapeList = { arenaButtonShape, dungeonButtonShape };
+	vector<sf::RectangleShape> rectShapeList = { arenaButtonShape, dungeonButtonShape, networkStatusShape };
 
 	//Sprites
 	vector<sf::Sprite> spriteList;
 
 	//buttonsdungeonTest
-	button arenaButton = button('r', &runArenaFighterMenu, arenaButtonShape);
-	button dungeonButton = button('r', & runDungeonCrawlerMenu, dungeonButtonShape);
+	button arenaButton = button(&runArenaFighterMenu, arenaButtonShape);
+	button dungeonButton = button(&runDungeonCrawlerMenu, dungeonButtonShape);
 
-	vector<button> buttonList = {arenaButton,dungeonButton};
+	vector<button> buttonList = {arenaButton,dungeonButton,networkStatusButton};
+
 	//text
-
-	sf::Font comicsans;
-	if (!comicsans.loadFromFile(cwd.string() + "\\Resources\\Fonts\\ComicSans.ttf")) {
-		cout << "Error. Failed to load font Comic Sans" << endl;
-	}
 	sf::Text arenaText;
 	arenaText.setString("Arena Fighter");
 	arenaText.setCharacterSize(90);
@@ -77,7 +102,7 @@ void runMenu(sf::RenderWindow& win) {
 	dungeonText.setFont(comicsans);
 	dungeonText.setPosition(sf::Vector2f(dungeonButtonShape.getPosition().x + (dungeonButtonShape.getLocalBounds().width - dungeonText.getLocalBounds().width) / 2, dungeonButtonShape.getPosition().y));
 
-	vector<sf::Text> textList = { arenaText, dungeonText };
+	vector<sf::Text> textList = { arenaText, dungeonText, networkStatusText };
 
 	sf::Event event;
 	while (win.isOpen()) {
@@ -90,7 +115,12 @@ void runMenu(sf::RenderWindow& win) {
 				sf::Vector2f mouseLocF = sf::Vector2f(mouseLoc.x, mouseLoc.y);
 				for (button i : buttonList) {
 					if (i.hitbox.contains(mouseLocF)) {
-						i.fncPtr(win);
+						if (i.des == 'm'){
+							i.fncPtr(win);
+						}
+						else if (i.des == 's') {
+							online = connectToServer(win);
+						}
 					}
 				}
 			}
