@@ -71,5 +71,8 @@
     <ClInclude Include="GraphicsFunctions\Menus\button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Entities\entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

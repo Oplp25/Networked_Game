@@ -1,9 +1,11 @@
 #pragma once
+#include<SFML/Graphics.hpp>
+void createArenaLayout();
 
-void runArenaFighterSingle();
+void runArenaFighterSingle(sf::RenderWindow &win);
 
-void runArenaFighterMulti();
+void runArenaFighterMulti(sf::RenderWindow& win);
 
-void singleGameloop();
+void singleArenaGameloop();
 
-void multiGameloop();
+void multiArenaGameloop();

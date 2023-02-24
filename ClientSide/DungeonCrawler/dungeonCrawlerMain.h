@@ -7,6 +7,6 @@ void runDungeonCrawlerMulti(sf::RenderWindow& win);
 
 void createDungeonLevel(int currentLevel);//Will need a return value
 
-void singleGameloop();
+void singleDungeonGameloop();
 
-void multiGameloop();
+void multiDungeonGameloop();

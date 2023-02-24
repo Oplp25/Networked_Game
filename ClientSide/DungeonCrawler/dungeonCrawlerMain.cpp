@@ -12,10 +12,10 @@ void createDungeonLevel(int currentLevel)
 {
 }
 
-void singleGameloop()
+void singleDungeonGameloop()
 {
 }
 
-void multiGameloop()
+void multiDungeonGameloop()
 {
 }
