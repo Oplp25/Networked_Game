@@ -159,6 +159,7 @@
     <ClCompile Include="DungeonCrawler\dungeonCrawlerMain.cpp" />
     <ClCompile Include="GraphicsFunctions\Intro\intro.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\arenaFighterMenu.cpp" />
+    <ClCompile Include="GraphicsFunctions\Menus\button.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\dungeonCrawlerMenu.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\menu.cpp" />
     <ClCompile Include="main.cpp">
@@ -175,6 +176,7 @@
     <ClInclude Include="DungeonCrawler\dungeonCrawlerMain.h" />
     <ClInclude Include="GraphicsFunctions\Intro\intro.h" />
     <ClInclude Include="GraphicsFunctions\Menus\arenaFighterMenu.h" />
+    <ClInclude Include="GraphicsFunctions\Menus\button.h" />
     <ClInclude Include="GraphicsFunctions\Menus\dungeonCrawlerMenu.h" />
     <ClInclude Include="GraphicsFunctions\Menus\menu.h" />
   </ItemGroup>

@@ -8,34 +8,12 @@
 #include "../Colours/colourConsts.h"
 #include "dungeonCrawlerMenu.h"
 #include "arenaFighterMenu.h"
+#include "button.h"
 #include "../../ConnectionFunctions/serverConnection.h"
 using namespace std;
 using namespace colours;
 
 const filesystem::path cwd = filesystem::current_path();
-
-struct button {
-	button(void (*func)(sf::RenderWindow&), sf::RectangleShape RectangleP) {
-		Rectangle = RectangleP;
-		hitbox = Rectangle.getGlobalBounds();
-		fncPtr = func;
-	}
-	button(void (*func)(sf::RenderWindow&),sf::Sprite spriteP) {
-		sprite = spriteP;
-		hitbox = sprite.getGlobalBounds();
-		fncPtr = func;
-	}
-	button(sf::RectangleShape RectangleP) {
-		Rectangle = RectangleP;
-		hitbox = Rectangle.getGlobalBounds();
-	}
-	button(){}
-	sf::RectangleShape Rectangle;
-	sf::Sprite sprite;
-	sf::FloatRect hitbox;
-	void(*fncPtr)(sf::RenderWindow&);
-	char des = 'm';
-};
 
 void runMenu(sf::RenderWindow& win, bool online) {
 	int width = win.getSize().x;
@@ -115,7 +93,7 @@ void runMenu(sf::RenderWindow& win, bool online) {
 				sf::Vector2f mouseLocF = sf::Vector2f(mouseLoc.x, mouseLoc.y);
 				for (button i : buttonList) {
 					if (i.hitbox.contains(mouseLocF)) {
-						if (i.des == 'm'){
+						if (i.des == 'm'){//if the button opens up a menu
 							i.fncPtr(win);
 						}
 						else if (i.des == 's') {
