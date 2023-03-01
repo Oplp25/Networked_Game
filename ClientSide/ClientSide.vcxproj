@@ -157,6 +157,9 @@
     <ClCompile Include="ArenaFighter\arenaFighterMain.cpp" />
     <ClCompile Include="ConnectionFunctions\serverConnection.cpp" />
     <ClCompile Include="DungeonCrawler\dungeonCrawlerMain.cpp" />
+    <ClCompile Include="Entities\Characters\Classes\archetype.cpp" />
+    <ClCompile Include="Entities\Characters\inventory.cpp" />
+    <ClCompile Include="Entities\entity.cpp" />
     <ClCompile Include="GraphicsFunctions\Intro\intro.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\arenaFighterMenu.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\button.cpp" />
@@ -174,6 +177,10 @@
     <ClInclude Include="colourConsts.h" />
     <ClInclude Include="ConnectionFunctions\serverConnection.h" />
     <ClInclude Include="DungeonCrawler\dungeonCrawlerMain.h" />
+    <ClInclude Include="Entities\Characters\abilityScoresEnum.h" />
+    <ClInclude Include="Entities\Characters\Classes\archetype.h" />
+    <ClInclude Include="Entities\Characters\inventory.h" />
+    <ClInclude Include="Entities\Characters\Races\race.h" />
     <ClInclude Include="Entities\entity.h" />
     <ClInclude Include="GraphicsFunctions\Intro\intro.h" />
     <ClInclude Include="GraphicsFunctions\Menus\arenaFighterMenu.h" />
