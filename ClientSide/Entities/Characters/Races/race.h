@@ -3,7 +3,6 @@
 #include "../abilityScoresEnum.h"
 
 class race {
-	private:
 	public:
 		std::vector<abilityScoresEnum> abilityScoreUpgrades;
 		int maxManaIncrease = 0;

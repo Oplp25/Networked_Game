@@ -22,6 +22,12 @@ void Archetype::useUlt() {
 	(this->ultPointer)(this);
 }
 
+
+/*Function to make an ability score check, it generates a random number between 1 and 20, the adds the ability score modifier to it, then returns that
+If the roll is made with advantage, then the max of 2 dice rolls is added to the ability score modifier, then returned
+If the roll is made with disadvantage, then the min of 2 dice rolls is added to the ability score modifier, then returned
+If the character has proficiency with that save, then their proficiency binus is added to the final score, in addition to all of the above*/
+
 int Archetype::makeSave(abilityScoresEnum ability, char hasAdvantage)
 {
 	int add = floor((abilityScores[ability]-10)/2);
@@ -41,6 +47,10 @@ int Archetype::makeSave(abilityScoresEnum ability, char hasAdvantage)
 	}
 	return min(rolled, rolled2) + add;
 }
+
+/*Function to make an ability score check, it generates a random number between 1 and 20, the adds the ability score modifier to it, then returns that
+If the roll is made with advantage, then the max of 2 dice rolls is added to the ability score modifier, then returned
+If the roll is made with disadvantage, then the min of 2 dice rolls is added to the ability score modifier, then returned*/
 
 int Archetype::makeCheck(abilityScoresEnum ability, char hasAdvantage)
 {
@@ -70,7 +80,7 @@ void Archetype::gainXP(int xpGained)
 void Archetype::levelUp()
 {
 	level++;
-	(this->*levelUpFuncs[level - 2])();
+	(this->*levelUpFuncs[level - 2])();//runs the corresponding level function from the level it just reached
 	int i =  hpIncrease();
 	hpMax += i;
 	hpCurrent += i;

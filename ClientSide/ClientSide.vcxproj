@@ -159,7 +159,6 @@
     <ClCompile Include="DungeonCrawler\dungeonCrawlerMain.cpp" />
     <ClCompile Include="Entities\Characters\Classes\archetype.cpp" />
     <ClCompile Include="Entities\Characters\inventory.cpp" />
-    <ClCompile Include="Entities\Characters\Races\race.cpp" />
     <ClCompile Include="Entities\entity.cpp" />
     <ClCompile Include="GraphicsFunctions\Intro\intro.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\arenaFighterMenu.cpp" />
