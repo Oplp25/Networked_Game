@@ -6,5 +6,6 @@ enum abilityScoresEnum {
 	CON,
 	INT,
 	WIS,
-	CHA
+	CHA,
+	END
 };
