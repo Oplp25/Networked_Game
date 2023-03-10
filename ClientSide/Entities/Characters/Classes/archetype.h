@@ -9,12 +9,9 @@
 #include "../abilityScoresEnum.h"
 
 
-class Archetype {//A parent class of all of the classes. so they are called Archetypes. All characters will be instances of the child classes of the Archetype Class
-	private:
-		bool canCastSpells;
-		std::vector<std::string> weaponsProficient;
-		std::vector<std::string> armourProficient;
-		std::vector<abilityScoresEnum> savesProficient;//must have an END at the end
+class archetype {//A parent class of all of the classes. so they are called archetypes. All characters will be instances of the child classes of the archetype Class
+	protected:
+		//character-specific attributes
 		int xp;
 		int level;
 		int manaMax;//For Magical abilities
@@ -25,19 +22,26 @@ class Archetype {//A parent class of all of the classes. so they are called Arch
 		int hpCurrent;
 		int hitDiceType;
 		int speed;
+		std::vector<int> abilityScores;// the ability scores can be accessed by abilityScores[abilityScoreEnum]
+		//vector<spell> spellList;
 		inventory inventory;
 
-		std::vector<int> abilityScores;// the ability scores can be accessed by abilityScores[abilityScoreEnum]
+		//class-specific attributes
+		bool canCastSpells;
+		std::vector<std::string> weaponsProficient;
+		std::vector<std::string> armourProficient;
+		std::vector<abilityScoresEnum> savesProficient;//must have an END at the end
+
 
 		void levelUp();
 
 		int profBonus;
-		void(*primaryPointer)(Archetype*);
-		void(*secondaryPointer)(Archetype*);
-		void(*defensivePointer)(Archetype*);
-		void(*specialPointer)(Archetype*);
-		void(*buffPointer)(Archetype*);
-		void(*ultPointer)(Archetype*);
+		void(*primaryPointer)(archetype*);
+		void(*secondaryPointer)(archetype*);
+		void(*defensivePointer)(archetype*);
+		void(*specialPointer)(archetype*);
+		void(*buffPointer)(archetype*);
+		void(*ultPointer)(archetype*);
 
 		void level2();
 		void level3();
@@ -59,19 +63,18 @@ class Archetype {//A parent class of all of the classes. so they are called Arch
 		void level19();
 		void level20();
 		
-		vector<void(Archetype::*)()> levelUpFuncs = {&level2,&level3,&level4,&level5,&level6,&level7,&level8,&level9,&level10,&level11,&level13,&level14,&level15,&level16,&level17,&level18,&level19,&level20 };//when accessing, have to do levelUpFunc[level-2]
+		std::vector<void(archetype::*)()> levelUpFuncs = {&level2,&level3,&level4,&level5,&level6,&level7,&level8,&level9,&level10,&level11,&level13,&level14,&level15,&level16,&level17,&level18,&level19,&level20 };//when accessing, have to do levelUpFunc[level-2]
 		
 		void setScores();//sets the maxes for mana, stamina and hp, also increases the ability scores and sets speed based on the race
 		int hpIncrease();//returns the increase in hp
-		//vector<spell> spellList;
 		//resistances/weaknesses
 		//need to add something for the passive(s) - perhaps in the child classes
 	public:
 
-		Archetype();
+		archetype(race thisRace, std::string name);
 
-		std::string nameOfCharacter;
-		std::string nameOfClass;
+		std::string characterName;
+		std::string className;
 		race characterRace;
 		int armourClass;
 

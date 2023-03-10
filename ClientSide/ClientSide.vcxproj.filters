@@ -51,6 +51,9 @@
     <ClCompile Include="Entities\Characters\Classes\archetype.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entities\Characters\Classes\paladin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsFunctions\Intro\intro.h">
@@ -93,6 +96,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entities\Characters\Classes\archetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Characters\Races\dwarf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Characters\Classes\paladin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
