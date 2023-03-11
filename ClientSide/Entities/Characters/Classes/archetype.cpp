@@ -112,7 +112,7 @@ archetype::archetype(string thisRace, string name)
 	if (thisRace == "dwarf") {
 		characterRace = "dwarf";
 		dwarf tempRace = dwarf();
-		setScores(tempRace.abilityScoreUpgrades,0,tempRace.maxHealthInrease,tempRace.maxStaminaIncrease,tempRace.speed);
+		setScores(tempRace.abilityScoreUpgrades,0,tempRace.maxHealthIncrease,tempRace.maxStaminaIncrease,tempRace.speed);
 	}
 	setScores();
 	xp = 0;

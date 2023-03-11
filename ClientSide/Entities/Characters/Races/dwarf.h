@@ -3,7 +3,7 @@
 
 #include "../abilityScoresEnum.h"
 #include "race.h"
-class dwarf:race {
+class dwarf:public race {
 	public:
 		std::string raceName = "Dwarf";
 		std::vector<abilityScoresEnum> abilityScoreUpgrades = {CON,CON,STR};

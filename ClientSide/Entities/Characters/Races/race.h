@@ -11,4 +11,4 @@ class race {
 		int speed;
 		std::string raceName;
 		//resistances/weaknesses
-};a
+};
