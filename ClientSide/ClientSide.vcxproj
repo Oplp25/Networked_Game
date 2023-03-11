@@ -155,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ArenaFighter\arenaFighterMain.cpp" />
+    <ClCompile Include="CharacterCreator\characterCreator.cpp" />
     <ClCompile Include="ConnectionFunctions\serverConnection.cpp" />
     <ClCompile Include="DungeonCrawler\dungeonCrawlerMain.cpp" />
     <ClCompile Include="Entities\Characters\Classes\archetype.cpp" />
@@ -175,15 +176,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArenaFighter\arenaFighterMain.h" />
+    <ClInclude Include="CharacterCreator\characterCreator.h" />
     <ClInclude Include="colourConsts.h" />
     <ClInclude Include="ConnectionFunctions\serverConnection.h" />
     <ClInclude Include="DungeonCrawler\dungeonCrawlerMain.h" />
     <ClInclude Include="Entities\Characters\abilityScoresEnum.h" />
     <ClInclude Include="Entities\Characters\Classes\archetype.h" />
+    <ClInclude Include="Entities\Characters\Classes\classIncluder.h" />
     <ClInclude Include="Entities\Characters\Classes\paladin.h" />
     <ClInclude Include="Entities\Characters\inventory.h" />
     <ClInclude Include="Entities\Characters\Races\dwarf.h" />
     <ClInclude Include="Entities\Characters\Races\race.h" />
+    <ClInclude Include="Entities\Characters\Races\raceIncluder.h" />
     <ClInclude Include="Entities\entity.h" />
     <ClInclude Include="GraphicsFunctions\Intro\intro.h" />
     <ClInclude Include="GraphicsFunctions\Menus\arenaFighterMenu.h" />

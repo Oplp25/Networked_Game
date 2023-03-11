@@ -5,9 +5,8 @@
 #include<SFML/Graphics.hpp>
 
 #include "../inventory.h"
-#include "../Races/race.h"
+#include "../Races/raceIncluder.h"
 #include "../abilityScoresEnum.h"
-
 
 class archetype {//A parent class of all of the classes. so they are called archetypes. All characters will be instances of the child classes of the archetype Class
 	protected:
@@ -65,17 +64,17 @@ class archetype {//A parent class of all of the classes. so they are called arch
 		
 		std::vector<void(archetype::*)()> levelUpFuncs = {&level2,&level3,&level4,&level5,&level6,&level7,&level8,&level9,&level10,&level11,&level13,&level14,&level15,&level16,&level17,&level18,&level19,&level20 };//when accessing, have to do levelUpFunc[level-2]
 		
-		void setScores();//sets the maxes for mana, stamina and hp, also increases the ability scores and sets speed based on the race
+		void setScores(std::vector<abilityScoresEnum> abilityScoreUpgrades,int maxManaIncrease,int maxHealthIncrease,int maxStaminaIncrease,int speed);//sets the maxes for mana, stamina and hp, also increases the ability scores and sets speed based on the race
 		int hpIncrease();//returns the increase in hp
 		//resistances/weaknesses
 		//need to add something for the passive(s) - perhaps in the child classes
 	public:
 
-		archetype(race thisRace, std::string name);
+		archetype(std::string thisRace, std::string name);
 
 		std::string characterName;
 		std::string className;
-		race characterRace;
+		std::string characterRace;
 		int armourClass;
 
 		void usePrimary();

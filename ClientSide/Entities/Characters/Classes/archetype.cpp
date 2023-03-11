@@ -88,15 +88,15 @@ void archetype::levelUp()
 	//need to have something to increase stamina and mana as well
 }
 
-void archetype::setScores()
+void archetype::setScores(std::vector<abilityScoresEnum> abilityScoreUpgrades, int maxManaIncrease, int maxHealthIncrease, int maxStaminaIncrease, int speed)
 {
-	manaMax += characterRace.maxManaIncrease;
-	staminaMax += characterRace.maxStaminaIncrease;
-	hpMax = characterRace.maxHealthIncrease + hpIncrease();
+	manaMax += maxManaIncrease;
+	staminaMax += maxStaminaIncrease;
+	hpMax = maxHealthIncrease + hpIncrease();
 	manaCurrent = manaMax;
 	staminaCurrent = staminaMax;
 	hpCurrent = hpMax;
-	speed = characterRace.speed;
+	speed = speed;
 }
 
 int archetype::hpIncrease()
@@ -107,9 +107,13 @@ int archetype::hpIncrease()
 	return distX(randGen);
 }
 
-archetype::archetype(race thisRace, string name)
+archetype::archetype(string thisRace, string name)
 {
-	characterRace = thisRace;
+	if (thisRace == "dwarf") {
+		characterRace = "dwarf";
+		dwarf tempRace = dwarf();
+		setScores(tempRace.abilityScoreUpgrades,0,tempRace.maxHealthInrease,tempRace.maxStaminaIncrease,tempRace.speed);
+	}
 	setScores();
 	xp = 0;
 	level = 0;

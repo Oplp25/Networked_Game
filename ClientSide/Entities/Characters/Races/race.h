@@ -9,5 +9,6 @@ class race {
 		int maxHealthIncrease = 0;
 		int maxStaminaIncrease = 0;
 		int speed;
+		std::string raceName;
 		//resistances/weaknesses
-};
+};a
