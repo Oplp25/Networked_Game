@@ -158,6 +158,7 @@
     <ClCompile Include="CharacterCreator\characterCreator.cpp" />
     <ClCompile Include="ConnectionFunctions\serverConnection.cpp" />
     <ClCompile Include="DungeonCrawler\dungeonCrawlerMain.cpp" />
+    <ClCompile Include="Entities\Characters\character.cpp" />
     <ClCompile Include="Entities\Characters\Classes\archetype.cpp" />
     <ClCompile Include="Entities\Characters\Classes\paladin.cpp" />
     <ClCompile Include="Entities\Characters\inventory.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="ConnectionFunctions\serverConnection.h" />
     <ClInclude Include="DungeonCrawler\dungeonCrawlerMain.h" />
     <ClInclude Include="Entities\Characters\abilityScoresEnum.h" />
+    <ClInclude Include="Entities\Characters\character.h" />
     <ClInclude Include="Entities\Characters\Classes\archetype.h" />
     <ClInclude Include="Entities\Characters\Classes\classIncluder.h" />
     <ClInclude Include="Entities\Characters\Classes\paladin.h" />

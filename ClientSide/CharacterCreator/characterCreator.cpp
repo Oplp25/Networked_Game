@@ -2,13 +2,17 @@
 
 using namespace std;
 
-void characterCreator(sf::RenderWindow& win)
+character characterCreator(sf::RenderWindow& win)
 {
 	bool happy = false;
+	character myChar;
 	while (!happy) {
 		string classChoiceString = classPicker(win);
 		string raceChoiceString = racePicker(win);
+		myChar = character(raceChoiceString,classChoiceString,"name");
+		happy = true;
 	}
+	return myChar;
 }
 
 std::string classPicker(sf::RenderWindow& win)
