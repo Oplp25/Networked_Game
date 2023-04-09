@@ -11,6 +11,7 @@ class archetype {//A parent class of all of the classes. so they are called arch
 		std::vector<std::string> weaponsProficient;
 		std::vector<std::string> armourProficient;
 		std::vector<abilityScoresEnum> savesProficient;//must have an END at the end
+		std::string className;
 
 		virtual void level2();
 		virtual void level3();

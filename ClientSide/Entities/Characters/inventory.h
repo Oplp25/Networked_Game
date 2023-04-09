@@ -1,5 +1,5 @@
 #pragma once
-#include<map>;
+#include<map>
 
 struct mapList {
 	mapList();

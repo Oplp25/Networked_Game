@@ -57,7 +57,7 @@ void runMenu(sf::RenderWindow& win, bool online) {
 	//Sprites
 	vector<sf::Sprite> spriteList;
 
-	//buttonsdungeonTest
+	//buttons
 	button arenaButton = button(&runArenaFighterMenu, arenaButtonShape);
 	button dungeonButton = button(&runDungeonCrawlerMenu, dungeonButtonShape);
 

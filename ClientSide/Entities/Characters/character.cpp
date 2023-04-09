@@ -1,5 +1,6 @@
 #include "character.h"
 #include<random>
+#include<iostream>
 
 using namespace std;
 
@@ -107,7 +108,7 @@ int character::hpIncrease()
 	return distX(randGen);
 }
 
-character::character(string thisRace, string thisClass, string name)
+character::character(string thisRace, string thisClass, string name, char error)
 {
 	if (thisRace == "dwarf") {
 		characterRace = "dwarf";
@@ -117,13 +118,18 @@ character::character(string thisRace, string thisClass, string name)
 	if (thisClass == "paladin") {
 		paladinObj = paladin();
 		classPtr = &paladinObj;
-		className = "paladin";
 	}
-	levelUpFuncs = classPtr->classLevelUpFuncs;
+	else {
+		error = 'i';
+	}
+	if (error == 'n') {
+		levelUpFuncs = classPtr->classLevelUpFuncs;
+		className = classPtr->className;
+	}
 	//need to add ability pointers
 	xp = 0;
 	level = 0;
-	characterName = name;
+	characterName = name;	
 }
 
 character::character(){}

@@ -53,7 +53,7 @@ class character :public entity {
 		//resistances/weaknesses
 		//need to add something for the passive(s)
 	public:
-		character(std::string thisRace,std::string thisClass, std::string name);
+		character(std::string thisRace,std::string thisClass, std::string name, char error);
 		character();
 		std::string characterName;
 		std::string className;
