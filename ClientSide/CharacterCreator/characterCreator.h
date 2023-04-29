@@ -10,7 +10,7 @@
 
 character characterCreator(sf::RenderWindow &win);
 std::string classPicker(sf::RenderWindow& win);
-std::string racePicker(sf::RenderWindow& win);
+std::string racePicker(sf::RenderWindow& win, std::string classStr);
 std::string nameChooser(sf::RenderWindow& win);
 std::vector<sf::Sprite> loadIcons(sf::RenderWindow& win);
 struct spriteComp {

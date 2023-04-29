@@ -21,11 +21,12 @@ character characterCreator(sf::RenderWindow& win)
 	char errorCode = 'n';
 	while (!happy) {
 		string classChoiceString = classPicker(win);
+		cout << classChoiceString << endl;
 		if(classChoiceString == "False"){
 			errorCode = 'e';
 			happy = true;
 		}
-		string raceChoiceString = racePicker(win);
+		string raceChoiceString = racePicker(win,classChoiceString);
 		if (raceChoiceString == "False") {
 			errorCode = 'e';
 			happy = true;
@@ -125,8 +126,9 @@ std::string classPicker(sf::RenderWindow& win)
 	return string();
 }
 
-string racePicker(sf::RenderWindow& win)
+string racePicker(sf::RenderWindow& win, string classStr)
 {
+	
 	return std::string();
 }
 

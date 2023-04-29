@@ -1,0 +1,1 @@
+Each Race has a different icon for every class
