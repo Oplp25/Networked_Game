@@ -178,7 +178,6 @@
   <ItemGroup>
     <ClInclude Include="ArenaFighter\arenaFighterMain.h" />
     <ClInclude Include="CharacterCreator\characterCreator.h" />
-    <ClInclude Include="colourConsts.h" />
     <ClInclude Include="ConnectionFunctions\serverConnection.h" />
     <ClInclude Include="DungeonCrawler\dungeonCrawlerMain.h" />
     <ClInclude Include="Entities\Characters\abilityScoresEnum.h" />
@@ -191,6 +190,7 @@
     <ClInclude Include="Entities\Characters\Races\race.h" />
     <ClInclude Include="Entities\Characters\Races\raceIncluder.h" />
     <ClInclude Include="Entities\entity.h" />
+    <ClInclude Include="GraphicsFunctions\Colours\colourConsts.h" />
     <ClInclude Include="GraphicsFunctions\Intro\intro.h" />
     <ClInclude Include="GraphicsFunctions\Menus\arenaFighterMenu.h" />
     <ClInclude Include="GraphicsFunctions\Menus\button.h" />

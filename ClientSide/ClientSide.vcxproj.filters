@@ -65,9 +65,6 @@
     <ClInclude Include="GraphicsFunctions\Intro\intro.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="colourConsts.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DungeonCrawler\dungeonCrawlerMain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -120,6 +117,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entities\Characters\character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsFunctions\Colours\colourConsts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -128,7 +128,26 @@ std::string classPicker(sf::RenderWindow& win)
 
 string racePicker(sf::RenderWindow& win, string classStr)
 {
-	
+	filesystem::path charPath = cwd.string() + "/Resources/RaceIcons/"+classStr;
+	int width = win.getSize().x;
+	int height = win.getSize().y;
+
+	vector<sf::Text> textList;
+	sf::Texture currentImgText;
+	sf::Sprite currentIngSprite;
+
+	sf::Font comicsans;
+	if (!comicsans.loadFromFile(cwd.string() + "\\Resources\\Fonts\\ComicSans.ttf")) {
+		cout << "Error. Failed to load font Comic Sans" << endl;
+	}
+
+	for (string i : raceList) {
+		textList.push_back(sf::Text(i,comicsans));
+	}
+
+	string currentSelection = "paladin";
+
+	win.clear(colours::cinereous);
 	return std::string();
 }
 

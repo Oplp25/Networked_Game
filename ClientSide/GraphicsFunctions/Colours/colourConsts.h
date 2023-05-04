@@ -6,4 +6,6 @@ namespace colours {
 	const sf::Color cinereous(153, 136, 136);//Grey
 	const sf::Color hunterGreen(75, 100, 74);//Dark Green
 	const sf::Color olivine(166, 196, 138);//Light green
+	const sf::Color auburn(158,43,37);//Reddish-Brown
+	
 };
