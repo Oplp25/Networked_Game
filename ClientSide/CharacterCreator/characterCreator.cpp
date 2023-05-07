@@ -1,5 +1,5 @@
 #include "CharacterCreator.h"
-#include "../colourConsts.h"
+#include "../GraphicsFunctions/Colours/colourConsts.h"
 #include<filesystem>
 #include<iostream>
 #include<map>
@@ -140,14 +140,23 @@ string racePicker(sf::RenderWindow& win, string classStr)
 	if (!comicsans.loadFromFile(cwd.string() + "\\Resources\\Fonts\\ComicSans.ttf")) {
 		cout << "Error. Failed to load font Comic Sans" << endl;
 	}
-
+	int x = width/8;
+	int y = height/8;
 	for (string i : raceList) {
 		textList.push_back(sf::Text(i,comicsans));
+		textList.back().setPosition(x,y);
+		y += (3 * height / 4) / 9;
 	}
-
 	string currentSelection = "paladin";
 
-	win.clear(colours::cinereous);
+	bool chose = false;
+	while (!chose) {
+		win.clear(colours::cinereous);
+		for (sf::Text i:textList) {
+			win.draw(i);
+		}
+		win.display();
+	}
 	return std::string();
 }
 
