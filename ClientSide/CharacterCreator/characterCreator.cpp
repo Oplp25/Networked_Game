@@ -142,15 +142,25 @@ string racePicker(sf::RenderWindow& win, string classStr)
 	}
 	int x = width/8;
 	int y = height/8;
+	string k;
 	for (string i : raceList) {
-		textList.push_back(sf::Text(i,comicsans));
+		k = i;
+		k[0] = k[0] - 32;
+		textList.push_back(sf::Text(k,comicsans));
 		textList.back().setPosition(x,y);
 		y += (3 * height / 4) / 9;
 	}
-	string currentSelection = "paladin";
-
+	string currentSelection = "dwarf";
+	sf::RectangleShape selectionHighlight = sf::RectangleShape(sf::Vector2f(x,y));
 	bool chose = false;
+	sf::Event event;
 	while (!chose) {
+		while (win.pollEvent(event)) {
+			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+				win.close();
+				return "False";
+			}
+		}
 		win.clear(colours::cinereous);
 		for (sf::Text i:textList) {
 			win.draw(i);
