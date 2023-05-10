@@ -128,13 +128,14 @@ std::string classPicker(sf::RenderWindow& win)
 
 string racePicker(sf::RenderWindow& win, string classStr)
 {
-	filesystem::path charPath = cwd.string() + "/Resources/RaceIcons/"+classStr;
+	filesystem::path charPath = cwd.string() + "/Resources/RaceIcons/"+classStr+"/";
 	int width = win.getSize().x;
 	int height = win.getSize().y;
 
 	vector<sf::Text> textList;
 	sf::Texture currentImgText;
-	sf::Sprite currentIngSprite;
+	sf::Sprite currentImgSprite;
+	currentImgSprite.setPosition(sf::Vector2f(5*width/8,height/4));
 
 	sf::Font comicsans;
 	if (!comicsans.loadFromFile(cwd.string() + "\\Resources\\Fonts\\ComicSans.ttf")) {
@@ -145,13 +146,26 @@ string racePicker(sf::RenderWindow& win, string classStr)
 	string k;
 	for (string i : raceList) {
 		k = i;
-		k[0] = k[0] - 32;
+			for (int j = 0; j < k.length(); j++) {
+				if (j == 0) {
+					k[0] -= 32;
+				}
+				else if (k[j-1]==' ') {
+					k[j] -= 32;
+				}
+		}
 		textList.push_back(sf::Text(k,comicsans));
 		textList.back().setPosition(x,y);
 		y += (3 * height / 4) / 9;
 	}
 	string currentSelection = "dwarf";
-	sf::RectangleShape selectionHighlight = sf::RectangleShape(sf::Vector2f(x,y));
+	if (!currentImgText.loadFromFile(charPath.string() + currentSelection + ".png")) {
+		cout << "Error. Could not load file " + currentSelection + ".png" << endl;
+		currentImgText.loadFromFile(cwd.parent_path().string() + "characterUnavailable.png");
+	}
+	currentImgSprite.setTexture(currentImgText);
+	sf::RectangleShape selectionHighlight = sf::RectangleShape(sf::Vector2f(width/8,height/16));
+	selectionHighlight.setFillColor(colours::pacificBlue);
 	bool chose = false;
 	sf::Event event;
 	while (!chose) {
@@ -160,11 +174,30 @@ string racePicker(sf::RenderWindow& win, string classStr)
 				win.close();
 				return "False";
 			}
+			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+				sf::Vector2i mouseLoc = sf::Mouse::getPosition();
+				sf::Vector2f mouseLocF = sf::Vector2f(mouseLoc.x, mouseLoc.y);
+				for (int i = 0; i < 9; i++) {
+					if (textList[i].getGlobalBounds().contains(mouseLocF)) {
+						currentSelection = raceList[i];
+						if (!currentImgText.loadFromFile(charPath.string() + currentSelection + ".png")) {
+							cout << "Error. Could not load file " + currentSelection + ".png" << endl;
+							if (!currentImgText.loadFromFile(cwd.string() + "/Resources/RaceIcons/characterUnavailable.png")) {
+								cout << "Error.Could not load file characterUnavailable.png" << endl;
+							}
+						}
+						currentImgSprite.setTexture(currentImgText);
+						selectionHighlight.setPosition(textList[i].getPosition());
+					}
+				}
+			}
 		}
 		win.clear(colours::cinereous);
-		for (sf::Text i:textList) {
+		win.draw(selectionHighlight);
+		for (sf::Text i : textList) {
 			win.draw(i);
 		}
+		win.draw(currentImgSprite);
 		win.display();
 	}
 	return std::string();
