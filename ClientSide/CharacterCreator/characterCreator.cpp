@@ -31,7 +31,7 @@ character characterCreator(sf::RenderWindow& win)
 			errorCode = 'e';
 			happy = true;
 		}
-		myChar = character(raceChoiceString,classChoiceString,"name",errorCode);
+		//myChar = character(raceChoiceString,classChoiceString,"name",errorCode);
 		happy = true;
 	}
 	return myChar;
@@ -164,8 +164,14 @@ string racePicker(sf::RenderWindow& win, string classStr)
 		currentImgText.loadFromFile(cwd.parent_path().string() + "characterUnavailable.png");
 	}
 	currentImgSprite.setTexture(currentImgText);
+	currentImgSprite.setScale(10,10);
 	sf::RectangleShape selectionHighlight = sf::RectangleShape(sf::Vector2f(width/8,height/16));
+	selectionHighlight.setPosition(sf::Vector2f(textList[2].getPosition().x - width / 32, textList[2].getPosition().y - height / 64));
 	selectionHighlight.setFillColor(colours::pacificBlue);
+
+	sf::RectangleShape exitButton = sf::RectangleShape(sf::Vector2f(width / 8, height / 16));
+	exitButton.setPosition(sf::Vector2f(6*width/8,14*height/16));
+	exitButton.setFillColor(colours::pacificBlue);
 	bool chose = false;
 	sf::Event event;
 	while (!chose) {
@@ -187,8 +193,12 @@ string racePicker(sf::RenderWindow& win, string classStr)
 							}
 						}
 						currentImgSprite.setTexture(currentImgText);
-						selectionHighlight.setPosition(textList[i].getPosition());
+						selectionHighlight.setPosition(sf::Vector2f(textList[i].getPosition().x-width/32, textList[i].getPosition().y-height/64));
 					}
+				}
+				if (exitButton.getGlobalBounds().contains(mouseLocF)) {
+					cout << currentSelection << endl; 
+					return currentSelection;
 				}
 			}
 		}
@@ -198,6 +208,7 @@ string racePicker(sf::RenderWindow& win, string classStr)
 			win.draw(i);
 		}
 		win.draw(currentImgSprite);
+		win.draw(exitButton);
 		win.display();
 	}
 	return std::string();
