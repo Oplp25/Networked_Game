@@ -27,12 +27,16 @@ character characterCreator(sf::RenderWindow& win)
 			happy = true;
 		}
 		string raceChoiceString = racePicker(win,classChoiceString);
-		if (raceChoiceString == "False") {
-			errorCode = 'e';
-			happy = true;
+		if (raceChoiceString == "Unhappy") {
+
+			continue;
 		}
-		//myChar = character(raceChoiceString,classChoiceString,"name",errorCode);
-		happy = true;
+		string name;
+		name = nameChooser(win);
+		happy = happyChooser(win,name,classChoiceString,raceChoiceString);
+		if (happy) {
+			myChar = character(raceChoiceString,classChoiceString,name,errorCode);
+		}
 	}
 	return myChar;
 }
@@ -216,5 +220,72 @@ string racePicker(sf::RenderWindow& win, string classStr)
 
 string nameChooser(sf::RenderWindow& win)
 {
+	int width = win.getSize().x;
+	int height = win.getSize().y;
+
+	sf::Font comicsans;
+	if (!comicsans.loadFromFile(cwd.string() + "\\Resources\\Fonts\\ComicSans.ttf")) {
+		cout << "Error. Failed to load font Comic Sans" << endl;
+	}
+
+	sf::RectangleShape textInpRect = sf::RectangleShape(sf::Vector2f(width/2,height/16));
+	textInpRect.setPosition(sf::Vector2f(width/4,15*height/32));
+	textInpRect.setFillColor(colours::auburn);
+
+	sf::Text helpText = sf::Text("Please enter your character's name:", comicsans,50);
+	helpText.setPosition(sf::Vector2f(width / 4 +(width/2 - helpText.getGlobalBounds().width)/2,14*height/32 - helpText.getGlobalBounds().height));
+
+	sf::RectangleShape exitButton = sf::RectangleShape(sf::Vector2f(width / 8, height / 16));
+	exitButton.setPosition(sf::Vector2f(6.5 * width / 8, 14 * height / 16));
+	exitButton.setFillColor(colours::pacificBlue);
+
+	sf::Text exitText = sf::Text("Continue",comicsans,30);
+	exitText.setPosition(sf::Vector2f((6.5 * width / 8)+(( width / 8)-exitText.getGlobalBounds().width)/2, (14* height / 16) + ((height / 16)-exitText.getGlobalBounds().height) / 2));
+
+	string name;
+	sf::Text nameText = sf::Text("",comicsans,30);
+	nameText.setPosition(sf::Vector2f(width/4+ (width / 2 - nameText.getGlobalBounds().width) / 2,15*height/32+(height/16-nameText.getGlobalBounds().height)/2));
+	bool chose = false;
+	sf::Event event;
+	while (!chose) {
+		while (win.pollEvent(event)) {
+			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+				win.close();
+				return "False";
+			}
+			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+				sf::Vector2i mouseLoc = sf::Mouse::getPosition();
+				sf::Vector2f mouseLocF = sf::Vector2f(mouseLoc.x, mouseLoc.y);
+				if (exitButton.getGlobalBounds().contains(mouseLocF)) {
+					return name;
+				}
+			}
+			if (event.type == sf::Event::TextEntered) {
+				if (static_cast<char>(event.text.unicode) == 8) {
+					name.pop_back();
+				}
+				else {
+					name += static_cast<char>(event.text.unicode);
+				}
+				nameText.setString(name);
+				nameText.setPosition(sf::Vector2f(width / 4 + (width / 2 - nameText.getGlobalBounds().width) / 2, 15 * height / 32 + (height / 16 - nameText.getGlobalBounds().height) / 2));
+
+			}
+		}
+		win.clear(colours::cinereous);
+		win.draw(textInpRect);
+		win.draw(nameText);
+		win.draw(helpText);
+		win.draw(exitButton);
+		win.draw(exitText);
+		win.display();
+	}
+
 	return std::string();
+}
+
+bool happyChooser(sf::RenderWindow& win, std::string name, std::string classStr, std::string race)
+{
+
+	return true;
 }

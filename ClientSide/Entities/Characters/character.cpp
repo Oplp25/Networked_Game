@@ -91,18 +91,23 @@ void character::levelUp()
 
 void character::setScores(std::vector<abilityScoresEnum> abilityScoreUpgrades, int maxManaIncrease, int maxHealthIncrease, int maxStaminaIncrease, int speed)
 {
+	cout << "entered" << endl;
 	manaMax += maxManaIncrease;
 	staminaMax += maxStaminaIncrease;
+	cout << "before func" << endl;
 	hpMax = maxHealthIncrease + hpIncrease();
+	cout << "after func" << endl;
 	manaCurrent = manaMax;
 	staminaCurrent = staminaMax;
 	hpCurrent = hpMax;
 	speed = speed;
+	cout << "end of attributes" << endl;
 }
 
 int character::hpIncrease()
 {
 	default_random_engine randGen;
+	cout << hitDiceType << endl;
 	uniform_int_distribution<int> distX(1, hitDiceType);
 	randGen.seed(time(0));
 	return distX(randGen);
@@ -110,26 +115,37 @@ int character::hpIncrease()
 
 character::character(string thisRace, string thisClass, string name, char error)
 {
-	if (thisRace == "dwarf") {
-		characterRace = "dwarf";
-		dwarf tempRace = dwarf();
-		setScores(tempRace.abilityScoreUpgrades, tempRace.maxManaIncrease, tempRace.maxHealthIncrease, tempRace.maxStaminaIncrease, tempRace.speed);
-	}//else
-	if (thisClass == "paladin") {
+	cout << "entered" << endl;
+	cout << thisClass << endl;
+	if (tolower(thisClass) == "paladin") {
 		paladinObj = paladin();
 		classPtr = &paladinObj;
+		cout << "created" << endl;
 	}
 	else {
 		error = 'i';
 	}
+	cout << "paladin successful" << endl;
 	if (error == 'n') {
 		levelUpFuncs = classPtr->classLevelUpFuncs;
 		className = classPtr->className;
+		hitDiceType = classPtr->hitDiceType;
 	}
+	cout << "pointers successful" << endl;
+
+	if (thisRace == "dwarf") {
+		characterRace = "dwarf";
+		dwarf tempRace = dwarf();
+		cout << "created race" << endl;
+		setScores(tempRace.abilityScoreUpgrades, tempRace.maxManaIncrease, tempRace.maxHealthIncrease, tempRace.maxStaminaIncrease, tempRace.speed);
+		cout << "setScores successful" << endl;
+	}//else
+	cout << "dwarf successful" << endl;
 	//need to add ability pointers
 	xp = 0;
 	level = 0;
 	characterName = name;	
+
 }
 
 character::character(){}

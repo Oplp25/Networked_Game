@@ -8,4 +8,5 @@ class paladin :public archetype {
 		std::vector<std::string> armourProficient;
 		std::vector<abilityScoresEnum> savesProficient = {WIS,CON};
 		std::string className = "paladin";
+		int hitDiceType = 10;
 };

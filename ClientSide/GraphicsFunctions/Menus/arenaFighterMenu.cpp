@@ -12,7 +12,7 @@ void runArenaFighterMenu(sf::RenderWindow& win) {
 	if (!comicsans.loadFromFile(cwd.string() + "\\Resources\\Fonts\\ComicSans.ttf")) {
 		cout << "Error. Failed to load font Comic Sans" << endl;
 	}
-	sf::Text titleText = sf::Text("Arena Crawler", comicsans, 120);
+	sf::Text titleText = sf::Text("Arena Fighter", comicsans, 120);
 	titleText.setPosition((width - titleText.getLocalBounds().width) / 2, height / 16);
 	titleText.setFillColor(sf::Color(0, 0, 0));
 
