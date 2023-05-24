@@ -21,10 +21,9 @@ character characterCreator(sf::RenderWindow& win)
 	char errorCode = 'n';
 	while (!happy) {
 		string classChoiceString = classPicker(win);
-		cout << classChoiceString << endl;
 		if(classChoiceString == "False"){
 			errorCode = 'e';
-			happy = true;
+			break;
 		}
 		string raceChoiceString = racePicker(win,classChoiceString);
 		if (raceChoiceString == "Unhappy") {
@@ -95,8 +94,17 @@ std::string classPicker(sf::RenderWindow& win)
 	titleText.setStyle(sf::Text::Bold);
 	titleText.setFillColor(colours::auburn);
 	titleText.setPosition(sf::Vector2f((width-titleText.getGlobalBounds().width)/2,height/20));
+
+	sf::RectangleShape exitButton = sf::RectangleShape(sf::Vector2f(width / 16, height / 16));
+	exitButton.setPosition(sf::Vector2f(7 * width / 8, 14 * height / 16));
+	exitButton.setFillColor(colours::pacificBlue);
+
+	sf::RectangleShape selectionHighlight = sf::RectangleShape(sf::Vector2f(spriteList[0].getGlobalBounds().width + 40, spriteList[0].getGlobalBounds().height + 40));
+	selectionHighlight.setFillColor(colours::pacificBlue);
+
 	win.clear(colours::cinereous);
 	win.display();
+	string currentSelection;
 	bool selected = false;
 	sf::Event event;
 	while (!selected) {
@@ -110,17 +118,26 @@ std::string classPicker(sf::RenderWindow& win)
 				sf::Vector2f mouseLocF = sf::Vector2f(mouseLoc.x, mouseLoc.y);
 				for (auto i : iconList) {
 					if (i.first.getGlobalBounds().contains(mouseLocF)) {
-						return i.second;
+						currentSelection = i.second;
+						selectionHighlight.setPosition(i.first.getPosition().x - 20, i.first.getPosition().y - 20);
 					}
 				}
 				if (backButton.getGlobalBounds().contains(mouseLocF)) {
 					return "False";
 				}
+				if (exitButton.getGlobalBounds().contains(mouseLocF)) {
+					cout << currentSelection << endl;
+					return currentSelection;
+				}
 			}
 			win.clear(colours::cinereous);
+			if (currentSelection != "") {
+				win.draw(selectionHighlight);
+			}
 			for (auto i : iconList) {
 				win.draw(i.first);
 			}
+			win.draw(exitButton);
 			win.draw(backButton);
 			win.draw(backText);
 			win.draw(titleText);
@@ -165,7 +182,7 @@ string racePicker(sf::RenderWindow& win, string classStr)
 	string currentSelection = "dwarf";
 	if (!currentImgText.loadFromFile(charPath.string() + currentSelection + ".png")) {
 		cout << "Error. Could not load file " + currentSelection + ".png" << endl;
-		currentImgText.loadFromFile(cwd.parent_path().string() + "characterUnavailable.png");
+		currentImgText.loadFromFile(charPath.parent_path().parent_path().string() + " / characterUnavailable.png");
 	}
 	currentImgSprite.setTexture(currentImgText);
 	currentImgSprite.setScale(10,10);
@@ -194,6 +211,9 @@ string racePicker(sf::RenderWindow& win, string classStr)
 							cout << "Error. Could not load file " + currentSelection + ".png" << endl;
 							if (!currentImgText.loadFromFile(cwd.string() + "/Resources/RaceIcons/characterUnavailable.png")) {
 								cout << "Error.Could not load file characterUnavailable.png" << endl;
+							}
+							else {
+								cout << "Success! "<<cwd.string() + "/Resources/RaceIcons/characterUnavailable.png" << endl;
 							}
 						}
 						currentImgSprite.setTexture(currentImgText);

@@ -124,8 +124,6 @@ character::character(string thisRace, string thisClass, string name, char error)
 		levelUpFuncs = classPtr->classLevelUpFuncs;
 		className = classPtr->getClassName();
 		hitDiceType = classPtr->getHitDiceType();
-		cout << hitDiceType << endl;
-		cout << className << endl;
 	}
 
 	if (thisRace == "dwarf") {

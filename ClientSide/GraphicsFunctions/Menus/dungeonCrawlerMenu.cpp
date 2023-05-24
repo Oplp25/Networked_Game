@@ -5,7 +5,6 @@ using namespace std;
 const filesystem::path cwd = filesystem::current_path();
 
 void runDungeonCrawlerMenu(sf::RenderWindow& win) {
-	cout << "Dungeon" << endl;
 	int width = win.getSize().x;
 	int height = win.getSize().y;
 	sf::Font comicsans;
