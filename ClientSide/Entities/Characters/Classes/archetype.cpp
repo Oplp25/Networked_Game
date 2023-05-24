@@ -1,5 +1,36 @@
 #include "archetype.h"
 
+
+int archetype::getHitDiceType()
+{
+	return hitDiceType;
+}
+
+std::string archetype::getClassName()
+{
+	return className;
+}
+
+bool archetype::getCanCastSpells()
+{
+	return canCastSpells;
+}
+
+std::vector<abilityScoresEnum> archetype::getSavesProficient()
+{
+	return savesProficient;
+}
+
+std::vector<std::string> archetype::getArmourProficient()
+{
+	return armourProficient;
+}
+
+std::vector<std::string> archetype::getWeaponsProficient()
+{
+	return weaponsProficient;
+}
+
 void archetype::level2()
 {
 }
@@ -7,6 +38,7 @@ void archetype::level2()
 void archetype::level3()
 {
 }
+
 
 void archetype::level4()
 {
