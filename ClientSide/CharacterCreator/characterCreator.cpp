@@ -182,7 +182,7 @@ string racePicker(sf::RenderWindow& win, string classStr)
 	string currentSelection = "dwarf";
 	if (!currentImgText.loadFromFile(charPath.string() + currentSelection + ".png")) {
 		cout << "Error. Could not load file " + currentSelection + ".png" << endl;
-		currentImgText.loadFromFile(charPath.parent_path().parent_path().string() + " / characterUnavailable.png");
+		currentImgText.loadFromFile(charPath.parent_path().parent_path().string() + "/characterUnavailable.png");
 	}
 	currentImgSprite.setTexture(currentImgText);
 	currentImgSprite.setScale(10,10);
