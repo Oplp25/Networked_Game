@@ -155,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ArenaFighter\arenaFighterMain.cpp" />
+    <ClCompile Include="Behavior\Player\playerBehavior.cpp" />
     <ClCompile Include="CharacterCreator\characterCreator.cpp" />
     <ClCompile Include="ConnectionFunctions\serverConnection.cpp" />
     <ClCompile Include="DungeonCrawler\dungeonCrawlerMain.cpp" />
@@ -177,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArenaFighter\arenaFighterMain.h" />
+    <ClInclude Include="Behavior\Player\playerBehavior.h" />
     <ClInclude Include="CharacterCreator\characterCreator.h" />
     <ClInclude Include="ConnectionFunctions\serverConnection.h" />
     <ClInclude Include="DungeonCrawler\dungeonCrawlerMain.h" />

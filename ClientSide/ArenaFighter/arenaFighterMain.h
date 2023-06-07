@@ -1,11 +1,12 @@
 #pragma once
 #include<SFML/Graphics.hpp>
+#include "../Entities/Characters/character.h"
 void createArenaLayout();
 
 void runArenaFighterSingle(sf::RenderWindow &win);
 
 void runArenaFighterMulti(sf::RenderWindow& win);
 
-void singleArenaGameloop();
+std::string singleArenaGameloop(sf::RenderWindow& win, character& player, std::vector<std::vector<std::vector<sf::Sprite>>> sprites);
 
-void multiArenaGameloop();
+std::string multiArenaGameloop(sf::RenderWindow& win, character& player, std::vector<std::vector<std::vector<sf::Sprite>>> sprites);

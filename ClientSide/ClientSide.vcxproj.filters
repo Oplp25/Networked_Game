@@ -60,6 +60,9 @@
     <ClCompile Include="Entities\Characters\character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Behavior\Player\playerBehavior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsFunctions\Intro\intro.h">
@@ -120,6 +123,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsFunctions\Colours\colourConsts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Behavior\Player\playerBehavior.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

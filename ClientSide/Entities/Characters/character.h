@@ -59,7 +59,11 @@ class character :public entity {
 		std::string className;
 		std::string characterRace;
 		int armourClass;
-
+		
+		sf::Vector2f localPosition;//Position relative to the tile that you are on
+		sf::Vector2f globalPosition;//Which tile you are on
+		
+		void move(char direction);
 		void usePrimary();
 		void useSecondary();
 		void useDefensive();

@@ -4,6 +4,21 @@
 
 using namespace std;
 
+void character::move(char direction)
+{
+	if (direction == 'u') {
+		localPosition.y += speed;
+	}else if (direction == 'd') {
+		localPosition.y -= speed;
+	}
+	else if (direction == 'r') {
+		localPosition.x += speed;
+	}else if (direction == 'l') {
+		localPosition.x -= speed;
+	}
+
+}
+
 void character::usePrimary() {
 	(this->primaryPointer)(this);
 }

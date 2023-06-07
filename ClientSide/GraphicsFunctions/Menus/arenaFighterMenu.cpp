@@ -45,6 +45,7 @@ void runArenaFighterMenu(sf::RenderWindow& win) {
 		while (win.pollEvent(event)) {
 			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 				win.close();
+				run = false;
 			}
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 				sf::Vector2i mouseLoc = sf::Mouse::getPosition();
