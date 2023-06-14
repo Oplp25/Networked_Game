@@ -23,7 +23,7 @@ using namespace std;
 
 int main() {
 	sf::RenderWindow win(sf::VideoMode(800, 800), "Welcome to the Dungeon",sf::Style::Fullscreen);//the main window
-
+	win.setFramerateLimit(60);
 	//promise<bool> serverConProm;
 	//future<bool> serverConFut = serverConProm.get_future();
 

@@ -21,7 +21,7 @@ class character :public entity {
 		int hpMax;
 		int hpCurrent;
 		int hitDiceType;
-		int speed;
+		float speed;
 		std::vector<int> abilityScores;// the ability scores can be accessed by abilityScores[abilityScoreEnum]
 		//vector<spell> spellList;
 		inventory inventory;
@@ -48,7 +48,7 @@ class character :public entity {
 
 		std::vector<void(archetype::*)()> levelUpFuncs;//when accessing, have to do levelUpFunc[level-2]. need to use std::invoke to call these functions, E.G, std::invoke(myCharacter.levelUpFuncs[myCharacter.level-2],myCharacter.classPtr)
 
-		void setScores(std::vector<abilityScoresEnum> abilityScoreUpgrades, int maxManaIncrease, int maxHealthIncrease, int maxStaminaIncrease, int speed);//sets the maxes for mana, stamina and hp, also increases the ability scores and sets speed based on the race
+		void setScores(std::vector<abilityScoresEnum> abilityScoreUpgrades, int maxManaIncrease, int maxHealthIncrease, int maxStaminaIncrease, float speed);//sets the maxes for mana, stamina and hp, also increases the ability scores and sets speed based on the race
 		int hpIncrease();//returns the increase in hp
 		//resistances/weaknesses
 		//need to add something for the passive(s)

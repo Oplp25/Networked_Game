@@ -6,16 +6,21 @@ using namespace std;
 
 void character::move(char direction)
 {
+	//cout << "direction: " << direction << endl;
+	//cout << "Local Position: (" << localPosition.x << "," << localPosition.y << ")" << endl;
+	//cout << "Speed:" << speed << endl;
 	if (direction == 'u') {
-		localPosition.y += speed;
-	}else if (direction == 'd') {
 		localPosition.y -= speed;
+	}else if (direction == 'd') {
+		localPosition.y += speed;
 	}
 	else if (direction == 'r') {
 		localPosition.x += speed;
 	}else if (direction == 'l') {
 		localPosition.x -= speed;
 	}
+	//cout<<"Pos After: (" << localPosition.x << "," << localPosition.y << ")" << endl;
+	//cout <<  "---------------------------------------------------------" << endl;
 
 }
 
@@ -104,7 +109,7 @@ void character::levelUp()
 	//need to have something to increase stamina and mana as well
 }
 
-void character::setScores(std::vector<abilityScoresEnum> abilityScoreUpgrades, int maxManaIncrease, int maxHealthIncrease, int maxStaminaIncrease, int speed)
+void character::setScores(std::vector<abilityScoresEnum> abilityScoreUpgrades, int maxManaIncrease, int maxHealthIncrease, int maxStaminaIncrease, float rSpeed)
 {
 
 	manaMax += maxManaIncrease;
@@ -113,7 +118,7 @@ void character::setScores(std::vector<abilityScoresEnum> abilityScoreUpgrades, i
 	manaCurrent = manaMax;
 	staminaCurrent = staminaMax;
 	hpCurrent = hpMax;
-	speed = speed;
+	speed = rSpeed;
 }
 
 int character::hpIncrease()

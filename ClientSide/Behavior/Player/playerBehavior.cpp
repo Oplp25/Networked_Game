@@ -10,10 +10,10 @@ vector<string> getPlayerInput(sf::RenderWindow& win) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		inputs.push_back("a");
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 		inputs.push_back("s");
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		inputs.push_back("d");
 	}
 	sf::Event event;
@@ -51,9 +51,8 @@ bool playerBehavior(sf::RenderWindow& win, character& player) {
 		if (i == "w") {
 			player.move('u');
 		}if (i == "a") {
-			player.move('r');
+			player.move('l');
 		}if (i == "s") {
-			cout << "s" << endl;
 			player.move('d');
 		}if (i == "d") {
 			player.move('r');

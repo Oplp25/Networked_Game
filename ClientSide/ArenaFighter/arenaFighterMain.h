@@ -7,6 +7,6 @@ void runArenaFighterSingle(sf::RenderWindow &win);
 
 void runArenaFighterMulti(sf::RenderWindow& win);
 
-std::string singleArenaGameloop(sf::RenderWindow& win, character& player, std::vector<std::vector<std::vector<sf::Sprite>>> sprites);
+std::string singleArenaGameloop(sf::RenderWindow& win, character& player, std::vector<std::vector<std::vector<sf::Texture>>> Textures);
 
-std::string multiArenaGameloop(sf::RenderWindow& win, character& player, std::vector<std::vector<std::vector<sf::Sprite>>> sprites);
+std::string multiArenaGameloop(sf::RenderWindow& win, character& player, std::vector<std::vector<std::vector<sf::Texture>>> Textures);
