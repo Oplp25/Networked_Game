@@ -45,7 +45,7 @@ vector<string> getPlayerInput(sf::RenderWindow& win) {
 	return inputs;
 }
 
-bool playerBehavior(sf::RenderWindow& win, character& player) {
+char playerBehavior(sf::RenderWindow& win, character& player) {
 	vector<string> inputs = getPlayerInput(win);
 	for (string i : inputs) {
 		if (i == "w") {
@@ -58,8 +58,22 @@ bool playerBehavior(sf::RenderWindow& win, character& player) {
 			player.move('r');
 		}if (i == "esc") {
 			win.close();
-			return false;
+			return 'e';
 		}
 	}
-	return true;
+	if (std::count(inputs.begin(), inputs.end(), "d")!=0) {
+		return 'r';
+	}
+	else if (std::count(inputs.begin(), inputs.end(), "a") != 0) {
+		return 'l';
+	}
+	else if (std::count(inputs.begin(), inputs.end(), "s") != 0){
+		return 'd';
+	}
+	else if (std::count(inputs.begin(), inputs.end(), "w") != 0) {
+		return 'u';
+	}
+	else {
+		return 's';
+	}
 }

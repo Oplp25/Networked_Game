@@ -14,7 +14,6 @@ void createArenaLayout()
 void runArenaFighterSingle(sf::RenderWindow& win)
 {
 	character playerCharacter = characterCreator(win);
-
 	//layout = createArenaLayout()
 	vector<sf::Texture> characterLeft;
 	for (int i = 1; i < 10; i++) {
@@ -64,18 +63,23 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<vect
 	bool finished = false;
 	int spriteNum = 0;
 	int spriteChangeCounter = 0;
-	string dir = "s";
-	char currentDir = 's';
+	char currentDir;
 	sf::Sprite playerSprite = sf::Sprite(textures[0][4][0]);
 	while (!finished) {
-		dir = playerBehavior(win, player);
-		if (dir == "exit") {
+		currentDir = playerBehavior(win, player);
+		if (currentDir == 'e') {
 			return "exit";
 		}
 		if (currentDir == 's') {
 			playerSprite.setTexture(textures[0][4][0]);
-		}else if (spriteChangeCounter == 10 and currentDir == 'l') {
-			playerSprite.setTexture(textures[0][0][spriteNum]);
+		}
+		if (spriteChangeCounter == 10){
+			if (currentDir == 'l') {
+				playerSprite.setTexture(textures[0][0][spriteNum]);
+			}
+			else if (currentDir == 'r') {
+				playerSprite.setTexture(textures[0][1][spriteNum]);
+			}
 			spriteChangeCounter = -1;
 		}
 		playerSprite.setPosition(player.localPosition);
@@ -84,6 +88,9 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<vect
 		win.display();
 		spriteNum++;
 		spriteChangeCounter++;
+		if (spriteChangeCounter > 10) {
+			spriteChangeCounter = 0;
+		}
 		if (spriteNum >= 9) {
 			spriteNum = 0;
 		}

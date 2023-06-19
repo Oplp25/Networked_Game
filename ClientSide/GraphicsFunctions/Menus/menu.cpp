@@ -8,6 +8,7 @@
 #include "../Colours/colourConsts.h"
 #include "dungeonCrawlerMenu.h"
 #include "arenaFighterMenu.h"
+#include "../../ArenaFighter/arenaFighterMain.h"
 #include "button.h"
 #include "../../ConnectionFunctions/serverConnection.h"
 using namespace std;
