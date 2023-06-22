@@ -18,6 +18,15 @@ vector<string> getPlayerInput(sf::RenderWindow& win) {
 	}
 	sf::Event event;
 	while (win.pollEvent(event)) {
+		if (event.type == sf::Event::MouseButtonPressed) {
+			if (event.mouseButton.button == sf::Mouse::Left) {
+				inputs.push_back("mLeft");
+			}
+			if (event.mouseButton.button == sf::Mouse::Right) {
+				inputs.push_back("mRight");
+			}
+
+		}
 		if (event.type == sf::Event::KeyPressed) {
 			if (event.key.code == sf::Keyboard::Q) {
 				inputs.push_back("q");
@@ -27,6 +36,9 @@ vector<string> getPlayerInput(sf::RenderWindow& win) {
 			}
 			if (event.key.code == sf::Keyboard::T) {
 				inputs.push_back("t");
+			}
+			if (event.key.code == sf::Keyboard::F) {
+				inputs.push_back("f");
 			}
 			if (event.key.code == sf::Keyboard::E) {
 				inputs.push_back("e");
@@ -59,6 +71,24 @@ char playerBehavior(sf::RenderWindow& win, character& player) {
 		}if (i == "esc") {
 			win.close();
 			return 'e';
+		}
+		if (i == "mLeft") {
+			player.usePrimary();
+		}
+		if (i == "mRight") {
+			player.useSecondary();
+		}
+		if (i == "e") {
+			player.useSpecial();
+		}
+		if (i == "q") {
+			player.useBuff();
+		}
+		if (i == "f") {
+			player.useDefensive();
+		}
+		if (i == "r") {
+			player.useUlt();
 		}
 	}
 	if (std::count(inputs.begin(), inputs.end(), "d")!=0) {

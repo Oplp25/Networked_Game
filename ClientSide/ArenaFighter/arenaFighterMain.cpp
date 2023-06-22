@@ -5,6 +5,7 @@
 #include "../CharacterCreator/characterCreator.h"
 #include "../GraphicsFunctions/Colours/colourConsts.h"
 #include "../Behavior/Player/playerBehavior.h"
+#include "../GraphicsFunctions/textureLoaders/textureLoaders.h"
 using namespace std;
 const filesystem::path cwd = filesystem::current_path();
 void createArenaLayout()
@@ -15,38 +16,13 @@ void runArenaFighterSingle(sf::RenderWindow& win)
 {
 	character playerCharacter = characterCreator(win);
 	//layout = createArenaLayout()
-	vector<sf::Texture> characterLeft;
-	for (int i = 1; i < 10; i++) {
-		characterLeft.push_back(sf::Texture());
-		if (!characterLeft.back().loadFromFile(cwd.string() + "/Resources/Sprite Assets/" + playerCharacter.characterRace +" " + playerCharacter.className + "/L" + to_string(i) + ".png")) {
-			cout << "Error: Failed to load \"" << "L" + to_string(i) + ".png\" from file" << endl;
-			sf::Texture t;
-			t.create(120, 120);
-			characterLeft.back() = t;
-		}
-	}
-	vector<sf::Texture> characterRight;
-	for (int i = 1; i < 10; i++) {
-		characterRight.push_back(sf::Texture());
-		if (!characterRight.back().loadFromFile(cwd.string() + "/Resources/Sprite Assets/" + playerCharacter.characterRace +" " + playerCharacter.className + "/R" + to_string(i) + ".png")) {
-			cout << "Error: Failed to load \"" << "R" + to_string(i) + ".png\" from file" << endl;
-			sf::Texture t;
-			t.create(120, 120);
-			characterRight.back() = t;
-		}
-	}
-	vector<sf::Texture> characterUp;
-	vector<sf::Texture> characterDown;
-	vector<sf::Texture> characterMisc;
-	sf::Texture characterStill;
-	if(!characterStill.loadFromFile(cwd.string()+"/Resources/RaceIcons/"+playerCharacter.className+"/"+playerCharacter.characterRace+".png")) {
-		cout << "Character image not loaded" << endl;
-	}
-	characterMisc.push_back(characterStill);
 
-	vector<vector<sf::Texture>> characterTextures = { characterLeft,characterRight,characterUp,characterDown,characterMisc };//Left, Right, Up, Down, Misc
-	vector<vector<vector<sf::Texture>>> Textures = { characterTextures };//Character,Terrain, Enemy, Other Characters
-	string result = singleArenaGameloop(win,playerCharacter,Textures);
+	vector<vector<vector<sf::Texture>>> Textures = loadTextures(playerCharacter);//Character, Weapons, Terrain, Items
+	vector<vector<vector<sf::Texture>>> otherCharacterTextures = loadOtherCharacterTextures({});
+	vector<vector<vector<sf::Texture>>> enemyTextures;
+	
+	vector<vector<vector<vector<sf::Texture>>>> allTextures = { Textures, otherCharacterTextures, enemyTextures };
+	string result = singleArenaGameloop(win,playerCharacter,allTextures);
 	if (result == "exit") {
 		return void();
 	}
@@ -57,28 +33,28 @@ void runArenaFighterMulti(sf::RenderWindow& win)
 	character playerCharacter = characterCreator(win);
 }
 
-string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<vector<vector<sf::Texture>>> textures)
+string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<vector<vector<vector<sf::Texture>>>> textures)
 {
 	bool won = false;
 	bool finished = false;
 	int spriteNum = 0;
 	int spriteChangeCounter = 0;
 	char currentDir;
-	sf::Sprite playerSprite = sf::Sprite(textures[0][4][0]);
+	sf::Sprite playerSprite = sf::Sprite(textures[0][0][4][0]);
 	while (!finished) {
 		currentDir = playerBehavior(win, player);
 		if (currentDir == 'e') {
 			return "exit";
 		}
 		if (currentDir == 's') {
-			playerSprite.setTexture(textures[0][4][0]);
+			playerSprite.setTexture(textures[0][0][4][0]);
 		}
 		if (spriteChangeCounter == 10){
 			if (currentDir == 'l') {
-				playerSprite.setTexture(textures[0][0][spriteNum]);
+				playerSprite.setTexture(textures[0][0][0][spriteNum]);
 			}
 			else if (currentDir == 'r') {
-				playerSprite.setTexture(textures[0][1][spriteNum]);
+				playerSprite.setTexture(textures[0][0][1][spriteNum]);
 			}
 			spriteChangeCounter = -1;
 		}

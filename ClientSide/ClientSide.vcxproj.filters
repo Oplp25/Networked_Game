@@ -63,6 +63,9 @@
     <ClCompile Include="Behavior\Player\playerBehavior.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicsFunctions\textureLoaders\textureLoaders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsFunctions\Intro\intro.h">
@@ -126,6 +129,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Behavior\Player\playerBehavior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsFunctions\textureLoaders\textureLoaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
