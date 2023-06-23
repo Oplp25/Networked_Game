@@ -13,6 +13,11 @@ std::vector<std::vector<std::vector<sf::Texture>>> loadTextures(character myChar
 		return textures;
 }
 
+std::vector<std::vector<std::vector<sf::Texture>>> loadEnemyTextures()
+{
+	return std::vector<std::vector<std::vector<sf::Texture>>>();
+}
+
 std::vector<std::vector<sf::Texture>> characterTextureLoader(character aCharacter)//Left, Right, Up, Down, Misc
 {
 	const filesystem::path cwd = filesystem::current_path();
@@ -51,5 +56,13 @@ std::vector<std::vector<sf::Texture>> characterTextureLoader(character aCharacte
 
 std::vector<std::vector<sf::Texture>> weaponTextureLoader()
 {
+	const filesystem::path cwd = filesystem::current_path();
+	vector<vector<sf::Texture>> weaonsTextures;
+	string path = cwd.string() + "\Resources\Sprite Assets\Weapons\\";
+	vector<sf::Texture> tempVect;
+	for (string i : iWeapons) {
+		tempVect = {sf::Texture(),sf::Texture()};
+		if(!tempVect[0].loadFromFile(path+i+".png"))
+	}
 	return std::vector<std::vector<sf::Texture>>();
 }

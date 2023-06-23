@@ -19,7 +19,7 @@ void runArenaFighterSingle(sf::RenderWindow& win)
 
 	vector<vector<vector<sf::Texture>>> Textures = loadTextures(playerCharacter);//Character, Weapons, Terrain, Items
 	vector<vector<vector<sf::Texture>>> otherCharacterTextures = loadOtherCharacterTextures({});
-	vector<vector<vector<sf::Texture>>> enemyTextures;
+	vector<vector<vector<sf::Texture>>> enemyTextures = loadEnemyTextures();
 	
 	vector<vector<vector<vector<sf::Texture>>>> allTextures = { Textures, otherCharacterTextures, enemyTextures };
 	string result = singleArenaGameloop(win,playerCharacter,allTextures);
