@@ -57,12 +57,14 @@ std::vector<std::vector<sf::Texture>> characterTextureLoader(character aCharacte
 std::vector<std::vector<sf::Texture>> weaponTextureLoader()
 {
 	const filesystem::path cwd = filesystem::current_path();
-	vector<vector<sf::Texture>> weaonsTextures;
+	vector<vector<sf::Texture>> weaponsTextures;
 	string path = cwd.string() + "\Resources\Sprite Assets\Weapons\\";
 	vector<sf::Texture> tempVect;
 	for (string i : iWeapons) {
 		tempVect = {sf::Texture(),sf::Texture()};
-		if(!tempVect[0].loadFromFile(path+i+".png"))
+		if (!tempVect[0].loadFromFile(path + i + ".png"));
+		if (!tempVect[1].loadFromFile(path + i + "NoHandle.png"));
+		weaponsTextures.push_back(tempVect);
 	}
 	return std::vector<std::vector<sf::Texture>>();
 }
