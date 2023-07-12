@@ -6,8 +6,8 @@ class entity:drawable {
 
 	private:
 		sf::Vector2f actualPos;//actual position on the map
-		void switchTextArray();
-		std::vector<std::vector<sf::Texture>> textArrayArray;
+		void switchTextArray(char direction);
+		std::vector<std::vector<sf::Texture>> listOfTexts;
 	public:
 		virtual std::vector<sf::Texture> loadTextures();
 		int hpCurrent;

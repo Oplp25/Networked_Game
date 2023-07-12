@@ -5,12 +5,12 @@
 
 
 class drawable {
-	private:
+	protected:
 		std::vector<sf::Texture> textArray;
 		int currentText;
 		sf::Sprite sprite;
 		std::string imagePath;// mut be in form "folder\\folder\\folder"
-		std::vector<sf::Texture> loadTextures();
+		void loadTextures();
 	public:
 		sf::Sprite draw();
 		void changeSpriteText(std::string textArgs = "next");

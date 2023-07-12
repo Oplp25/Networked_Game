@@ -3,7 +3,7 @@
 #include <filesystem>
 using namespace std;
 
-std::vector<sf::Texture> drawable::loadTextures()
+void drawable::loadTextures()
 {
 	const filesystem::path cwd = filesystem::current_path();
 	filesystem::path thisPath = cwd/imagePath;
@@ -20,12 +20,11 @@ std::vector<sf::Texture> drawable::loadTextures()
 		textArray.push_back(sf::Texture());
 		textArray[-1].loadFromFile(filesMap[i].path().string());
 	}
-	return std::vector<sf::Texture>();
 }
 
 sf::Sprite drawable::draw() {
 	if (textArray.empty()) {
-		textArray = loadTextures();
+		loadTextures();
 	}
 	return sprite;
 }
