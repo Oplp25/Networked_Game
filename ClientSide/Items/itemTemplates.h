@@ -15,7 +15,13 @@ struct itemTemplate {
 			consumable = pconsumable;
 			imagePath = pimagePath;
 		}
-		itemTemplate() {}
+		itemTemplate() {
+			name ="";
+			cost =0;
+			charges =0;
+			consumable =false;
+			imagePath ="";
+		}
 		itemTemplate(std::string pname, int pcost, int pcharges, bool pconsumable, std::string pimagePath) {
 			construct(pname, pcost, pcharges, pconsumable, pimagePath);
 		}

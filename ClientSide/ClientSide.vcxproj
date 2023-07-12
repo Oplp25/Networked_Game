@@ -172,6 +172,7 @@
     <ClCompile Include="GraphicsFunctions\Menus\menu.cpp" />
     <ClCompile Include="GraphicsFunctions\textureLoaders\textureLoaders.cpp" />
     <ClCompile Include="Items\item.cpp" />
+    <ClCompile Include="Items\Weapons\weapon.cpp" />
     <ClCompile Include="main.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\jakob\OneDrive\Documents\C++\SFML\SFML-2.5.1\include</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\jakob\OneDrive\Documents\C++\SFML\SFML-2.5.1\include</AdditionalIncludeDirectories>
