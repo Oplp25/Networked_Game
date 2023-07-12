@@ -2,8 +2,8 @@
 #include<vector>
 #include<string>
 #include<SFML/Graphics.hpp>
-
-class item {
+#include "../GraphicsFunctions/drawable/drawable.h"
+class item: drawable {
 public:
 	std::string name;
 	int cost;

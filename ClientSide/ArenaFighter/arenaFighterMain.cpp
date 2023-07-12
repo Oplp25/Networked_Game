@@ -5,7 +5,7 @@
 #include "../CharacterCreator/characterCreator.h"
 #include "../GraphicsFunctions/Colours/colourConsts.h"
 #include "../Behavior/Player/playerBehavior.h"
-#include "../GraphicsFunctions/textureLoaders/textureLoaders.h"
+//#include "../GraphicsFunctions/textureLoaders/textureLoaders.h"
 using namespace std;
 const filesystem::path cwd = filesystem::current_path();
 void createArenaLayout()
@@ -16,13 +16,8 @@ void runArenaFighterSingle(sf::RenderWindow& win)
 {
 	character playerCharacter = characterCreator(win);
 	//layout = createArenaLayout()
-
-	vector<vector<vector<sf::Texture>>> Textures = loadTextures(playerCharacter);//Character, Weapons, Terrain, Items
-	vector<vector<vector<sf::Texture>>> otherCharacterTextures = loadOtherCharacterTextures({});
-	vector<vector<vector<sf::Texture>>> enemyTextures = loadEnemyTextures();
-	
-	vector<vector<vector<vector<sf::Texture>>>> allTextures = { Textures, otherCharacterTextures, enemyTextures };
-	string result = singleArenaGameloop(win,playerCharacter,allTextures);
+	vector<character> charsArray = {};//list of the AI controlled characters
+	string result = singleArenaGameloop(win,playerCharacter, charsArray);
 	if (result == "exit") {
 		return void();
 	}
@@ -33,7 +28,7 @@ void runArenaFighterMulti(sf::RenderWindow& win)
 	character playerCharacter = characterCreator(win);
 }
 
-string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<vector<vector<vector<sf::Texture>>>> textures)
+string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<character> charsArray)
 {
 	bool won = false;
 	bool finished = false;
