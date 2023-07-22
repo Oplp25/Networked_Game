@@ -16,12 +16,45 @@ void entity::switchTextArray(char direction)
 	else if (direction == 'l') {
 		textArray = listOfTexts[2];
 	}
-	else {
+	else if (direction == 'r') {
 		textArray = listOfTexts[3];
+	}
+	else if (direction == 'm') {
+		textArray = listOfTexts[4];
 	}
 }
 
-vector<sf::Texture> entity::loadTextures() {
+void entity::changeSpriteText(string textArgs) {
+	if (textArgs == "next") {
+		currentText++;
+		if (currentText >= textArray.size()) {
+			currentText = 0;
+		}
+		sprite.setTexture(textArray[currentText]);
+	}
+	else if (textArgs == "still") {
+		sprite.setTexture(listOfTexts[4][0]);
+		switchTextArray('m');
+	}
+	else if (textArgs == "up") {
+		switchTextArray('u');
+		currentText = 0;
+	}
+	else if (textArgs == "down") {
+		switchTextArray('d');
+		currentText = 0;
+	}
+	else if (textArgs == "left") {
+		switchTextArray('l');
+		currentText = 0;
+	}
+	else if (textArgs == "right") {
+		switchTextArray('r');
+		currentText = 0;
+	}
+}
+
+void entity::loadTextures() {
 	const filesystem::path cwd = filesystem::current_path();
 	filesystem::path thisPath;
 	

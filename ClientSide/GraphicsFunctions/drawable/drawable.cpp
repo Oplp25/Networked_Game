@@ -34,7 +34,7 @@ void drawable::changeSpriteText(std::string textArgs)
 	if (textArgs == "next") {
 		currentText++;
 		if (currentText >= textArray.size()) {
-			currentText == 0;
+			currentText = 0;
 		}
 		sprite.setTexture(textArray[currentText]);
 	}

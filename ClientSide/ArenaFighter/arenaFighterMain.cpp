@@ -35,27 +35,33 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	int spriteNum = 0;
 	int spriteChangeCounter = 0;
 	char currentDir;
-	sf::Sprite playerSprite = sf::Sprite(textures[0][0][4][0]);
 	while (!finished) {
 		currentDir = playerBehavior(win, player);
 		if (currentDir == 'e') {
 			return "exit";
 		}
 		if (currentDir == 's') {
-			playerSprite.setTexture(textures[0][0][4][0]);
+			player.changeSpriteText("still");
 		}
 		if (spriteChangeCounter == 10){
 			if (currentDir == 'l') {
-				playerSprite.setTexture(textures[0][0][0][spriteNum]);
+				player.changeSpriteText("left");
 			}
 			else if (currentDir == 'r') {
-				playerSprite.setTexture(textures[0][0][1][spriteNum]);
+				player.changeSpriteText("right");
 			}
+			else if (currentDir == 'u') {
+				player.changeSpriteText("up");
+			}
+			else if (currentDir == 'd') {
+				player.changeSpriteText("down");
+			}
+			player.changeSpriteText("next");
 			spriteChangeCounter = -1;
 		}
-		playerSprite.setPosition(player.localPosition);
+		player.sprite.setPosition(player.localPosition);
 		win.clear(colours::hunterGreen);
-		win.draw(playerSprite);
+		win.draw(player.draw());
 		win.display();
 		spriteNum++;
 		spriteChangeCounter++;
@@ -66,6 +72,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			spriteNum = 0;
 		}
 	}
+	return string();
 }
 
 string multiArenaGameloop(sf::RenderWindow& win, character& player, vector<vector<vector<sf::Texture>>> textures)

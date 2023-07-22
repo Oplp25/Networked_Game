@@ -2,14 +2,15 @@
 #include<SFML/Graphics.hpp>
 #include "../GraphicsFunctions/drawable/drawable.h"
 
-class entity:drawable {
+class entity:public drawable {
 
-	private:
+	protected:
 		sf::Vector2f actualPos;//actual position on the map
 		void switchTextArray(char direction);
-		std::vector<std::vector<sf::Texture>> listOfTexts;
+		std::vector<std::vector<sf::Texture>> listOfTexts;// up, down, left, right
 	public:
-		virtual std::vector<sf::Texture> loadTextures();
+		void changeSpriteText(std::string textArgs);
+		void loadTextures();
 		int hpCurrent;
 		int hpMax;
 		sf::Vector2f tilePos;//Position on the tile that it it on
