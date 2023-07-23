@@ -34,8 +34,10 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	bool finished = false;
 	int spriteNum = 0;
 	int spriteChangeCounter = 0;
-	char currentDir;
+	char currentDir = 's';
+	char prevDir = 's';
 	while (!finished) {
+		prevDir = currentDir;
 		currentDir = playerBehavior(win, player);
 		if (currentDir == 'e') {
 			return "exit";
@@ -44,17 +46,19 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			player.changeSpriteText("still");
 		}
 		if (spriteChangeCounter == 10){
-			if (currentDir == 'l') {
-				player.changeSpriteText("left");
-			}
-			else if (currentDir == 'r') {
-				player.changeSpriteText("right");
-			}
-			else if (currentDir == 'u') {
-				player.changeSpriteText("up");
-			}
-			else if (currentDir == 'd') {
-				player.changeSpriteText("down");
+			if (prevDir != currentDir) {
+				if (currentDir == 'l') {
+					player.changeSpriteText("left");
+				}
+				else if (currentDir == 'r') {
+					player.changeSpriteText("right");
+				}
+				else if (currentDir == 'u') {
+					player.changeSpriteText("up");
+				}
+				else if (currentDir == 'd') {
+					player.changeSpriteText("down");
+				}
 			}
 			player.changeSpriteText("next");
 			spriteChangeCounter = -1;
