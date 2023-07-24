@@ -155,6 +155,7 @@ character::character(string thisRace, string thisClass, string name, char error)
 	xp = 0;
 	level = 0;
 	characterName = name;	
+	imagePath = "Resources\\Sprite Assets\\" + thisRace + " " + thisClass;
 
 }
 

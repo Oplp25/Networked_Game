@@ -1,11 +1,17 @@
 #pragma once
 #include<SFML/Graphics.hpp>
+#include "../GraphicsFunctions/drawable/drawable.h"
 
-class entity {
+class entity:public drawable {
 
-	private:
+	protected:
 		sf::Vector2f actualPos;//actual position on the map
+		void switchTextArray(char direction);
+		std::vector<std::vector<sf::Texture>> listOfTexts = { {},{},{},{},{} };// up, down, left, right, misc
+		char entityCurrentDirection = 's';
 	public:
+		void changeSpriteText(std::string textArgs);
+		void loadTextures();
 		int hpCurrent;
 		int hpMax;
 		sf::Vector2f tilePos;//Position on the tile that it it on

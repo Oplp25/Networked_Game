@@ -108,6 +108,7 @@
       <PreprocessorDefinitions>SFML_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\Documents\2 Jakob\C++\SFML Source Code\SFML-2.5.1-windows-vc15-32-bit\SFML-2.5.1\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -165,12 +166,12 @@
     <ClCompile Include="Entities\Characters\Classes\paladin.cpp" />
     <ClCompile Include="Entities\Characters\inventory.cpp" />
     <ClCompile Include="Entities\entity.cpp" />
+    <ClCompile Include="GraphicsFunctions\drawable\drawable.cpp" />
     <ClCompile Include="GraphicsFunctions\Intro\intro.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\arenaFighterMenu.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\button.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\dungeonCrawlerMenu.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\menu.cpp" />
-    <ClCompile Include="GraphicsFunctions\textureLoaders\textureLoaders.cpp" />
     <ClCompile Include="Items\item.cpp" />
     <ClCompile Include="Items\Weapons\weapon.cpp" />
     <ClCompile Include="main.cpp">
@@ -197,12 +198,12 @@
     <ClInclude Include="Entities\Characters\Races\raceIncluder.h" />
     <ClInclude Include="Entities\entity.h" />
     <ClInclude Include="GraphicsFunctions\Colours\colourConsts.h" />
+    <ClInclude Include="GraphicsFunctions\drawable\drawable.h" />
     <ClInclude Include="GraphicsFunctions\Intro\intro.h" />
     <ClInclude Include="GraphicsFunctions\Menus\arenaFighterMenu.h" />
     <ClInclude Include="GraphicsFunctions\Menus\button.h" />
     <ClInclude Include="GraphicsFunctions\Menus\dungeonCrawlerMenu.h" />
     <ClInclude Include="GraphicsFunctions\Menus\menu.h" />
-    <ClInclude Include="GraphicsFunctions\textureLoaders\textureLoaders.h" />
     <ClInclude Include="Items\item.h" />
     <ClInclude Include="Items\itemTemplates.h" />
     <ClInclude Include="Items\Weapons\weapon.h" />
