@@ -8,6 +8,7 @@ class entity:public drawable {
 		sf::Vector2f actualPos;//actual position on the map
 		void switchTextArray(char direction);
 		std::vector<std::vector<sf::Texture>> listOfTexts = { {},{},{},{},{} };// up, down, left, right, misc
+		char entityCurrentDirection = 's';
 	public:
 		void changeSpriteText(std::string textArgs);
 		void loadTextures();

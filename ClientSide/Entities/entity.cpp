@@ -9,26 +9,29 @@ entity::entity()
 	hpMax = 1;
 }
 
-void entity::switchTextArray(char direction)
+void entity::switchTextArray(char direction)//Error somewher in here
 {
-	if (direction == 'u' && textArray != listOfTexts[0]) {
-		textArray = listOfTexts[0];
-		currentText = 0;
-	}
-	else if (direction == 'd' && textArray != listOfTexts[1]) {
-		textArray = listOfTexts[1];
-		currentText = 0;
-	}
-	else if (direction == 'l' && textArray != listOfTexts[2]) {
-		textArray = listOfTexts[2];
-		currentText = 0;
-	}
-	else if (direction == 'r' && textArray != listOfTexts[3]) {
-		textArray = listOfTexts[3];
-		currentText = 0;
-	}
-	else if (direction == 'm' && textArray != listOfTexts[4]) {
-		textArray = listOfTexts[4];
+	if (direction != entityCurrentDirection) {
+		entityCurrentDirection = direction;
+		if (direction == 'u') {
+			textArray = listOfTexts[0];
+			currentText = 0;
+		}
+		else if (direction == 'd') {
+			textArray = listOfTexts[1];
+			currentText = 0;
+		}
+		else if (direction == 'l') {
+			textArray = listOfTexts[2];
+			currentText = 0;
+		}
+		else if (direction == 'r') {
+			textArray = listOfTexts[3];
+			currentText = 0;
+		}
+		else if (direction == 'm') {
+			textArray = listOfTexts[4];
+		}
 	}
 }
 

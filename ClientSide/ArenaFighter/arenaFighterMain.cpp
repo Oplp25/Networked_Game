@@ -34,7 +34,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	bool finished = false;
 	int spriteNum = 0;
 	int spriteChangeCounter = 0;
-	int spriteChangeInterval = 10;
+	int spriteChangeInterval = 9;
 	char currentDir = 's';
 	while (!finished) {
 		currentDir = playerBehavior(win, player);
