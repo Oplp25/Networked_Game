@@ -11,18 +11,23 @@ entity::entity()
 
 void entity::switchTextArray(char direction)
 {
-	if (direction == 'u') {
+	if (direction == 'u' && textArray != listOfTexts[0]) {
 		textArray = listOfTexts[0];
-	}else if (direction == 'd') {
+		currentText = 0;
+	}
+	else if (direction == 'd' && textArray != listOfTexts[1]) {
 		textArray = listOfTexts[1];
+		currentText = 0;
 	}
-	else if (direction == 'l') {
+	else if (direction == 'l' && textArray != listOfTexts[2]) {
 		textArray = listOfTexts[2];
+		currentText = 0;
 	}
-	else if (direction == 'r') {
+	else if (direction == 'r' && textArray != listOfTexts[3]) {
 		textArray = listOfTexts[3];
+		currentText = 0;
 	}
-	else if (direction == 'm') {
+	else if (direction == 'm' && textArray != listOfTexts[4]) {
 		textArray = listOfTexts[4];
 	}
 }
@@ -44,23 +49,20 @@ void entity::changeSpriteText(string textArgs) {
 	}
 	else if (textArgs == "up") {
 		switchTextArray('u');
-		currentText = 0;
 	}
 	else if (textArgs == "down") {
 		switchTextArray('d');
-		currentText = 0;
 	}
 	else if (textArgs == "left") {
 		switchTextArray('l');
-		currentText = 0;
 	}
 	else if (textArgs == "right") {
 		switchTextArray('r');
-		currentText = 0;
 	}
 }
 
 void entity::loadTextures() {
+	cout << "entityLoad" << endl;
 	const filesystem::path cwd = filesystem::current_path();
 	filesystem::path thisPath;
 	
@@ -71,16 +73,15 @@ void entity::loadTextures() {
 		imageFiles = {};//resets the imageFiles vector
 		filesMap = {};//resets filesMap
 		thisPath = cwd / imagePath / mapping[i];// sets the thisPath directory to the next folder to be looped through
-		cout << thisPath.string() << endl;
+		//cout << thisPath.string() << endl;
 		for (auto const& dir_entry : filesystem::directory_iterator{ thisPath }) {// looping through all of the files in the thisPath Directory
 			imageFiles.push_back(dir_entry);//adding the files to the vector
 		}
 		for (filesystem::directory_entry j : imageFiles) {//looping through the vector of files
-			cout << j.path().filename().string() << endl;
+			//cout << j.path().filename().string() << endl;
 			filesMap.insert(std::pair<int, filesystem::directory_entry>((int)(j.path().filename().string()[1]) - (int)'0', j));//inserting each file into the map
 		}
 		for (int j= 1; j <= imageFiles.size(); j++) {//looping through the map
-			cout << filesMap[j].path().filename().string() << endl;
 			listOfTexts[i].push_back(sf::Texture());
 			listOfTexts[i][j-1].loadFromFile(filesMap[j].path().string());//inserting the textures in the correct order
 		}
