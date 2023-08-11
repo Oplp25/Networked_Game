@@ -53,7 +53,7 @@ void weapon::loadTextures() {
 		filesMap = {};//resets filesMap
 		thisPath = cwd / imagePath / mapping[i];// sets the thisPath directory to the next folder to be looped through
 		//cout << thisPath.string() << endl;
-		for (auto const& dir_entry : filesystem::directory_iterator{ thisPath }) {// looping through all of the files in the thisPath Directory
+e//ERROR HERE		for (auto const& dir_entry : filesystem::directory_iterator{ thisPath }) {// looping through all of the files in the thisPath Directory
 			imageFiles.push_back(dir_entry);//adding the files to the vector
 		}
 		for (filesystem::directory_entry j : imageFiles) {//looping through the vector of files
