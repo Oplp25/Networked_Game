@@ -1,7 +1,7 @@
 #pragma once
 #include "../item.h"
 #include "weaponTemplates.h"
-class weapon :item {
+class weapon : public item {
 	public:
 		int damage;
 		float cooldown;
@@ -10,6 +10,11 @@ class weapon :item {
 		weapon();
 		weapon(std::string pname, int pcost, int pcharges, std::string pimagePath, int pdamage, float pcooldown, int preach, int phands);
 		weapon(weaponTemplate stats);
+		//texture functions
+		void loadTextures();
+		void changeSpriteText(std::string textArgs);
+		void switchTextArray(char direction);
+		std::vector<std::vector<sf::Texture>> listOfTexts = { {},{},{},{},{} };// up, down, left, right, misc
+		char itemCurrentDirection = 's';
 	private:
-
 };

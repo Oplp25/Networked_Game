@@ -10,10 +10,12 @@ class paladin :public archetype {
 		std::vector<abilityScoresEnum> getSavesProficient() override;
 		std::vector<std::string> getArmourProficient() override;
 		std::vector<std::string> getWeaponsProficient() override;
+		weapon getStartingWeapon() override;
 		bool canCastSpells = true;
 		std::vector<abilityScoresEnum> savesProficient = { WIS,CON };
 		std::string className = "paladin";
 		int hitDiceType = 10;
+		weapon startingWeapon = weapon(swordTemplate);
 		std::vector<std::string> weaponsProficient;
 		std::vector<std::string> armourProficient;
 };

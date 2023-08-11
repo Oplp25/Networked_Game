@@ -30,6 +30,7 @@ void runArenaFighterMulti(sf::RenderWindow& win)
 
 string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<character> charsArray)
 {
+	//seting up variables
 	bool won = false;
 	bool finished = false;
 	int spriteNum = 0;
@@ -37,6 +38,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	int spriteChangeInterval = 9;
 	char currentDir = 's';
 	while (!finished) {
+		//player graphics
 		currentDir = playerBehavior(win, player);
 		if (currentDir == 'e') {
 			return "exit";
@@ -45,7 +47,6 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			player.changeSpriteText("still");
 		}
 		if (spriteChangeCounter == spriteChangeInterval){
-			cout << currentDir << endl;
 			if (currentDir == 'l') {
 				player.changeSpriteText("left");
 			}
@@ -59,14 +60,52 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 				player.changeSpriteText("down");
 			}
 			player.changeSpriteText("next");
-			spriteChangeCounter = -1;
 		}
 		player.sprite.setPosition(player.localPosition);
+		player.currentWeapon.sprite.setPosition(player.localPosition);
+
+		//AI character graphics
+		for (character i : charsArray) {
+			//currentDir = characterBehavior(i);
+			if (currentDir == 's') {
+				i.changeSpriteText("still");
+			}
+			if (spriteChangeCounter == spriteChangeInterval) {
+				if (currentDir == 'l') {
+					i.changeSpriteText("left");
+				}
+				else if (currentDir == 'r') {
+					i.changeSpriteText("right");
+				}
+				else if (currentDir == 'u') {
+					i.changeSpriteText("up");
+				}
+				else if (currentDir == 'd') {
+					i.changeSpriteText("down");
+				}
+				i.changeSpriteText("next");
+			}
+			i.sprite.setPosition(i.localPosition);
+			i.currentWeapon.sprite.setPosition(i.localPosition);
+		}
+
+		//enemy graphics
+
+
+		//other graphics
 		win.clear(colours::hunterGreen);
 		win.draw(player.draw());
+		win.draw(player.currentWeapon.draw());
+		for (character i : charsArray) {
+			win.draw(i.draw());
+			win.draw(i.currentWeapon.draw());
+		}
 		win.display();
 		spriteNum++;
 		spriteChangeCounter++;
+		if (spriteChangeCounter == spriteChangeInterval) {
+			spriteChangeCounter = -1;
+		}
 		if (spriteChangeCounter > spriteChangeInterval) {
 			spriteChangeCounter = 0;
 		}

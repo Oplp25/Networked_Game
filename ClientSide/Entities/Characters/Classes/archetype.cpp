@@ -31,6 +31,9 @@ std::vector<std::string> archetype::getWeaponsProficient()
 	return weaponsProficient;
 }
 
+weapon archetype::getStartingWeapon() {
+	return startingWeapon;
+}
 void archetype::level2()
 {
 }

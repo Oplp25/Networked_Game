@@ -7,7 +7,7 @@
 #include "Classes/classIncluder.h"
 #include "inventory.h"
 #include "abilityScoresEnum.h"
-
+#include "../../Items/Weapons/weapon.h"
 
 class character :public entity {
 	private:
@@ -21,7 +21,6 @@ class character :public entity {
 		int hpMax;
 		int hpCurrent;
 		int hitDiceType;
-		float speed;
 		std::vector<int> abilityScores;// the ability scores can be accessed by abilityScores[abilityScoreEnum]
 		//vector<spell> spellList;
 		inventory inventory;
@@ -31,7 +30,6 @@ class character :public entity {
 		std::vector<abilityScoresEnum> savesProficient;//must have an END at the end
 
 		void levelUp();
-
 
 		//need an object of every class, and a pointer to archetype. Always call the pointer to archetype when trying to access methods/attributes
 		paladin paladinObj;
@@ -58,12 +56,9 @@ class character :public entity {
 		std::string characterName;
 		std::string className;
 		std::string characterRace;
+		weapon currentWeapon;
 		int armourClass;
 		
-		sf::Vector2f localPosition;//Position relative to the tile that you are on
-		sf::Vector2f globalPosition;//Which tile you are on
-		
-		void move(char direction);
 		void usePrimary();
 		void useSecondary();
 		void useDefensive();
@@ -75,4 +70,6 @@ class character :public entity {
 		int makeCheck(abilityScoresEnum ability, char hasAdvantage = 'n');//char hasAdvantage - 'n' = normal, 'a' = advantage and 'd' = disadvantage
 
 		void gainXP(int xpGained);
+
+		void changeSpriteText(std::string textArgs);
 };

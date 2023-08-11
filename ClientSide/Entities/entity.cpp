@@ -9,6 +9,22 @@ entity::entity()
 	hpMax = 1;
 }
 
+void entity::move(char direction)
+{
+	if (direction == 'u') {
+		localPosition.y -= speed;
+	}
+	else if (direction == 'd') {
+		localPosition.y += speed;
+	}
+	else if (direction == 'r') {
+		localPosition.x += speed;
+	}
+	else if (direction == 'l') {
+		localPosition.x -= speed;
+	}
+}
+
 void entity::switchTextArray(char direction)//Error somewher in here
 {
 	if (direction != entityCurrentDirection) {
@@ -68,7 +84,6 @@ void entity::loadTextures() {
 	cout << "entityLoad" << endl;
 	const filesystem::path cwd = filesystem::current_path();
 	filesystem::path thisPath;
-	
 	vector<filesystem::directory_entry> imageFiles;//Vector of all the files in the imagePath directory
 	unordered_map<int, filesystem::directory_entry> filesMap;// a map that stores all of the files, along with an integer that represents the integer at the end of the file name
 	unordered_map<int, string> mapping({ {0,"up"},{1,"down"},{2,"left"},{3,"right"},{4,"misc"} });

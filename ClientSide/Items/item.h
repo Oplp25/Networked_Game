@@ -3,7 +3,7 @@
 #include<string>
 #include<SFML/Graphics.hpp>
 #include "../GraphicsFunctions/drawable/drawable.h"
-class item: drawable {
+class item: public drawable {
 public:
 	std::string name;
 	int cost;

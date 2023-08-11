@@ -4,26 +4,6 @@
 
 using namespace std;
 
-void character::move(char direction)
-{
-	//cout << "direction: " << direction << endl;
-	//cout << "Local Position: (" << localPosition.x << "," << localPosition.y << ")" << endl;
-	//cout << "Speed:" << speed << endl;
-	if (direction == 'u') {
-		localPosition.y -= speed;
-	}else if (direction == 'd') {
-		localPosition.y += speed;
-	}
-	else if (direction == 'r') {
-		localPosition.x += speed;
-	}else if (direction == 'l') {
-		localPosition.x -= speed;
-	}
-	//cout<<"Pos After: (" << localPosition.x << "," << localPosition.y << ")" << endl;
-	//cout <<  "---------------------------------------------------------" << endl;
-
-}
-
 void character::usePrimary() {
 	(this->primaryPointer)(this);
 }
@@ -144,6 +124,7 @@ character::character(string thisRace, string thisClass, string name, char error)
 		levelUpFuncs = classPtr->classLevelUpFuncs;
 		className = classPtr->getClassName();
 		hitDiceType = classPtr->getHitDiceType();
+		currentWeapon = classPtr->getStartingWeapon();
 	}
 
 	if (thisRace == "dwarf") {
@@ -160,3 +141,40 @@ character::character(string thisRace, string thisClass, string name, char error)
 }
 
 character::character(){}
+
+void character::changeSpriteText(string textArgs) {
+	if (textArray.empty()) {
+		loadTextures();
+		currentWeapon.loadTextures();
+	}
+	if (textArgs == "next") {
+		currentText++;
+		if (currentText >= textArray.size()) {
+			currentText = 0;
+		}
+		sprite.setTexture(textArray[currentText]);
+		currentWeapon.changeSpriteText("next");
+	}
+	else if (textArgs == "still") {
+		sprite.setTexture(listOfTexts[4][0]);//
+		switchTextArray('m');
+		currentWeapon.switchTextArray('m');
+
+	}
+	else if (textArgs == "up") {
+		switchTextArray('u');
+		currentWeapon.switchTextArray('u');
+	}
+	else if (textArgs == "down") {
+		switchTextArray('d');
+		currentWeapon.switchTextArray('d');
+	}
+	else if (textArgs == "left") {
+		switchTextArray('l');
+		currentWeapon.switchTextArray('l');
+	}
+	else if (textArgs == "right") {
+		switchTextArray('r');
+		currentWeapon.switchTextArray('r');
+	}
+}

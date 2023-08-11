@@ -3,6 +3,7 @@
 #include<string>
 #include<iostream>
 #include "../inventory.h"
+#include "../../../Items/Weapons/weapon.h"
 #include "../Races/raceIncluder.h"
 #include "../abilityScoresEnum.h"
 
@@ -14,9 +15,11 @@ class archetype {//A parent class of all of the classes. so they are called arch
 		bool canCastSpells;
 		std::string className;
 		int hitDiceType;
+		weapon startingWeapon;
 		virtual int getHitDiceType();
 		virtual std::string getClassName();
 		virtual bool getCanCastSpells();
+		virtual weapon getStartingWeapon();
 		virtual std::vector<abilityScoresEnum> getSavesProficient();
 		virtual std::vector<std::string> getArmourProficient();
 		virtual std::vector<std::string> getWeaponsProficient();
