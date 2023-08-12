@@ -8,7 +8,7 @@ class drawable {
 	protected:
 		std::vector<sf::Texture> textArray;
 		int currentText;
-		std::string imagePath;// mut be in form "folder\\folder\\folder"
+		std::string imagePath;// mut be in form "Resources\\folder\\folder"
 		void loadTextures();
 	public:
 		sf::Sprite sprite;

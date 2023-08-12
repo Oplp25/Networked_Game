@@ -45,9 +45,6 @@
     <ClCompile Include="Entities\entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entities\Characters\inventory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Entities\Characters\Classes\archetype.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -70,6 +67,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsFunctions\drawable\drawable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Characters\inventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

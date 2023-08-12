@@ -18,4 +18,5 @@ class paladin :public archetype {
 		weapon startingWeapon = weapon(swordTemplate);
 		std::vector<std::string> weaponsProficient;
 		std::vector<std::string> armourProficient;
+		inventory startingEquipment = inventory({weapon(swordTemplate)});
 };

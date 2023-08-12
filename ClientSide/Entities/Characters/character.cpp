@@ -124,7 +124,11 @@ character::character(string thisRace, string thisClass, string name, char error)
 		levelUpFuncs = classPtr->classLevelUpFuncs;
 		className = classPtr->getClassName();
 		hitDiceType = classPtr->getHitDiceType();
+<<<<<<< Updated upstream
 		currentWeapon = classPtr->getStartingWeapon();
+=======
+		charInventory = classPtr->startingEquipment;
+>>>>>>> Stashed changes
 	}
 
 	if (thisRace == "dwarf") {
@@ -137,6 +141,7 @@ character::character(string thisRace, string thisClass, string name, char error)
 	level = 0;
 	characterName = name;	
 	imagePath = "Resources\\Sprite Assets\\" + thisRace + " " + thisClass;
+	heldWeapon = charInventory.weapons[0];
 
 }
 
