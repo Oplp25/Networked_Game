@@ -15,15 +15,11 @@ class archetype {//A parent class of all of the classes. so they are called arch
 		bool canCastSpells;
 		std::string className;
 		int hitDiceType;
-<<<<<<< Updated upstream
-		weapon startingWeapon;
-=======
 		inventory startingEquipment;
->>>>>>> Stashed changes
 		virtual int getHitDiceType();
 		virtual std::string getClassName();
 		virtual bool getCanCastSpells();
-		virtual weapon getStartingWeapon();
+		virtual inventory getStartingEquipment();
 		virtual std::vector<abilityScoresEnum> getSavesProficient();
 		virtual std::vector<std::string> getArmourProficient();
 		virtual std::vector<std::string> getWeaponsProficient();

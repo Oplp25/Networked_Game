@@ -9,7 +9,6 @@ public:
 	int cost;
 	bool consumable;
 	int charges;
-	std::string imagePath;
 
 private:
 	void useCharge(int charges);

@@ -28,7 +28,6 @@ class character :public entity {
 		std::vector<std::string> weaponsProficient;
 		std::vector<std::string> armourProficient;
 		std::vector<abilityScoresEnum> savesProficient;//must have an END at the end
-		weapon heldWeapon;
 		void levelUp();
 
 		//need an object of every class, and a pointer to archetype. Always call the pointer to archetype when trying to access methods/attributes

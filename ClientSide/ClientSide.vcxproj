@@ -196,6 +196,7 @@
     <ClInclude Include="Entities\Characters\Races\dwarf.h" />
     <ClInclude Include="Entities\Characters\Races\race.h" />
     <ClInclude Include="Entities\Characters\Races\raceIncluder.h" />
+    <ClInclude Include="Entities\Enemies\enemy.h" />
     <ClInclude Include="Entities\entity.h" />
     <ClInclude Include="GraphicsFunctions\Colours\colourConsts.h" />
     <ClInclude Include="GraphicsFunctions\drawable\drawable.h" />

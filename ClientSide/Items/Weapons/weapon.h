@@ -14,7 +14,7 @@ class weapon : public item {
 		void loadTextures();
 		void changeSpriteText(std::string textArgs);
 		void switchTextArray(char direction);
-		std::vector<std::vector<sf::Texture>> listOfTexts = { {},{},{},{},{} };// up, down, left, right, misc
-		char itemCurrentDirection = 's';
+		std::vector<std::vector<sf::Texture>> listOfTexts = { {},{},{},{},{},{} };// up, down, left, right, still, misc
+		char itemCurrentDirection = 'm';
 	private:
 };

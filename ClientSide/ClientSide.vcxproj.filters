@@ -152,5 +152,8 @@
     <ClInclude Include="GraphicsFunctions\drawable\drawable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Entities\Enemies\enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

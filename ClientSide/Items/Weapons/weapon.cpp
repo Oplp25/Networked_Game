@@ -41,19 +41,18 @@ weapon::weapon(weaponTemplate stats){
 	hands = stats.hands;
 }
 void weapon::loadTextures() {
-	cout << "entityLoad" << endl;
 	const filesystem::path cwd = filesystem::current_path();
 	filesystem::path thisPath;
 
 	vector<filesystem::directory_entry> imageFiles;//Vector of all the files in the imagePath directory
 	unordered_map<int, filesystem::directory_entry> filesMap;// a map that stores all of the files, along with an integer that represents the integer at the end of the file name
-	unordered_map<int, string> mapping({ {0,"up"},{1,"down"},{2,"left"},{3,"right"},{4,"misc"} });
-	for (int i = 0; i < 5; i++) {
+	unordered_map<int, string> mapping({ {0,"up"},{1,"down"},{2,"left"},{3,"right"},{4,"still"},{5,"misc"} });
+	for (int i = 0; i < 6; i++) {
 		imageFiles = {};//resets the imageFiles vector
 		filesMap = {};//resets filesMap
 		thisPath = cwd / imagePath / mapping[i];// sets the thisPath directory to the next folder to be looped through
 		//cout << thisPath.string() << endl;
-e//ERROR HERE		for (auto const& dir_entry : filesystem::directory_iterator{ thisPath }) {// looping through all of the files in the thisPath Directory
+		for (auto const& dir_entry : filesystem::directory_iterator{ thisPath }) {// looping through all of the files in the thisPath Directory
 			imageFiles.push_back(dir_entry);//adding the files to the vector
 		}
 		for (filesystem::directory_entry j : imageFiles) {//looping through the vector of files
@@ -81,8 +80,8 @@ void weapon::changeSpriteText(string textArgs) {
 		sprite.setTexture(textArray[currentText]);
 	}
 	else if (textArgs == "still") {
-		sprite.setTexture(listOfTexts[4][0]);//
-		switchTextArray('m');
+		sprite.setTexture(listOfTexts[4][0]);
+		switchTextArray('s');
 	}
 	else if (textArgs == "up") {
 		switchTextArray('u');
@@ -98,7 +97,7 @@ void weapon::changeSpriteText(string textArgs) {
 	}
 }
 
-void weapon::switchTextArray(char direction)//Error somewher in here
+void weapon::switchTextArray(char direction)
 {
 	if (direction != itemCurrentDirection) {
 		itemCurrentDirection = direction;
@@ -118,7 +117,7 @@ void weapon::switchTextArray(char direction)//Error somewher in here
 			textArray = listOfTexts[3];
 			currentText = 0;
 		}
-		else if (direction == 'm') {
+		else if (direction == 's') {
 			textArray = listOfTexts[4];
 		}
 	}

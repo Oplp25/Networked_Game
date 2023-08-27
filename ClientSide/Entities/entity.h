@@ -6,7 +6,7 @@ class entity:public drawable {
 
 	protected:
 		void switchTextArray(char direction);
-		std::vector<std::vector<sf::Texture>> listOfTexts = { {},{},{},{},{} };// up, down, left, right, misc
+		std::vector<std::vector<sf::Texture>> listOfTexts = { {},{},{},{},{},{} };// up, down, left, right, still,  misc
 		char entityCurrentDirection = 's';
 		float speed;
 	public:

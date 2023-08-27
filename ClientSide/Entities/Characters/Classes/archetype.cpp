@@ -16,6 +16,11 @@ bool archetype::getCanCastSpells()
 	return canCastSpells;
 }
 
+inventory archetype::getStartingEquipment()
+{
+	return startingEquipment;
+}
+
 std::vector<abilityScoresEnum> archetype::getSavesProficient()
 {
 	return savesProficient;
@@ -31,9 +36,6 @@ std::vector<std::string> archetype::getWeaponsProficient()
 	return weaponsProficient;
 }
 
-weapon archetype::getStartingWeapon() {
-	return startingWeapon;
-}
 void archetype::level2()
 {
 }

@@ -72,6 +72,7 @@ char playerBehavior(sf::RenderWindow& win, character& player) {
 			win.close();
 			return 'e';
 		}
+		/*
 		if (i == "mLeft") {
 			player.usePrimary();
 		}
@@ -89,7 +90,7 @@ char playerBehavior(sf::RenderWindow& win, character& player) {
 		}
 		if (i == "r") {
 			player.useUlt();
-		}
+		}*/
 	}
 	if (std::count(inputs.begin(), inputs.end(), "d")!=0) {
 		return 'r';

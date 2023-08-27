@@ -33,7 +33,6 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	//seting up variables
 	bool won = false;
 	bool finished = false;
-	int spriteNum = 0;
 	int spriteChangeCounter = 0;
 	int spriteChangeInterval = 9;
 	char currentDir = 's';
@@ -63,6 +62,14 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		}
 		player.sprite.setPosition(player.localPosition);
 		player.currentWeapon.sprite.setPosition(player.localPosition);
+
+		sf::Event event;
+		while (win.pollEvent(event)) {
+			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+				win.close();
+				return "exit";
+			}
+		}
 
 		//AI character graphics
 		for (character i : charsArray) {
@@ -101,16 +108,9 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			win.draw(i.currentWeapon.draw());
 		}
 		win.display();
-		spriteNum++;
 		spriteChangeCounter++;
-		if (spriteChangeCounter == spriteChangeInterval) {
-			spriteChangeCounter = -1;
-		}
 		if (spriteChangeCounter > spriteChangeInterval) {
 			spriteChangeCounter = 0;
-		}
-		if (spriteNum >= 9) {
-			spriteNum = 0;
 		}
 	}
 	return string();

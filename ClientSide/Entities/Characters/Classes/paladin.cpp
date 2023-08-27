@@ -30,6 +30,7 @@ std::vector<std::string> paladin::getWeaponsProficient()
 	return weaponsProficient;
 }
 
-weapon paladin::getStartingWeapon() {
-	return startingWeapon;
+inventory paladin::getStartingEquipment()
+{
+	return startingEquipment;
 }

@@ -5,7 +5,7 @@
 using namespace std;
 
 void character::usePrimary() {
-	(this->primaryPointer)(this);
+	invoke(this->primaryPointer, this);
 }
 void character::useSecondary() {
 	(this->secondaryPointer)(this);
@@ -124,11 +124,7 @@ character::character(string thisRace, string thisClass, string name, char error)
 		levelUpFuncs = classPtr->classLevelUpFuncs;
 		className = classPtr->getClassName();
 		hitDiceType = classPtr->getHitDiceType();
-<<<<<<< Updated upstream
-		currentWeapon = classPtr->getStartingWeapon();
-=======
-		charInventory = classPtr->startingEquipment;
->>>>>>> Stashed changes
+		charInventory = classPtr->getStartingEquipment();
 	}
 
 	if (thisRace == "dwarf") {
@@ -141,16 +137,16 @@ character::character(string thisRace, string thisClass, string name, char error)
 	level = 0;
 	characterName = name;	
 	imagePath = "Resources\\Sprite Assets\\" + thisRace + " " + thisClass;
-	heldWeapon = charInventory.weapons[0];
+	currentWeapon = charInventory.weapons[0];
 
 }
 
 character::character(){}
 
 void character::changeSpriteText(string textArgs) {
+	currentWeapon.changeSpriteText(textArgs);
 	if (textArray.empty()) {
 		loadTextures();
-		currentWeapon.loadTextures();
 	}
 	if (textArgs == "next") {
 		currentText++;
@@ -158,28 +154,21 @@ void character::changeSpriteText(string textArgs) {
 			currentText = 0;
 		}
 		sprite.setTexture(textArray[currentText]);
-		currentWeapon.changeSpriteText("next");
 	}
 	else if (textArgs == "still") {
 		sprite.setTexture(listOfTexts[4][0]);//
-		switchTextArray('m');
-		currentWeapon.switchTextArray('m');
-
+		switchTextArray('s');
 	}
 	else if (textArgs == "up") {
 		switchTextArray('u');
-		currentWeapon.switchTextArray('u');
 	}
 	else if (textArgs == "down") {
 		switchTextArray('d');
-		currentWeapon.switchTextArray('d');
 	}
 	else if (textArgs == "left") {
 		switchTextArray('l');
-		currentWeapon.switchTextArray('l');
 	}
 	else if (textArgs == "right") {
 		switchTextArray('r');
-		currentWeapon.switchTextArray('r');
 	}
 }

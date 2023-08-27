@@ -45,7 +45,7 @@ void entity::switchTextArray(char direction)//Error somewher in here
 			textArray = listOfTexts[3];
 			currentText = 0;
 		}
-		else if (direction == 'm') {
+		else if (direction == 's') {
 			textArray = listOfTexts[4];
 		}
 	}
@@ -64,7 +64,7 @@ void entity::changeSpriteText(string textArgs) {
 	}
 	else if (textArgs == "still") {
 		sprite.setTexture(listOfTexts[4][0]);//
-		switchTextArray('m');
+		switchTextArray('s');
 	}
 	else if (textArgs == "up") {
 		switchTextArray('u');
@@ -81,13 +81,12 @@ void entity::changeSpriteText(string textArgs) {
 }
 
 void entity::loadTextures() {
-	cout << "entityLoad" << endl;
 	const filesystem::path cwd = filesystem::current_path();
 	filesystem::path thisPath;
 	vector<filesystem::directory_entry> imageFiles;//Vector of all the files in the imagePath directory
 	unordered_map<int, filesystem::directory_entry> filesMap;// a map that stores all of the files, along with an integer that represents the integer at the end of the file name
-	unordered_map<int, string> mapping({ {0,"up"},{1,"down"},{2,"left"},{3,"right"},{4,"misc"} });
-	for (int i = 0; i < 5; i++) {
+	unordered_map<int, string> mapping({ {0,"up"},{1,"down"},{2,"left"},{3,"right"},{4,"still"},{5,"misc"} });
+	for (int i = 0; i < 6; i++) {
 		imageFiles = {};//resets the imageFiles vector
 		filesMap = {};//resets filesMap
 		thisPath = cwd / imagePath / mapping[i];// sets the thisPath directory to the next folder to be looped through
@@ -104,6 +103,6 @@ void entity::loadTextures() {
 			listOfTexts[i][j-1].loadFromFile(filesMap[j].path().string());//inserting the textures in the correct order
 		}
 	}
-	textArray = listOfTexts[4];//sest the first textArray to the misc array, as the entity will start still
+	textArray = listOfTexts[4];//sets the first textArray to the still array, as the entity will start still
 	currentText = 0;
 }

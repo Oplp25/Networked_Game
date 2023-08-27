@@ -22,12 +22,6 @@ struct weaponTemplate :itemTemplate {
 	}
 
 };
-
-<<<<<<< Updated upstream
-const weaponTemplate swordTemplate = weaponTemplate("Sword", 5, 30, "\\Resources\\Sprite Assets\\Weapons\\sword", 5, 0.3, 2, 1);
-const weaponTemplate stickTemplate = weaponTemplate("Broken Stick", 5, 120, "", 10, 0.01, 20, 1);//Freddie Designed, Broken weapon
-=======
 const weaponTemplate swordTemplate = weaponTemplate("Sword", 5, 30, "Resources\\Sprite Assets\\Weapons\\sword", 5, 0.3, 2, 1);
 //const weaponTemplate shortswordTemplate = weaponTemplate("Broken Stick", 5, 120, "", 10, 0.01, 20, 1);//Freddie Designed, Broken weapon
->>>>>>> Stashed changes
 const weaponTemplate warhammerTemplate = weaponTemplate("Warhammer", 7, 100, "", 10, 1, 2, 1);

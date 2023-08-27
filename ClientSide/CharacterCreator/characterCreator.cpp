@@ -20,18 +20,18 @@ character characterCreator(sf::RenderWindow& win)
 	character myChar;
 	char errorCode = 'n';
 	while (!happy) {
-		string classChoiceString = classPicker(win);
+		string classChoiceString = "paladin";//classPicker(win);
 		if(classChoiceString == "False"){
 			errorCode = 'e';
 			break;
 		}
-		string raceChoiceString = racePicker(win,classChoiceString);
+		string raceChoiceString = "dwarf";// racePicker(win, classChoiceString);
 		if (raceChoiceString == "Unhappy") {
 
 			continue;
 		}
 		string name;
-		name = nameChooser(win);
+		name = "Jeff";// nameChooser(win);
 		happy = happyChooser(win,name,classChoiceString,raceChoiceString);
 		if (happy) {
 			myChar = character(raceChoiceString,classChoiceString,name,errorCode);
@@ -126,7 +126,6 @@ std::string classPicker(sf::RenderWindow& win)
 					return "False";
 				}
 				if (exitButton.getGlobalBounds().contains(mouseLocF)) {
-					cout << currentSelection << endl;
 					return currentSelection;
 				}
 			}
@@ -212,16 +211,12 @@ string racePicker(sf::RenderWindow& win, string classStr)
 							if (!currentImgText.loadFromFile(cwd.string() + "/Resources/RaceIcons/characterUnavailable.png")) {
 								cout << "Error.Could not load file characterUnavailable.png" << endl;
 							}
-							else {
-								cout << "Success! "<<cwd.string() + "/Resources/RaceIcons/characterUnavailable.png" << endl;
-							}
 						}
 						currentImgSprite.setTexture(currentImgText);
 						selectionHighlight.setPosition(sf::Vector2f(textList[i].getPosition().x-width/32, textList[i].getPosition().y-height/64));
 					}
 				}
 				if (exitButton.getGlobalBounds().contains(mouseLocF)) {
-					cout << currentSelection << endl; 
 					return currentSelection;
 				}
 			}
