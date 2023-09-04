@@ -165,6 +165,7 @@
     <ClCompile Include="Entities\Characters\Classes\archetype.cpp" />
     <ClCompile Include="Entities\Characters\Classes\paladin.cpp" />
     <ClCompile Include="Entities\Characters\inventory.cpp" />
+    <ClCompile Include="Entities\Enemies\enemy.cpp" />
     <ClCompile Include="Entities\entity.cpp" />
     <ClCompile Include="GraphicsFunctions\drawable\drawable.cpp" />
     <ClCompile Include="GraphicsFunctions\Intro\intro.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="Entities\Characters\Races\race.h" />
     <ClInclude Include="Entities\Characters\Races\raceIncluder.h" />
     <ClInclude Include="Entities\Enemies\enemy.h" />
+    <ClInclude Include="Entities\Enemies\enemyTemplates.h" />
     <ClInclude Include="Entities\entity.h" />
     <ClInclude Include="GraphicsFunctions\Colours\colourConsts.h" />
     <ClInclude Include="GraphicsFunctions\drawable\drawable.h" />

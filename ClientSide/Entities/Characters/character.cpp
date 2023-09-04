@@ -101,6 +101,7 @@ void character::setScores(std::vector<abilityScoresEnum> abilityScoreUpgrades, i
 	speed = rSpeed;
 }
 
+//For when you level up, your HP increases by a random amount dictated by your hit dice.
 int character::hpIncrease()
 {
 	default_random_engine randGen;
@@ -112,7 +113,7 @@ int character::hpIncrease()
 character::character(string thisRace, string thisClass, string name, char error)
 {
 	string thisClassL = thisClass;
-	transform(thisClassL.begin(), thisClassL.end(), thisClassL.begin(), ::tolower);
+	transform(thisClassL.begin(), thisClassL.end(), thisClassL.begin(), ::tolower);//making every letter lowercase
 	if (thisClassL == "paladin") {
 		paladinObj = paladin();
 		classPtr = &paladinObj;
@@ -138,7 +139,8 @@ character::character(string thisRace, string thisClass, string name, char error)
 	characterName = name;	
 	imagePath = "Resources\\Sprite Assets\\" + thisRace + " " + thisClass;
 	currentWeapon = charInventory.weapons[0];
-
+	localPosition = sf::Vector2f(500, 500);
+	tile = { 0,0 };//Temporary, for testing
 }
 
 character::character(){}
@@ -171,4 +173,13 @@ void character::changeSpriteText(string textArgs) {
 	else if (textArgs == "right") {
 		switchTextArray('r');
 	}
+}
+
+sf::Sprite character::draw() {
+	if (textArray.empty()) {
+		loadTextures();
+	}
+	sprite.setPosition(localPosition);
+	currentWeapon.localPosition = localPosition;
+	return sprite;
 }

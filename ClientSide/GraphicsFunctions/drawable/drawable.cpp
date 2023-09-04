@@ -26,6 +26,7 @@ sf::Sprite drawable::draw() {
 	if (textArray.empty()) {
 		loadTextures();
 	}
+	sprite.setPosition(localPosition);
 	return sprite;
 }
 

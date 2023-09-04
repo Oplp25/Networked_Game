@@ -9,20 +9,19 @@ class entity:public drawable {
 		std::vector<std::vector<sf::Texture>> listOfTexts = { {},{},{},{},{},{} };// up, down, left, right, still,  misc
 		char entityCurrentDirection = 's';
 		float speed;
+
+		bool checkEnd(char direction);//Checks whether a character is going to move off the edge of the map. returns true if the move is OK
 	public:
-		sf::Vector2f localPosition;//actual position on the screen
 		void changeSpriteText(std::string textArgs);
 		void loadTextures();
 		int hpCurrent;
 		int hpMax;
-		sf::Vector2f tilePos;//Position on the tile that it it on
-		sf::Vector2f tile;//Position of the tile that it is on
+		sf::Vector2f tile;//Which tile it is on
 		entity();
 		void move(char direction);
 		void damage();
 		void death();
 		void spawn();
-		void meleeAttack();
 
 
 };

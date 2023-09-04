@@ -71,4 +71,6 @@ class character :public entity {
 		void gainXP(int xpGained);
 
 		void changeSpriteText(std::string textArgs);
+
+		sf::Sprite draw();
 };

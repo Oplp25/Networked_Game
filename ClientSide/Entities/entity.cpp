@@ -11,6 +11,9 @@ entity::entity()
 
 void entity::move(char direction)
 {
+	if (!checkEnd(direction)) {
+		return void();
+	}
 	if (direction == 'u') {
 		localPosition.y -= speed;
 	}
@@ -49,6 +52,24 @@ void entity::switchTextArray(char direction)//Error somewher in here
 			textArray = listOfTexts[4];
 		}
 	}
+}
+
+bool entity::checkEnd(char direction)
+{
+	
+	if (direction == 'u' && localPosition.y - speed > 40) {
+		return true;
+	}
+	if (direction == 'd' && localPosition.y + speed < 1040) {
+		return true;
+	}
+	if (direction == 'r' && localPosition.x + speed < 1880) {
+		return true;
+	}
+	if (direction == 'l' && localPosition.y - speed > 40) {
+		return true;
+	}
+	return false;
 }
 
 void entity::changeSpriteText(string textArgs) {
