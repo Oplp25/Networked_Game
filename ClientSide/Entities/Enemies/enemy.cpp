@@ -22,7 +22,7 @@ bool enemy::checkPatRange(char direction)
 
 char enemy::behavior(character player)
 {
-	if (false or std::sqrt((pow((player.localPosition.x-localPosition.x),2)+pow((player.localPosition.y - localPosition.y),2)))<sight) {
+	if (false and std::sqrt((pow((player.localPosition.x-localPosition.x),2)+pow((player.localPosition.y - localPosition.y),2)))<sight) {
 		//if player in range and not attacking:
 		//	Attack player
 		//else:
@@ -34,13 +34,17 @@ char enemy::behavior(character player)
 		randGen.seed(time(0));
 		vector<char> dirs = {'u','d','l','r'};
 		char dir;
-		while(x){
+		while (x) {
 			dir = dirs[distX(randGen)];
 			if (checkEnd(dir) && checkPatRange(dir)) {
 				x = false;
 				cout << "entered" << endl;
 			}
 		}
+		/*int choice = distX(randGen);
+		cout << "choice"<<choice << endl;
+		dir = dirs[choice];
+		cout << dir << endl;*/
 		move(dir);
 		return dir;
 	}

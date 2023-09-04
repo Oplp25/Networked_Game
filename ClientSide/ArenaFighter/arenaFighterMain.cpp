@@ -116,7 +116,9 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		//enemy graphics
 		for (enemy i : enemyArray) {
 			if (i.tile == player.tile) {
-				currentDir = i.behavior(player);
+				currentDir = i.behavior(player);//Not working
+				//Solution - move above line to inside spriteChangeCounter if statement and make currentDir an attribute of enemy
+				cout << currentDir << endl;
 				if (currentDir == 's') {
 					i.changeSpriteText("still");
 				}
@@ -154,7 +156,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		}
 		for (enemy i : enemyArray) {
 			if (i.tile == player.tile) {
-				win.draw(i.draw());//not working
+				win.draw(i.draw());
 			}
 				
 		}
