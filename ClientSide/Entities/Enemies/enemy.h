@@ -19,10 +19,13 @@ class enemy :public entity {
 		std::default_random_engine randGen;
 		std::uniform_int_distribution<int> distX;
 	public:
+		int directionTick;
+		int tickMax;
 		std::string name;
 
-		char behavior(character player);
-
+		char currentDir;
+		void behavior(character player);
+		void tick();
 		enemy();
 		enemy(enemyTemplate stats, sf::Vector2f startingCoords, sf::Vector2f startingTile);
 		enemy(int hpMaxP, float speedP, std::string nameP, float aggroP, int sightP, int damageP, bool isRangedP, float cooldownP, int reachP, int patrolRangeP, std::string imagePathP, sf::Vector2f startingCoords, sf::Vector2f startingTile);

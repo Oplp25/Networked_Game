@@ -114,28 +114,26 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		}
 
 		//enemy graphics
-		for (enemy i : enemyArray) {
-			if (i.tile == player.tile) {
-				currentDir = i.behavior(player);//Not working
-				//Solution - move above line to inside spriteChangeCounter if statement and make currentDir an attribute of enemy
-				cout << currentDir << endl;
-				if (currentDir == 's') {
-					i.changeSpriteText("still");
-				}
+		for (int i = 0; i < enemyArray.size();i++) {
+			if (enemyArray[i].tile == player.tile) {
 				if (spriteChangeCounter == spriteChangeInterval) {
-					if (currentDir == 'l') {
-						i.changeSpriteText("left");
+					enemyArray[i].tick();
+					if (enemyArray[i].directionTick == enemyArray[i].tickMax) {
+						enemyArray[i].behavior(player);
+						if (enemyArray[i].currentDir == 'l') {
+							enemyArray[i].changeSpriteText("left");
+						}
+						else if (enemyArray[i].currentDir == 'r') {
+							enemyArray[i].changeSpriteText("right");
+						}
+						else if (enemyArray[i].currentDir == 'u') {
+							enemyArray[i].changeSpriteText("up");
+						}
+						else if (enemyArray[i].currentDir == 'd') {
+							enemyArray[i].changeSpriteText("down");
+						}
 					}
-					else if (currentDir == 'r') {
-						i.changeSpriteText("right");
-					}
-					else if (currentDir == 'u') {
-						i.changeSpriteText("up");
-					}
-					else if (currentDir == 'd') {
-						i.changeSpriteText("down");
-					}
-					i.changeSpriteText("next");
+					enemyArray[i].changeSpriteText("next");
 				}
 			}
 		}
@@ -144,6 +142,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		win.clear(colours::hunterGreen);
 		//Draw background
 		win.draw(topBoundary);
+		win.draw(bottomBoundary);
 		win.draw(bottomBoundary);
 		win.draw(rightBoundary);
 		win.draw(leftBoundary);

@@ -20,7 +20,7 @@ bool enemy::checkPatRange(char direction)
 	return false;
 }
 
-char enemy::behavior(character player)
+void enemy::behavior(character player)
 {
 	if (false and std::sqrt((pow((player.localPosition.x-localPosition.x),2)+pow((player.localPosition.y - localPosition.y),2)))<sight) {
 		//if player in range and not attacking:
@@ -36,17 +36,14 @@ char enemy::behavior(character player)
 		char dir;
 		while (x) {
 			dir = dirs[distX(randGen)];
-			if (checkEnd(dir) && checkPatRange(dir)) {
+			if (checkEnd(dir) && checkPatRange(dir) && dir+currentDir!=217 && dir+currentDir != 222) {
 				x = false;
-				cout << "entered" << endl;
 			}
 		}
 		/*int choice = distX(randGen);
 		cout << "choice"<<choice << endl;
-		dir = dirs[choice];
-		cout << dir << endl;*/
-		move(dir);
-		return dir;
+		dir = dirs[choice];*/
+		currentDir = dir;
 	}
 }
 
@@ -63,6 +60,7 @@ enemy::enemy()
 	patrolRange = 0;
 	speed = 0;
 	hpMax = 1;
+	directionTick = 0;
 }
 
 enemy::enemy(enemyTemplate stats, sf::Vector2f startingCoords, sf::Vector2f startingTile)
@@ -84,6 +82,8 @@ enemy::enemy(enemyTemplate stats, sf::Vector2f startingCoords, sf::Vector2f star
 	speed = stats.speed;
 	loadTextures();
 	distX = uniform_int_distribution<int>(0, 3);
+	directionTick = 0;
+	tickMax = 25;
 }
 
 enemy::enemy(int hpMaxP, float speedP, std::string nameP, float aggroP, int sightP, int damageP, bool isRangedP, float cooldownP, int reachP, int patrolRangeP, std::string imagePathP, sf::Vector2f startingCoords, sf::Vector2f startingTile)
@@ -103,4 +103,14 @@ enemy::enemy(int hpMaxP, float speedP, std::string nameP, float aggroP, int sigh
 	tile = startingTile;
 	localPosition = startingCoords;
 	loadTextures();
+	distX = uniform_int_distribution<int>(0, 3);
+	directionTick = 0;
+}
+
+void enemy::tick() {
+	directionTick++;
+	if (directionTick > tickMax+1){
+		directionTick = 0;
+	}
+	move(currentDir);
 }

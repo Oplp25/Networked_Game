@@ -28,7 +28,7 @@ void entity::move(char direction)
 	}
 }
 
-void entity::switchTextArray(char direction)//Error somewher in here
+void entity::switchTextArray(char direction)
 {
 	if (direction != entityCurrentDirection) {
 		entityCurrentDirection = direction;
@@ -81,10 +81,11 @@ void entity::changeSpriteText(string textArgs) {
 		if (currentText >= textArray.size()) {
 			currentText = 0;
 		}
+		sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
 		sprite.setTexture(textArray[currentText]);
 	}
 	else if (textArgs == "still") {
-		sprite.setTexture(listOfTexts[4][0]);//
+		sprite.setTexture(listOfTexts[4][0]);
 		switchTextArray('s');
 	}
 	else if (textArgs == "up") {

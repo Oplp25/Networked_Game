@@ -139,7 +139,7 @@ character::character(string thisRace, string thisClass, string name, char error)
 	characterName = name;	
 	imagePath = "Resources\\Sprite Assets\\" + thisRace + " " + thisClass;
 	currentWeapon = charInventory.weapons[0];
-	localPosition = sf::Vector2f(500, 500);
+	localPosition = sf::Vector2f(0, 0);
 	tile = { 0,0 };//Temporary, for testing
 }
 
