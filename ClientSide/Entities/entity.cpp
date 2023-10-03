@@ -10,6 +10,11 @@ entity::entity()
 	hpMax = 1;
 }
 
+void entity::attack(entity ent)
+{
+	switchTextArray('a');
+}
+
 void entity::move(char direction)
 {
 	if (!checkEnd(direction)) {
@@ -56,6 +61,22 @@ void entity::switchTextArray(char direction)
 		else if (direction == 's') {
 			textArray = listOfTexts[3];
 			sprite.setScale(1, 1);
+		}
+		else if (direction == 'a') {
+			// order of listOfTexts: up, down, right, still, rightAttack, upRightAttack,downRightAttack
+			if (entityCurrentDirection == 'r') {
+				textArray = listOfTexts[4];
+				currentText = 0;
+				sprite.setScale(1, 1);
+			}else if (entityCurrentDirection == 'l') {
+				textArray = listOfTexts[4];
+				currentText = 0;
+				sprite.setScale(-1, 1);
+			}if (entityCurrentDirection == 'u') {//need a way to tell if thing attacking is left or right
+				textArray = listOfTexts[4];
+				currentText = 0;
+				sprite.setScale(1, 1);
+			}
 		}
 	}
 }

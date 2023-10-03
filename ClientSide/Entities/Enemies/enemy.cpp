@@ -22,12 +22,13 @@ bool enemy::checkPatRange(char direction)
 
 void enemy::behavior(character player)
 {
-	if (pow((player.localPosition.x-localPosition.x),2)+pow((player.localPosition.y - localPosition.y),2)<pow(sight,2)) {
-		if (false and pow((player.localPosition.x - localPosition.x), 2) + pow((player.localPosition.y - localPosition.y), 2) < pow(reach, 2)) {
-			//	Attack player
+	if (pow((player.localPosition.x-localPosition.x),2)+pow((player.localPosition.y - localPosition.y),2)<pow(sight,2)) {//if player is within sight
+		if (false and pow((player.localPosition.x - localPosition.x), 2) + pow((player.localPosition.y - localPosition.y), 2) < pow(reach, 2)) {//if player is in reach
+			attack(player);
 		}
 		else {
-			if (abs(player.localPosition.x - localPosition.x)> abs(player.localPosition.y - localPosition.y)) {
+			//move towards player
+			if (abs(player.localPosition.x - localPosition.x)> abs(player.localPosition.y - localPosition.y)) {//check if the player is closer in x or y direction
 				if (player.localPosition.x > localPosition.x) {
 					currentDir = 'r';
 				}
@@ -44,10 +45,8 @@ void enemy::behavior(character player)
 				}
 			}
 		}
-		//	Move towards player
-		//return dir
 	}
-	else if(pow((baseCoords.x - localPosition.x), 2) + pow((baseCoords.y - localPosition.y), 2) > pow(patrolRange, 2)){
+	else if(pow((baseCoords.x - localPosition.x), 2) + pow((baseCoords.y - localPosition.y), 2) > pow(patrolRange, 2)){//if outside of patrol range, move back towards baseCoords
 		if (abs(baseCoords.x - localPosition.x) > abs(baseCoords.y - localPosition.y)) {
 			if (baseCoords.x > localPosition.x) {
 				currentDir = 'r';
@@ -65,14 +64,14 @@ void enemy::behavior(character player)
 			}
 		}
 	}
-	else {
+	else {//move in a random direction
 		bool x = true;
 		randGen.seed(time(0));
 		vector<char> dirs = {'u','d','l','r'};
 		char dir;
 		while (x) {
 			dir = dirs[distX(randGen)];
-			if (checkEnd(dir,tickMax) && checkPatRange(dir) && dir+currentDir!=217 && dir+currentDir != 222) {
+			if (checkEnd(dir,tickMax) && checkPatRange(dir) && dir+currentDir!=217 && dir+currentDir != 222) {// if the direction is not the opposite direction, and ends within patrol range, and not outside of the area
 				x = false;
 			}
 		}

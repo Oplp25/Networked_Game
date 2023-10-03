@@ -14,7 +14,6 @@ class enemy :public entity {
 		sf::Vector2f baseCoords;//The coords that it patrols around
 
 		bool checkPatRange(char direction);
-		void attack(std::string type,char direction);
 		std::default_random_engine randGen;
 		std::uniform_int_distribution<int> distX;
 	public:

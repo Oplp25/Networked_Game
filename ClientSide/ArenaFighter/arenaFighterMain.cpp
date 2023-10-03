@@ -83,19 +83,24 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			player.changeSpriteText("still");
 		}
 		if (spriteChangeCounter == spriteChangeInterval){
-			if (currentDir == 'l') {
-				player.changeSpriteText("left");
+			if (!player.attacking) {
+				if (currentDir == 'l') {
+					player.changeSpriteText("left");
+				}
+				else if (currentDir == 'r') {
+					player.changeSpriteText("right");
+				}
+				else if (currentDir == 'u') {
+					player.changeSpriteText("up");
+				}
+				else if (currentDir == 'd') {
+					player.changeSpriteText("down");
+				}
+				player.changeSpriteText("next");
 			}
-			else if (currentDir == 'r') {
-				player.changeSpriteText("right");
+			else {
+				player.changeSpriteText("next");
 			}
-			else if (currentDir == 'u') {
-				player.changeSpriteText("up");
-			}
-			else if (currentDir == 'd') {
-				player.changeSpriteText("down");
-			}
-			player.changeSpriteText("next");
 		}
 
 		sf::Event event;
@@ -113,19 +118,24 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 				i.changeSpriteText("still");
 			}
 			if (spriteChangeCounter == spriteChangeInterval) {
-				if (currentDir == 'l') {
-					i.changeSpriteText("left");
+				if (!i.attacking) {
+					if (currentDir == 'l') {
+						i.changeSpriteText("left");
+					}
+					else if (currentDir == 'r') {
+						i.changeSpriteText("right");
+					}
+					else if (currentDir == 'u') {
+						i.changeSpriteText("up");
+					}
+					else if (currentDir == 'd') {
+						i.changeSpriteText("down");
+					}
+					i.changeSpriteText("next");
 				}
-				else if (currentDir == 'r') {
-					i.changeSpriteText("right");
+				else {
+					i.changeSpriteText("next");
 				}
-				else if (currentDir == 'u') {
-					i.changeSpriteText("up");
-				}
-				else if (currentDir == 'd') {
-					i.changeSpriteText("down");
-				}
-				i.changeSpriteText("next");
 			}
 			i.sprite.setPosition(i.localPosition);
 			i.currentWeapon.sprite.setPosition(i.localPosition);
@@ -136,7 +146,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		for (int i = 0; i < enemyArray.size();i++) {
 			if (enemyArray[i].tile == player.tile) {
 				enemyArray[i].tick();
-				if (enemyArray[i].directionTick == enemyArray[i].tickMax) {
+				if (enemyArray[i].directionTick == enemyArray[i].tickMax && !enemyArray[i].attacking) {
 					enemyArray[i].behavior(player);
 					if (enemyArray[i].currentDir == 'l') {
 						enemyArray[i].changeSpriteText("left");
