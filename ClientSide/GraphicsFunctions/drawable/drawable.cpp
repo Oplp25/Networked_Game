@@ -1,5 +1,6 @@
 #include "drawable.h"
 #include<unordered_map>
+#include<iostream>
 #include <filesystem>
 using namespace std;
 

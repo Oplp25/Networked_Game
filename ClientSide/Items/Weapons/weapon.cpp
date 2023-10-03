@@ -41,12 +41,13 @@ weapon::weapon(weaponTemplate stats){
 	hands = stats.hands;
 }
 void weapon::loadTextures() {
+	sprite.setOrigin(32, 32);
 	const filesystem::path cwd = filesystem::current_path();
 	filesystem::path thisPath;
 
 	vector<filesystem::directory_entry> imageFiles;//Vector of all the files in the imagePath directory
 	unordered_map<int, filesystem::directory_entry> filesMap;// a map that stores all of the files, along with an integer that represents the integer at the end of the file name
-	unordered_map<int, string> mapping({ {0,"up"},{1,"down"},{2,"left"},{3,"right"},{4,"still"},{5,"misc"} });
+	unordered_map<int, string> mapping({ {0,"up"},{1,"down"},{2,"right"},{3,"still"},{4,"rightAttack"},{5,"upRightAttack"},{6,"downRightAttack"} });
 	for (int i = 0; i < 6; i++) {
 		imageFiles = {};//resets the imageFiles vector
 		filesMap = {};//resets filesMap
@@ -104,21 +105,28 @@ void weapon::switchTextArray(char direction)
 		if (direction == 'u') {
 			textArray = listOfTexts[0];
 			currentText = 0;
+			sprite.setScale(1, 1);
 		}
 		else if (direction == 'd') {
 			textArray = listOfTexts[1];
 			currentText = 0;
+			sprite.setScale(1, 1);
 		}
 		else if (direction == 'l') {
 			textArray = listOfTexts[2];
 			currentText = 0;
+			sprite.setOrigin(32, 32);
+			sprite.setScale(-1, 1);
+			sprite.setOrigin(0, 0);
 		}
 		else if (direction == 'r') {
-			textArray = listOfTexts[3];
+			textArray = listOfTexts[2];
 			currentText = 0;
+			sprite.setScale(1, 1);
 		}
 		else if (direction == 's') {
-			textArray = listOfTexts[4];
+			textArray = listOfTexts[3];
+			sprite.setScale(1, 1);
 		}
 	}
 }

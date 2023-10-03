@@ -22,12 +22,48 @@ bool enemy::checkPatRange(char direction)
 
 void enemy::behavior(character player)
 {
-	if (false and std::sqrt((pow((player.localPosition.x-localPosition.x),2)+pow((player.localPosition.y - localPosition.y),2)))<sight) {
-		//if player in range and not attacking:
-		//	Attack player
-		//else:
+	if (pow((player.localPosition.x-localPosition.x),2)+pow((player.localPosition.y - localPosition.y),2)<pow(sight,2)) {
+		if (false and pow((player.localPosition.x - localPosition.x), 2) + pow((player.localPosition.y - localPosition.y), 2) < pow(reach, 2)) {
+			//	Attack player
+		}
+		else {
+			if (abs(player.localPosition.x - localPosition.x)> abs(player.localPosition.y - localPosition.y)) {
+				if (player.localPosition.x > localPosition.x) {
+					currentDir = 'r';
+				}
+				else {
+					currentDir = 'l';
+				}
+			}
+			else {
+				if (player.localPosition.y > localPosition.y) {
+					currentDir = 'd';
+				}
+				else {
+					currentDir = 'u';
+				}
+			}
+		}
 		//	Move towards player
 		//return dir
+	}
+	else if(pow((baseCoords.x - localPosition.x), 2) + pow((baseCoords.y - localPosition.y), 2) > pow(patrolRange, 2)){
+		if (abs(baseCoords.x - localPosition.x) > abs(baseCoords.y - localPosition.y)) {
+			if (baseCoords.x > localPosition.x) {
+				currentDir = 'r';
+			}
+			else {
+				currentDir = 'l';
+			}
+		}
+		else {
+			if (baseCoords.y > localPosition.y) {
+				currentDir = 'd';
+			}
+			else {
+				currentDir = 'u';
+			}
+		}
 	}
 	else {
 		bool x = true;
@@ -36,7 +72,7 @@ void enemy::behavior(character player)
 		char dir;
 		while (x) {
 			dir = dirs[distX(randGen)];
-			if (checkEnd(dir) && checkPatRange(dir) && dir+currentDir!=217 && dir+currentDir != 222) {
+			if (checkEnd(dir,tickMax) && checkPatRange(dir) && dir+currentDir!=217 && dir+currentDir != 222) {
 				x = false;
 			}
 		}
@@ -61,6 +97,7 @@ enemy::enemy()
 	speed = 0;
 	hpMax = 1;
 	directionTick = 0;
+	tickMax = 20;
 }
 
 enemy::enemy(enemyTemplate stats, sf::Vector2f startingCoords, sf::Vector2f startingTile)
@@ -83,7 +120,7 @@ enemy::enemy(enemyTemplate stats, sf::Vector2f startingCoords, sf::Vector2f star
 	loadTextures();
 	distX = uniform_int_distribution<int>(0, 3);
 	directionTick = 0;
-	tickMax = 25;
+	tickMax = 20;
 }
 
 enemy::enemy(int hpMaxP, float speedP, std::string nameP, float aggroP, int sightP, int damageP, bool isRangedP, float cooldownP, int reachP, int patrolRangeP, std::string imagePathP, sf::Vector2f startingCoords, sf::Vector2f startingTile)
@@ -105,6 +142,7 @@ enemy::enemy(int hpMaxP, float speedP, std::string nameP, float aggroP, int sigh
 	loadTextures();
 	distX = uniform_int_distribution<int>(0, 3);
 	directionTick = 0;
+	tickMax = 25;
 }
 
 void enemy::tick() {
@@ -112,5 +150,4 @@ void enemy::tick() {
 	if (directionTick > tickMax+1){
 		directionTick = 0;
 	}
-	move(currentDir);
 }

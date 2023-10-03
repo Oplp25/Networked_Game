@@ -110,7 +110,7 @@ int character::hpIncrease()
 	return distX(randGen);
 }
 
-character::character(string thisRace, string thisClass, string name, char error)
+character::character(string thisRace, string thisClass, string nameP, char error)
 {
 	string thisClassL = thisClass;
 	transform(thisClassL.begin(), thisClassL.end(), thisClassL.begin(), ::tolower);//making every letter lowercase
@@ -136,10 +136,11 @@ character::character(string thisRace, string thisClass, string name, char error)
 	//need to add ability pointers
 	xp = 0;
 	level = 0;
-	characterName = name;	
+	characterName = nameP;	
+	name = characterName;
 	imagePath = "Resources\\Sprite Assets\\" + thisRace + " " + thisClass;
 	currentWeapon = charInventory.weapons[0];
-	localPosition = sf::Vector2f(0, 0);
+	localPosition = sf::Vector2f(300, 300);
 	tile = { 0,0 };//Temporary, for testing
 }
 
@@ -169,6 +170,7 @@ void character::changeSpriteText(string textArgs) {
 	}
 	else if (textArgs == "left") {
 		switchTextArray('l');
+		left = true;
 	}
 	else if (textArgs == "right") {
 		switchTextArray('r');

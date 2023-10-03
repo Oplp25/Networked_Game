@@ -9,8 +9,9 @@ class drawable {
 		std::vector<sf::Texture> textArray;
 		int currentText = 0;
 		std::string imagePath;// mut be in form "Resources\\folder\\folder"
-		void loadTextures();
+		void loadTextures();	
 	public:
+		bool left = false;
 		sf::Vector2f localPosition;//actual position on the screen
 		sf::Sprite sprite;
 		sf::Sprite draw();

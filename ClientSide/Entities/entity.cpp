@@ -5,6 +5,7 @@
 using namespace std;
 entity::entity()
 {
+
 	hpCurrent = 1;
 	hpMax = 1;
 }
@@ -35,38 +36,43 @@ void entity::switchTextArray(char direction)
 		if (direction == 'u') {
 			textArray = listOfTexts[0];
 			currentText = 0;
+			sprite.setScale(1, 1);
 		}
 		else if (direction == 'd') {
 			textArray = listOfTexts[1];
 			currentText = 0;
+			sprite.setScale(1, 1);
+		}
+		else if (direction == 'r') {
+			textArray = listOfTexts[2];
+			currentText = 0;
+			sprite.setScale(1, 1);
 		}
 		else if (direction == 'l') {
 			textArray = listOfTexts[2];
 			currentText = 0;
-		}
-		else if (direction == 'r') {
-			textArray = listOfTexts[3];
-			currentText = 0;
+			sprite.setScale(-1, 1);
 		}
 		else if (direction == 's') {
-			textArray = listOfTexts[4];
+			textArray = listOfTexts[3];
+			sprite.setScale(1, 1);
 		}
 	}
 }
 
-bool entity::checkEnd(char direction)
+bool entity::checkEnd(char direction,int nums)
 {
 	
-	if (direction == 'u' && localPosition.y - speed > 40) {
+	if (direction == 'u' && localPosition.y - 32 - speed > 40) {
 		return true;
 	}
-	if (direction == 'd' && localPosition.y + speed < 1040) {
+	if (direction == 'd' && localPosition.y + 32 + speed < 1040) {
 		return true;
 	}
-	if (direction == 'r' && localPosition.x + speed < 1880) {
+	if (direction == 'r' && localPosition.x + 32 + speed < 1880) {
 		return true;
 	}
-	if (direction == 'l' && localPosition.y - speed > 40) {
+	if (direction == 'l' && localPosition.x - 32  - speed > 40) {
 		return true;
 	}
 	return false;
@@ -85,10 +91,12 @@ void entity::changeSpriteText(string textArgs) {
 		sprite.setTexture(textArray[currentText]);
 	}
 	else if (textArgs == "still") {
+		left = false;
 		sprite.setTexture(listOfTexts[4][0]);
 		switchTextArray('s');
 	}
 	else if (textArgs == "up") {
+		left = false;
 		switchTextArray('u');
 	}
 	else if (textArgs == "down") {
@@ -96,18 +104,21 @@ void entity::changeSpriteText(string textArgs) {
 	}
 	else if (textArgs == "left") {
 		switchTextArray('l');
+		left = true;
 	}
 	else if (textArgs == "right") {
+		left = false;
 		switchTextArray('r');
 	}
 }
 
 void entity::loadTextures() {
+	sprite.setOrigin(32, 32);
 	const filesystem::path cwd = filesystem::current_path();
 	filesystem::path thisPath;
 	vector<filesystem::directory_entry> imageFiles;//Vector of all the files in the imagePath directory
 	unordered_map<int, filesystem::directory_entry> filesMap;// a map that stores all of the files, along with an integer that represents the integer at the end of the file name
-	unordered_map<int, string> mapping({ {0,"up"},{1,"down"},{2,"left"},{3,"right"},{4,"still"},{5,"misc"} });
+	unordered_map<int, string> mapping({ {0,"up"},{1,"down"},{2,"right"},{3,"still"},{4,"rightAttack"},{5,"upRightAttack"},{6,"downRightAttack"} });
 	for (int i = 0; i < 6; i++) {
 		imageFiles = {};//resets the imageFiles vector
 		filesMap = {};//resets filesMap
@@ -122,9 +133,12 @@ void entity::loadTextures() {
 		}
 		for (int j= 1; j <= imageFiles.size(); j++) {//looping through the map
 			listOfTexts[i].push_back(sf::Texture());
-			listOfTexts[i][j-1].loadFromFile(filesMap[j].path().string());//inserting the textures in the correct order
+			if (!listOfTexts[i][j - 1].loadFromFile(filesMap[j].path().string())) {//inserting the textures in the correct order
+				cout << j << mapping[i]<<endl;
+				cout << "Could not load file" << filesMap[j].path().string() << endl;
+			}
 		}
 	}
-	textArray = listOfTexts[4];//sets the first textArray to the still array, as the entity will start still
+	textArray = listOfTexts[3];//sets the first textArray to the still array, as the entity will start still
 	currentText = 0;
 }

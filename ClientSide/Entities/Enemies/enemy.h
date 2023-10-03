@@ -6,7 +6,6 @@
 class enemy :public entity {
 	private:
 		float aggro = 0.4;//likelyhood of chasing player
-		int sight;//How far they can see the player from
 		int damage;
 		bool isRanged;
 		float cooldown;
@@ -19,9 +18,9 @@ class enemy :public entity {
 		std::default_random_engine randGen;
 		std::uniform_int_distribution<int> distX;
 	public:
+		int sight;//How far they can see the player from
 		int directionTick;
 		int tickMax;
-		std::string name;
 
 		char currentDir;
 		void behavior(character player);

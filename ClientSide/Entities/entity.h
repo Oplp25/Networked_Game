@@ -6,12 +6,13 @@ class entity:public drawable {
 
 	protected:
 		void switchTextArray(char direction);
-		std::vector<std::vector<sf::Texture>> listOfTexts = { {},{},{},{},{},{} };// up, down, left, right, still,  misc
+		std::vector<std::vector<sf::Texture>> listOfTexts = { {},{},{},{},{},{},{} };// up, down,right, still, rightAttack, upRightAttack,downRightAttack
 		char entityCurrentDirection = 's';
 		float speed;
 
-		bool checkEnd(char direction);//Checks whether a character is going to move off the edge of the map. returns true if the move is OK
+		bool checkEnd(char direction, int nums = 0);//Checks whether a character is going to move off the edge of the map. returns true if the move is OK
 	public:
+		std::string name;
 		void changeSpriteText(std::string textArgs);
 		void loadTextures();
 		int hpCurrent;

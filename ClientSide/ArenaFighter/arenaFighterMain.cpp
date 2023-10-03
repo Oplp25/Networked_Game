@@ -16,6 +16,8 @@ void createArenaLayout()
 void runArenaFighterSingle(sf::RenderWindow& win)
 {
 	character playerCharacter = characterCreator(win);
+	character player2 = playerCharacter;
+	player2.localPosition = sf::Vector2f(750,500);
 	//layout = createArenaLayout()
 	sf::Vector2f starter = sf::Vector2f(500, 500);
 	sf::Vector2f origin = sf::Vector2f(0, 0);
@@ -39,7 +41,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	bool won = false;
 	bool finished = false;
 	int spriteChangeCounter = 0;
-	int spriteChangeInterval = 9;
+	int spriteChangeInterval = 12;
 	char currentDir = 's';
 
 	//Temporary tile boundaries. tile =1840,1000
@@ -55,6 +57,22 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	sf::RectangleShape leftBoundary(sf::Vector2f(40, 1080));
 	leftBoundary.setPosition(sf::Vector2f(0, 0));
 	leftBoundary.setFillColor(colours::cinereous);
+
+	sf::RectangleShape temp2 = sf::RectangleShape(sf::Vector2f(64, 64));
+	temp2.setOutlineColor(sf::Color(0, 0, 255));
+	temp2.setOutlineThickness(5);
+	temp2.setFillColor(sf::Color::Transparent);
+
+	sf::RectangleShape temp3 = sf::RectangleShape(sf::Vector2f(64, 64));
+	temp3.setOutlineColor(sf::Color(0, 0, 255));
+	temp3.setOutlineThickness(5);
+	temp3.setFillColor(sf::Color::Transparent);
+
+	sf::CircleShape temp4(enemyArray[0].sight);
+	temp4.setOutlineColor(sf::Color(255, 0, 0));
+	temp4.setOutlineThickness(5);
+	temp4.setFillColor(sf::Color::Transparent);
+
 	while (!finished) {
 		//player graphics
 		currentDir = playerBehavior(win, player);
@@ -114,27 +132,29 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		}
 
 		//enemy graphics
+		
 		for (int i = 0; i < enemyArray.size();i++) {
 			if (enemyArray[i].tile == player.tile) {
-				if (spriteChangeCounter == spriteChangeInterval) {
-					enemyArray[i].tick();
-					if (enemyArray[i].directionTick == enemyArray[i].tickMax) {
-						enemyArray[i].behavior(player);
-						if (enemyArray[i].currentDir == 'l') {
-							enemyArray[i].changeSpriteText("left");
-						}
-						else if (enemyArray[i].currentDir == 'r') {
-							enemyArray[i].changeSpriteText("right");
-						}
-						else if (enemyArray[i].currentDir == 'u') {
-							enemyArray[i].changeSpriteText("up");
-						}
-						else if (enemyArray[i].currentDir == 'd') {
-							enemyArray[i].changeSpriteText("down");
-						}
+				enemyArray[i].tick();
+				if (enemyArray[i].directionTick == enemyArray[i].tickMax) {
+					enemyArray[i].behavior(player);
+					if (enemyArray[i].currentDir == 'l') {
+						enemyArray[i].changeSpriteText("left");
 					}
+					else if (enemyArray[i].currentDir == 'r') {
+						enemyArray[i].changeSpriteText("right");
+					}
+					else if (enemyArray[i].currentDir == 'u') {
+						enemyArray[i].changeSpriteText("up");
+					}
+					else if (enemyArray[i].currentDir == 'd') {
+						enemyArray[i].changeSpriteText("down");
+					}
+				}
+				if (spriteChangeCounter == spriteChangeInterval) {
 					enemyArray[i].changeSpriteText("next");
 				}
+				enemyArray[i].move(enemyArray[i].currentDir);
 			}
 		}
 
@@ -147,8 +167,14 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		win.draw(rightBoundary);
 		win.draw(leftBoundary);
 
+		//to reflect a sprite, do sprite.setScale(-1,1)
 		win.draw(player.draw());
-		win.draw(player.currentWeapon.draw());
+		temp2.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
+		temp2.setOrigin(player.sprite.getOrigin());
+		temp2.setScale(player.sprite.getScale());
+		temp2.setRotation(player.sprite.getRotation());
+		win.draw(temp2);
+		//win.draw(player.currentWeapon.draw());
 		for (character i : charsArray) {
 			win.draw(i.draw());
 			win.draw(i.currentWeapon.draw());
@@ -156,6 +182,16 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		for (enemy i : enemyArray) {
 			if (i.tile == player.tile) {
 				win.draw(i.draw());
+				temp3.setPosition(i.sprite.getPosition().x, i.sprite.getPosition().y);
+				temp3.setOrigin(i.sprite.getOrigin());
+				temp3.setScale(i.sprite.getScale());
+				temp3.setRotation(i.sprite.getRotation());
+				temp4.setPosition(i.sprite.getPosition().x, i.sprite.getPosition().y);
+				temp4.setOrigin(temp4.getGlobalBounds().width/2, temp4.getGlobalBounds().height / 2);
+				temp4.setScale(i.sprite.getScale());
+				temp4.setRotation(i.sprite.getRotation());
+				win.draw(temp4);
+				win.draw(temp3);
 			}
 				
 		}
