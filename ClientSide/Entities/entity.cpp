@@ -10,9 +10,19 @@ entity::entity()
 	hpMax = 1;
 }
 
-void entity::attack(entity ent)
+void entity::attack(entity ent,int damage)
 {
-	switchTextArray('a');
+	attacking = true;
+	char dir;
+	if (ent.localPosition.x > localPosition.x) {
+		dir = 'r';
+	}
+	else {
+		dir = 'l';
+	}
+
+	ent.damageSelf(damage);
+	switchTextArray('a',dir);
 }
 
 void entity::move(char direction)
@@ -34,10 +44,16 @@ void entity::move(char direction)
 	}
 }
 
-void entity::switchTextArray(char direction)
+void entity::death()
+{
+}
+
+void entity::switchTextArray(char direction, char d2)
 {
 	if (direction != entityCurrentDirection) {
-		entityCurrentDirection = direction;
+		if (direction != 'a') {
+			entityCurrentDirection = direction;
+		}
 		if (direction == 'u') {
 			textArray = listOfTexts[0];
 			currentText = 0;
@@ -65,17 +81,38 @@ void entity::switchTextArray(char direction)
 		else if (direction == 'a') {
 			// order of listOfTexts: up, down, right, still, rightAttack, upRightAttack,downRightAttack
 			if (entityCurrentDirection == 'r') {
+				cout << "A R" << endl;
 				textArray = listOfTexts[4];
 				currentText = 0;
 				sprite.setScale(1, 1);
 			}else if (entityCurrentDirection == 'l') {
+				cout << "A L" << endl;
 				textArray = listOfTexts[4];
 				currentText = 0;
 				sprite.setScale(-1, 1);
-			}if (entityCurrentDirection == 'u') {//need a way to tell if thing attacking is left or right
-				textArray = listOfTexts[4];
+			}else if (entityCurrentDirection == 'u') {//need a way to tell if thing attacking is left or right
+				textArray = listOfTexts[5];
 				currentText = 0;
-				sprite.setScale(1, 1);
+				if (d2 == 'r') {
+					cout << "A U R" << endl;
+					sprite.setScale(1, 1);
+				}
+				else {
+					cout << "A U L" << endl;
+					sprite.setScale(-1, 1);
+				}
+			}
+			else {//down
+				textArray = listOfTexts[6];
+				currentText = 0;
+				if (d2 == 'r') {
+					cout << "A D R" << endl;
+					sprite.setScale(1, 1);
+				}
+				else {
+					cout << "A D L" << endl;
+					sprite.setScale(-1, 1);
+				}
 			}
 		}
 	}
@@ -140,7 +177,7 @@ void entity::loadTextures() {
 	vector<filesystem::directory_entry> imageFiles;//Vector of all the files in the imagePath directory
 	unordered_map<int, filesystem::directory_entry> filesMap;// a map that stores all of the files, along with an integer that represents the integer at the end of the file name
 	unordered_map<int, string> mapping({ {0,"up"},{1,"down"},{2,"right"},{3,"still"},{4,"rightAttack"},{5,"upRightAttack"},{6,"downRightAttack"} });
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 7; i++) {
 		imageFiles = {};//resets the imageFiles vector
 		filesMap = {};//resets filesMap
 		thisPath = cwd / imagePath / mapping[i];// sets the thisPath directory to the next folder to be looped through

@@ -18,8 +18,6 @@ class character :public entity {
 		int manaCurrent;
 		int staminaMax;//For Physical abilities
 		int staminaCurrent;
-		int hpMax;
-		int hpCurrent;
 		int hitDiceType;
 		std::vector<int> abilityScores;// the ability scores can be accessed by abilityScores[abilityScoreEnum]
 		//vector<spell> spellList;

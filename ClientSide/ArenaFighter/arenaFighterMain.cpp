@@ -73,6 +73,11 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	temp4.setOutlineThickness(5);
 	temp4.setFillColor(sf::Color::Transparent);
 
+	sf::CircleShape temp5(enemyArray[0].reach);
+	temp5.setOutlineColor(sf::Color(255, 0, 0));
+	temp5.setOutlineThickness(5);
+	temp5.setFillColor(sf::Color::Transparent);
+
 	while (!finished) {
 		//player graphics
 		currentDir = playerBehavior(win, player);
@@ -161,10 +166,21 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 						enemyArray[i].changeSpriteText("down");
 					}
 				}
+				if (!enemyArray[i].attacking) {
+					enemyArray[i].move(enemyArray[i].currentDir);
+				}
 				if (spriteChangeCounter == spriteChangeInterval) {
+					if (enemyArray[i].attacking) {
+						enemyArray[i].attackTick++;
+						if (enemyArray[i].attackTick == enemyArray[i].maxAttackTick) {
+							enemyArray[i].attacking = false;
+							enemyArray[i].attackTick = 0;
+							enemyArray[i].directionTick = enemyArray[i].tickMax - 1;
+
+						}
+					}
 					enemyArray[i].changeSpriteText("next");
 				}
-				enemyArray[i].move(enemyArray[i].currentDir);
 			}
 		}
 
@@ -183,7 +199,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		temp2.setOrigin(player.sprite.getOrigin());
 		temp2.setScale(player.sprite.getScale());
 		temp2.setRotation(player.sprite.getRotation());
-		win.draw(temp2);
+		//win.draw(temp2);
 		//win.draw(player.currentWeapon.draw());
 		for (character i : charsArray) {
 			win.draw(i.draw());
@@ -192,6 +208,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		for (enemy i : enemyArray) {
 			if (i.tile == player.tile) {
 				win.draw(i.draw());
+				cout << i.localPosition.x << " " << i.localPosition.y<<endl;
 				temp3.setPosition(i.sprite.getPosition().x, i.sprite.getPosition().y);
 				temp3.setOrigin(i.sprite.getOrigin());
 				temp3.setScale(i.sprite.getScale());
@@ -200,8 +217,13 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 				temp4.setOrigin(temp4.getGlobalBounds().width/2, temp4.getGlobalBounds().height / 2);
 				temp4.setScale(i.sprite.getScale());
 				temp4.setRotation(i.sprite.getRotation());
-				win.draw(temp4);
+				temp5.setPosition(i.sprite.getPosition().x, i.sprite.getPosition().y);
+				temp5.setOrigin(temp5.getGlobalBounds().width / 2, temp5.getGlobalBounds().height / 2);
+				temp5.setScale(i.sprite.getScale());
+				temp5.setRotation(i.sprite.getRotation());
+				/*win.draw(temp4);
 				win.draw(temp3);
+				win.draw(temp5);*/
 			}
 				
 		}

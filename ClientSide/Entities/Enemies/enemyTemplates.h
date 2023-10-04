@@ -8,7 +8,7 @@ public:
 	int damage;
 	bool isRanged;
 	float cooldown;
-	int reach;//Melee
+	int reach;//Melee, must be +32
 	int patrolRange;
 	float speed;
 	int hpMax;
@@ -43,4 +43,4 @@ public:
 
 };
 
-const enemyTemplate orcSwordsman = enemyTemplate(14,3,"Orc Swordsman",0.5,300,4,false,0.1,2,250,"Resources\\Sprite Assets\\Orc Swordsman");
+const enemyTemplate orcSwordsman = enemyTemplate(14,3,"Orc Swordsman",0.5,300,4,false,0.1,52,250,"Resources\\Sprite Assets\\Orc Swordsman");

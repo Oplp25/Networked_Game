@@ -9,7 +9,6 @@ class enemy :public entity {
 		int damage;
 		bool isRanged;
 		float cooldown;
-		int reach;//Melee
 		int patrolRange;
 		sf::Vector2f baseCoords;//The coords that it patrols around
 
@@ -17,6 +16,7 @@ class enemy :public entity {
 		std::default_random_engine randGen;
 		std::uniform_int_distribution<int> distX;
 	public:
+		int reach;//Melee
 		int sight;//How far they can see the player from
 		int directionTick;
 		int tickMax;
