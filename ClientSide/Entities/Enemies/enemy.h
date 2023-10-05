@@ -22,7 +22,7 @@ class enemy :public entity {
 		int tickMax;
 
 		char currentDir;
-		void behavior(character player);
+		void behavior(character &player);
 		void tick();
 		enemy();
 		enemy(enemyTemplate stats, sf::Vector2f startingCoords, sf::Vector2f startingTile);

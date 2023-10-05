@@ -10,7 +10,7 @@ entity::entity()
 	hpMax = 1;
 }
 
-void entity::attack(entity ent,int damage)
+void entity::attack(entity &ent,int damage)
 {
 	attacking = true;
 	char dir;
@@ -47,10 +47,13 @@ void entity::move(char direction)
 void entity::damageSelf(int damage)
 {
 	if (!damaged) {
+		cout << "damage: " << damage << endl;
+		cout << "HP: " << hpCurrent << endl;
 		hpCurrent -= damage;
 		sprite.setColor(sf::Color(255, 0, 0));
 		damaged = true;
 		cout << name << hpCurrent << endl;
+		cout << endl;
 		if (hpCurrent <= 0) {
 			death();
 		}

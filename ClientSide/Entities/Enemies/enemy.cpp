@@ -20,12 +20,11 @@ bool enemy::checkPatRange(char direction)
 	return false;
 }
 
-void enemy::behavior(character player)
+void enemy::behavior(character &player)
 {
 	if (pow((player.localPosition.x-localPosition.x),2)+pow((player.localPosition.y - localPosition.y),2)<pow(sight,2)) {//if player is within sight
 		if (pow((player.localPosition.x - localPosition.x), 2) + pow((player.localPosition.y - localPosition.y), 2) < pow(reach, 2)) {//if player is in reach
 			attack(player,damage);
-			cout << "attack" << endl;
 		}
 		else {
 			//move towards player
