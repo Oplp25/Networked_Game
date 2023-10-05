@@ -12,6 +12,8 @@ class entity:public drawable {
 
 		bool checkEnd(char direction, int nums = 0);//Checks whether a character is going to move off the edge of the map. returns true if the move is OK
 	public:
+		bool damaged;
+		int damageTick = 0;
 		int hpMax;
 		int hpCurrent;
 		int attackTick = 0;
@@ -20,8 +22,6 @@ class entity:public drawable {
 		std::string name;
 		void changeSpriteText(std::string textArgs);
 		void loadTextures();
-		int hpCurrent;
-		int hpMax;
 		sf::Vector2f tile;//Which tile it is on
 		entity();
 		void attack(entity ent, int damage);

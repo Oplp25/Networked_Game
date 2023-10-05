@@ -99,6 +99,7 @@ void character::setScores(std::vector<abilityScoresEnum> abilityScoreUpgrades, i
 	staminaCurrent = staminaMax;
 	hpCurrent = hpMax;
 	speed = rSpeed;
+	cout << "HP: " << hpCurrent << "," << hpMax;
 }
 
 //For when you level up, your HP increases by a random amount dictated by your hit dice.

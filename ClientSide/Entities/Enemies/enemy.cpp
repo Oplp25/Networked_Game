@@ -136,6 +136,7 @@ enemy::enemy(int hpMaxP, float speedP, std::string nameP, float aggroP, int sigh
 	patrolRange = patrolRangeP;
 	speed = speedP;
 	hpMax = hpMaxP;
+	hpCurrent = hpMax;
 	baseCoords = startingCoords;
 	tile = startingTile;
 	localPosition = startingCoords;

@@ -44,6 +44,19 @@ void entity::move(char direction)
 	}
 }
 
+void entity::damageSelf(int damage)
+{
+	if (!damaged) {
+		hpCurrent -= damage;
+		sprite.setColor(sf::Color(255, 0, 0));
+		damaged = true;
+		cout << name << hpCurrent << endl;
+		if (hpCurrent <= 0) {
+			death();
+		}
+	}
+}
+
 void entity::death()
 {
 }

@@ -80,6 +80,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 
 	while (!finished) {
 		//player graphics
+
 		currentDir = playerBehavior(win, player);
 		if (currentDir == 'e') {
 			return "exit";
@@ -107,6 +108,14 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 				player.changeSpriteText("next");
 			}
 		}
+		if (player.damaged) {
+			player.damageTick++;
+			if (player.damageTick == 61) {
+				player.damaged = false;
+				player.damageTick = 0;
+				player.sprite.setColor(sf::Color(255, 255, 255));
+			}
+		}
 
 		sf::Event event;
 		while (win.pollEvent(event)) {
@@ -116,7 +125,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			}
 		}
 
-		//AI character behavior
+		//AI character behavior. very outdated
 		for (character i : charsArray) {
 			//currentDir = characterBehavior(i);
 			if (currentDir == 's') {
@@ -181,6 +190,14 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 					}
 					enemyArray[i].changeSpriteText("next");
 				}
+				if (enemyArray[i].damaged) {
+					enemyArray[i].damageTick++;
+					if (enemyArray[i].damageTick == 61) {
+						enemyArray[i].damaged = false;
+						enemyArray[i].damageTick = 0;
+						enemyArray[i].sprite.setColor(sf::Color(255, 255, 255));
+					}
+				}
 			}
 		}
 
@@ -208,7 +225,6 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		for (enemy i : enemyArray) {
 			if (i.tile == player.tile) {
 				win.draw(i.draw());
-				cout << i.localPosition.x << " " << i.localPosition.y<<endl;
 				temp3.setPosition(i.sprite.getPosition().x, i.sprite.getPosition().y);
 				temp3.setOrigin(i.sprite.getOrigin());
 				temp3.setScale(i.sprite.getScale());
