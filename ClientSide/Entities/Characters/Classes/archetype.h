@@ -23,6 +23,16 @@ class archetype {//A parent class of all of the classes. so they are called arch
 		virtual std::vector<abilityScoresEnum> getSavesProficient();
 		virtual std::vector<std::string> getArmourProficient();
 		virtual std::vector<std::string> getWeaponsProficient();
+
+		//Action Functions
+		void primary();
+		virtual void secondary();
+		virtual void defensive();
+		virtual void special();
+		virtual void buff();
+		virtual void ult();
+
+		//Level Up Functions
 		virtual void level2();
 		virtual void level3();
 		virtual void level4();

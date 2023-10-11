@@ -1,5 +1,5 @@
 #include "archetype.h"
-
+#include<iostream>
 
 int archetype::getHitDiceType()
 {
@@ -36,6 +36,24 @@ std::vector<std::string> archetype::getWeaponsProficient()
 	return weaponsProficient;
 }
 
+void archetype::primary() {
+	std::cout << "primary" << std::endl;
+}
+void archetype::secondary() {
+	std::cout << "secondary" << std::endl;
+}
+void archetype::defensive() {
+	std::cout << "defensive" << std::endl;
+}
+void archetype::special() {
+	std::cout << "special" << std::endl;
+}
+void archetype::buff() {
+	std::cout << "buff" << std::endl;
+}
+void archetype::ult() {
+	std::cout << "ult" << std::endl;
+}
 void archetype::level2()
 {
 }

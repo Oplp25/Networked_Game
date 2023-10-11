@@ -34,3 +34,21 @@ inventory paladin::getStartingEquipment()
 {
 	return startingEquipment;
 }
+void paladin::primary() {
+	std::cout << "primary paladin" << std::endl;
+}
+void paladin::secondary() {
+	std::cout << "secondary" << std::endl;
+}
+void paladin::defensive() {
+	std::cout << "defensive" << std::endl;
+}
+void paladin::special() {
+	std::cout << "special" << std::endl;
+}
+void paladin::buff() {
+	std::cout << "buff" << std::endl;
+}
+void paladin::ult() {
+	std::cout << "ult" << std::endl;
+}

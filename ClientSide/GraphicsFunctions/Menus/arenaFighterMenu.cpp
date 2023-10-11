@@ -10,6 +10,7 @@ void runArenaFighterMenu(sf::RenderWindow& win) {
 	int height = win.getSize().y;
 	sf::Font comicsans;
 	if (!comicsans.loadFromFile(cwd.string() + "\\Resources\\Fonts\\ComicSans.ttf")) {
+		
 		cout << "Error. Failed to load font Comic Sans" << endl;
 	}
 	sf::Text titleText = sf::Text("Arena Fighter", comicsans, 120);

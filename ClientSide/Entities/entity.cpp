@@ -47,13 +47,9 @@ void entity::move(char direction)
 void entity::damageSelf(int damage)
 {
 	if (!damaged) {
-		cout << "damage: " << damage << endl;
-		cout << "HP: " << hpCurrent << endl;
 		hpCurrent -= damage;
 		sprite.setColor(sf::Color(255, 0, 0));
 		damaged = true;
-		cout << name << hpCurrent << endl;
-		cout << endl;
 		if (hpCurrent <= 0) {
 			death();
 		}
@@ -208,7 +204,7 @@ void entity::loadTextures() {
 		for (int j= 1; j <= imageFiles.size(); j++) {//looping through the map
 			listOfTexts[i].push_back(sf::Texture());
 			if (!listOfTexts[i][j - 1].loadFromFile(filesMap[j].path().string())) {//inserting the textures in the correct order
-				cout << j << mapping[i]<<endl;
+				cout << j <<" : " << mapping[i] <<" : "<<name<< endl;
 				cout << "Could not load file" << filesMap[j].path().string() << endl;
 			}
 		}

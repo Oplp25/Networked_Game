@@ -5,7 +5,8 @@
 using namespace std;
 
 void character::usePrimary() {
-	invoke(this->primaryPointer, this);
+	//invoke(this->primaryPointer)(this);
+	this->classPtr->primary();
 }
 void character::useSecondary() {
 	(this->secondaryPointer)(this);
@@ -99,7 +100,6 @@ void character::setScores(std::vector<abilityScoresEnum> abilityScoreUpgrades, i
 	staminaCurrent = staminaMax;
 	hpCurrent = hpMax;
 	speed = rSpeed;
-	cout << "HP: " << hpCurrent << " , " << hpMax << endl;
 }
 
 //For when you level up, your HP increases by a random amount dictated by your hit dice.
@@ -117,6 +117,7 @@ character::character(string thisRace, string thisClass, string nameP, char error
 	transform(thisClassL.begin(), thisClassL.end(), thisClassL.begin(), ::tolower);//making every letter lowercase
 	if (thisClassL == "paladin") {
 		paladinObj = paladin();
+		primaryPointer = &paladin::buff;
 		classPtr = &paladinObj;
 	}
 	else {
@@ -127,14 +128,15 @@ character::character(string thisRace, string thisClass, string nameP, char error
 		className = classPtr->getClassName();
 		hitDiceType = classPtr->getHitDiceType();
 		charInventory = classPtr->getStartingEquipment();
+		//primaryPointer = classPtr->primary();
+		//ability pointers
 	}
 
 	if (thisRace == "dwarf") {
 		characterRace = "dwarf";
 		dwarf tempRace = dwarf();
 		setScores(tempRace.abilityScoreUpgrades, tempRace.maxManaIncrease, tempRace.maxHealthIncrease, tempRace.maxStaminaIncrease, tempRace.speed);
-	}//else
-	//need to add ability pointers
+	}//else if for other races
 	xp = 0;
 	level = 0;
 	characterName = nameP;	

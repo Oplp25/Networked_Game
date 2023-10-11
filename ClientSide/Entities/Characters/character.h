@@ -34,12 +34,14 @@ class character :public entity {
 		archetype* classPtr;
 
 		int profBonus;
-		void(*primaryPointer)(character*);//need to use std::invoke to call these functions. E.G, std::invoke(myCharacter.primaryPointer,myCharacter)
-		void(*secondaryPointer)(character*);//need to use std::invoke to call these functions E.G, std::invoke(myCharacter.secondaryPointer,myCharacter)
-		void(*defensivePointer)(character*);//need to use std::invoke to call these functions E.G, std::invoke(myCharacter.defensivePointer,myCharacter)
-		void(*specialPointer)(character*);//need to use std::invoke to call these functions E.G, std::invoke(myCharacter.specialPointer,myCharacter)
-		void(*buffPointer)(character*);//need to use std::invoke to call these functions E.G, std::invoke(myCharacter.buffPointer,myCharacter)
-		void(*ultPointer)(character*);//need to use std::invoke to call these functions E.G, std::invoke(myCharacter.ultPointer,myCharacter)
+
+		//need to use std::invoke to call these functions. E.G, std::invoke(myCharacter.primaryPointer,myCharacter)
+		void(archetype::*primaryPointer)(character*);
+		void(*secondaryPointer)(character*);
+		void(*defensivePointer)(character*);
+		void(*specialPointer)(character*);
+		void(*buffPointer)(character*);
+		void(*ultPointer)(character*);
 
 		std::vector<void(archetype::*)()> levelUpFuncs;//when accessing, have to do levelUpFunc[level-2]. need to use std::invoke to call these functions, E.G, std::invoke(myCharacter.levelUpFuncs[myCharacter.level-2],myCharacter.classPtr)
 

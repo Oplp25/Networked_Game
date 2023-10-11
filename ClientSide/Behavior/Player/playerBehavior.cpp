@@ -4,6 +4,8 @@ using namespace std;
 
 vector<string> getPlayerInput(sf::RenderWindow& win) {
 	vector<string> inputs;
+
+	//For buttons that need to be held down
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 		inputs.push_back("w");
 	}
@@ -16,6 +18,8 @@ vector<string> getPlayerInput(sf::RenderWindow& win) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		inputs.push_back("d");
 	}
+
+	//For buttons that are pressed once
 	sf::Event event;
 	while (win.pollEvent(event)) {
 		if (event.type == sf::Event::MouseButtonPressed) {
@@ -72,10 +76,12 @@ char playerBehavior(sf::RenderWindow& win, character& player) {
 			win.close();
 			return 'e';
 		}
-		/*
+
+
 		if (i == "mLeft") {
 			player.usePrimary();
 		}
+		/*
 		if (i == "mRight") {
 			player.useSecondary();
 		}
