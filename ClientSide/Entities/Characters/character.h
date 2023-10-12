@@ -2,6 +2,7 @@
 #include<SFML/Graphics.hpp>
 #include<string>
 #include<vector>
+#include<memory>
 #include "../entity.h"
 #include "Races/raceIncluder.h"
 #include "Classes/classIncluder.h"
@@ -35,14 +36,6 @@ class character :public entity {
 
 		int profBonus;
 
-		//need to use std::invoke to call these functions. E.G, std::invoke(myCharacter.primaryPointer,myCharacter)
-		void(archetype::*primaryPointer)(character*);
-		void(*secondaryPointer)(character*);
-		void(*defensivePointer)(character*);
-		void(*specialPointer)(character*);
-		void(*buffPointer)(character*);
-		void(*ultPointer)(character*);
-
 		std::vector<void(archetype::*)()> levelUpFuncs;//when accessing, have to do levelUpFunc[level-2]. need to use std::invoke to call these functions, E.G, std::invoke(myCharacter.levelUpFuncs[myCharacter.level-2],myCharacter.classPtr)
 
 		void setScores(std::vector<abilityScoresEnum> abilityScoreUpgrades, int maxManaIncrease, int maxHealthIncrease, int maxStaminaIncrease, float speed);//sets the maxes for mana, stamina and hp, also increases the ability scores and sets speed based on the race
@@ -64,6 +57,8 @@ class character :public entity {
 		void useSpecial();
 		void useBuff();
 		void useUlt();
+
+		void classSetUp();
 
 		int makeSave(abilityScoresEnum ability, char hasAdvantage = 'n');//char hasAdvantage - 'n' = normal, 'a' = advantage and 'd' = disadvantage
 		int makeCheck(abilityScoresEnum ability, char hasAdvantage = 'n');//char hasAdvantage - 'n' = normal, 'a' = advantage and 'd' = disadvantage

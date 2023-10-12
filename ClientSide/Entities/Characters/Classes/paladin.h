@@ -10,9 +10,9 @@ class paladin :public archetype {
 		std::vector<abilityScoresEnum> getSavesProficient() override;
 		std::vector<std::string> getArmourProficient() override;
 		std::vector<std::string> getWeaponsProficient() override;
-		void primary();
-		void secondary();
-		void defensive();
+		void primary() override;
+		void secondary() override;
+		void defensive() override;
 		void special() override;
 		void buff() override;
 		void ult() override;

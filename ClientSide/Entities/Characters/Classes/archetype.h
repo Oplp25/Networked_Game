@@ -25,7 +25,7 @@ class archetype {//A parent class of all of the classes. so they are called arch
 		virtual std::vector<std::string> getWeaponsProficient();
 
 		//Action Functions
-		void primary();
+		virtual void primary();
 		virtual void secondary();
 		virtual void defensive();
 		virtual void special();

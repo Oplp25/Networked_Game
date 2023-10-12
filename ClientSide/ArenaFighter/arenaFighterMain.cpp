@@ -16,8 +16,8 @@ void createArenaLayout()
 void runArenaFighterSingle(sf::RenderWindow& win)
 {
 	character playerCharacter = characterCreator(win);
-	character player2 = playerCharacter;
-	player2.localPosition = sf::Vector2f(750,500);
+	//character player2 = playerCharacter;
+	//player2.localPosition = sf::Vector2f(750,500);
 	//layout = createArenaLayout()
 	sf::Vector2f starter = sf::Vector2f(500, 500);
 	sf::Vector2f origin = sf::Vector2f(0, 0);

@@ -37,6 +37,7 @@ character characterCreator(sf::RenderWindow& win)
 			myChar = character(raceChoiceString,classChoiceString,name,errorCode);
 		}
 	}
+	myChar.classSetUp();
 	return myChar;
 }
 

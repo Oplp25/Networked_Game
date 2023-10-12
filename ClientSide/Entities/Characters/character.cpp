@@ -5,23 +5,22 @@
 using namespace std;
 
 void character::usePrimary() {
-	//invoke(this->primaryPointer)(this);
-	this->classPtr->primary();
+	classPtr->primary();
 }
 void character::useSecondary() {
-	(this->secondaryPointer)(this);
+	classPtr->secondary();
 }
 void character::useDefensive() {
-	(this->defensivePointer)(this);
+	classPtr->defensive();
 }
 void character::useSpecial() {
-	(this->specialPointer)(this);
+	classPtr->special();
 }
 void character::useBuff() {
-	(this->buffPointer)(this);
+	classPtr->buff();
 }
 void character::useUlt() {
-	(this->ultPointer)(this);
+	classPtr->ult();
 }
 
 
@@ -117,21 +116,8 @@ character::character(string thisRace, string thisClass, string nameP, char error
 	transform(thisClassL.begin(), thisClassL.end(), thisClassL.begin(), ::tolower);//making every letter lowercase
 	if (thisClassL == "paladin") {
 		paladinObj = paladin();
-		primaryPointer = &paladin::buff;
-		classPtr = &paladinObj;
+		hitDiceType = paladinObj.getHitDiceType();
 	}
-	else {
-		error = 'i';
-	}
-	if (error == 'n') {
-		levelUpFuncs = classPtr->classLevelUpFuncs;
-		className = classPtr->getClassName();
-		hitDiceType = classPtr->getHitDiceType();
-		charInventory = classPtr->getStartingEquipment();
-		//primaryPointer = classPtr->primary();
-		//ability pointers
-	}
-
 	if (thisRace == "dwarf") {
 		characterRace = "dwarf";
 		dwarf tempRace = dwarf();
@@ -140,11 +126,23 @@ character::character(string thisRace, string thisClass, string nameP, char error
 	xp = 0;
 	level = 0;
 	characterName = nameP;	
+	className = thisClass;
 	name = characterName;
 	imagePath = "Resources\\Sprite Assets\\" + thisRace + " " + thisClass;
-	currentWeapon = charInventory.weapons[0];
 	localPosition = sf::Vector2f(300, 300);
 	tile = { 0,0 };//Temporary, for testing
+}
+void character::classSetUp() {
+	string thisClassL = className;
+	transform(thisClassL.begin(), thisClassL.end(), thisClassL.begin(), ::tolower);//making every letter lowercase
+	if (thisClassL == "paladin") {
+		classPtr = &paladinObj;
+	}
+	levelUpFuncs = classPtr->classLevelUpFuncs;
+	className = classPtr->getClassName();
+	charInventory = classPtr->getStartingEquipment();
+	currentWeapon = charInventory.weapons[0];
+	//ability pointers
 }
 
 character::character(){}
