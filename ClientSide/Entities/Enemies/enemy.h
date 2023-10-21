@@ -1,6 +1,5 @@
 #pragma once
 #include "../entity.h"
-#include "../Characters/character.h"
 #include"enemyTemplates.h"
 #include<random>
 class enemy :public entity {
@@ -22,7 +21,7 @@ class enemy :public entity {
 		int tickMax;
 
 		char currentDir;
-		void behavior(character &player);
+		void behavior(entity &player);
 		void tick();
 		enemy();
 		enemy(enemyTemplate stats, sf::Vector2f startingCoords, sf::Vector2f startingTile);

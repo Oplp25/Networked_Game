@@ -4,8 +4,22 @@
 
 using namespace std;
 
-void character::usePrimary() {
-	classPtr->primary();
+void character::usePrimary(vector<enemy>& enemyArray) {
+	cout << "Entered usePrimary" << endl;
+	int j = 0;
+	float newDist = 0.0;
+	float distSquared = 0.0;
+	for (int i = 0; i < enemyArray.size(); i++) {
+		newDist = pow(enemyArray[i].localPosition.x - localPosition.x, 2) + pow(enemyArray[i].localPosition.y - localPosition.y, 2);
+		if(newDist>distSquared){
+			distSquared = newDist;
+			j = i;
+		}
+	}
+	//add animation
+	if (distSquared <= currentWeapon.reach*currentWeapon.reach) {
+		attack(enemyArray[j],currentWeapon.damage);
+	}
 }
 void character::useSecondary() {
 	classPtr->secondary();
@@ -160,7 +174,7 @@ void character::changeSpriteText(string textArgs) {
 		sprite.setTexture(textArray[currentText]);
 	}
 	else if (textArgs == "still") {
-		sprite.setTexture(listOfTexts[4][0]);//
+		sprite.setTexture(listOfTexts[3][0]);//
 		switchTextArray('s');
 	}
 	else if (textArgs == "up") {

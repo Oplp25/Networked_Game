@@ -78,17 +78,22 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	temp5.setOutlineThickness(5);
 	temp5.setFillColor(sf::Color::Transparent);
 
+	sf::CircleShape temp6(player.currentWeapon.reach);
+	temp6.setOutlineColor(sf::Color(255, 0, 0));
+	temp6.setOutlineThickness(5);
+	temp6.setFillColor(sf::Color::Transparent);
+
 	while (!finished) {
 		//player graphics
 
-		currentDir = playerBehavior(win, player);
+		currentDir = playerBehavior(win, player,enemyArray);
 		if (currentDir == 'e') {
 			return "exit";
 		}
 		if (currentDir == 's') {
 			player.changeSpriteText("still");
 		}
-		if (spriteChangeCounter == spriteChangeInterval){
+		else if (spriteChangeCounter == spriteChangeInterval){
 			if (!player.attacking) {
 				if (currentDir == 'l') {
 					player.changeSpriteText("left");
@@ -105,7 +110,12 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 				player.changeSpriteText("next");
 			}
 			else {
-				player.changeSpriteText("next");
+				player.attackTick++;
+				if (player.attackTick == player.maxAttackTick) {
+					player.attacking = false;
+					player.attackTick = 0;
+
+				}
 			}
 		}
 		if (player.damaged) {
@@ -131,7 +141,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			if (currentDir == 's') {
 				i.changeSpriteText("still");
 			}
-			if (spriteChangeCounter == spriteChangeInterval) {
+			else if (spriteChangeCounter == spriteChangeInterval) {
 				if (!i.attacking) {
 					if (currentDir == 'l') {
 						i.changeSpriteText("left");
@@ -216,6 +226,11 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		temp2.setOrigin(player.sprite.getOrigin());
 		temp2.setScale(player.sprite.getScale());
 		temp2.setRotation(player.sprite.getRotation());
+		temp6.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
+		temp6.setOrigin(player.sprite.getOrigin());
+		temp6.setScale(player.sprite.getScale());
+		temp6.setRotation(player.sprite.getRotation());
+		win.draw(temp6);
 		//win.draw(temp2);
 		//win.draw(player.currentWeapon.draw());
 		for (character i : charsArray) {

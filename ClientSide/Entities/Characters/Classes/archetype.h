@@ -2,6 +2,7 @@
 #include<vector>
 #include<string>
 #include<iostream>
+//#include "../character.h"
 #include "../inventory.h"
 #include "../../../Items/Weapons/weapon.h"
 #include "../Races/raceIncluder.h"

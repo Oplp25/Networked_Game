@@ -12,6 +12,7 @@ entity::entity()
 
 void entity::attack(entity &ent,int damage)
 {
+	cout << name << " attacking " << ent.name << endl;
 	attacking = true;
 	char dir;
 	if (ent.localPosition.x > localPosition.x) {
@@ -93,12 +94,10 @@ void entity::switchTextArray(char direction, char d2)
 		else if (direction == 'a') {
 			// order of listOfTexts: up, down, right, still, rightAttack, upRightAttack,downRightAttack
 			if (entityCurrentDirection == 'r') {
-				cout << "A R" << endl;
 				textArray = listOfTexts[4];
 				currentText = 0;
 				sprite.setScale(1, 1);
 			}else if (entityCurrentDirection == 'l') {
-				cout << "A L" << endl;
 				textArray = listOfTexts[4];
 				currentText = 0;
 				sprite.setScale(-1, 1);
@@ -106,11 +105,9 @@ void entity::switchTextArray(char direction, char d2)
 				textArray = listOfTexts[5];
 				currentText = 0;
 				if (d2 == 'r') {
-					cout << "A U R" << endl;
 					sprite.setScale(1, 1);
 				}
 				else {
-					cout << "A U L" << endl;
 					sprite.setScale(-1, 1);
 				}
 			}
@@ -118,11 +115,9 @@ void entity::switchTextArray(char direction, char d2)
 				textArray = listOfTexts[6];
 				currentText = 0;
 				if (d2 == 'r') {
-					cout << "A D R" << endl;
 					sprite.setScale(1, 1);
 				}
 				else {
-					cout << "A D L" << endl;
 					sprite.setScale(-1, 1);
 				}
 			}
@@ -162,7 +157,7 @@ void entity::changeSpriteText(string textArgs) {
 	}
 	else if (textArgs == "still") {
 		left = false;
-		sprite.setTexture(listOfTexts[4][0]);
+		sprite.setTexture(listOfTexts[3][0]);
 		switchTextArray('s');
 	}
 	else if (textArgs == "up") {

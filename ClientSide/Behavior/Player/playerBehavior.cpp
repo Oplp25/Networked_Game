@@ -61,7 +61,7 @@ vector<string> getPlayerInput(sf::RenderWindow& win) {
 	return inputs;
 }
 
-char playerBehavior(sf::RenderWindow& win, character& player) {
+char playerBehavior(sf::RenderWindow& win, character& player, vector<enemy> &enemyArray) {
 	vector<string> inputs = getPlayerInput(win);
 	for (string i : inputs) {
 		if (i == "w") {
@@ -79,7 +79,7 @@ char playerBehavior(sf::RenderWindow& win, character& player) {
 
 
 		if (i == "mLeft") {
-			player.usePrimary();
+			player.usePrimary(enemyArray);
 		}
 		/*
 		if (i == "mRight") {
