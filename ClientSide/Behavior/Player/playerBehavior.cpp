@@ -1,5 +1,5 @@
 #include "playerBehavior.h"
-
+#include <chrono>
 using namespace std;
 
 vector<string> getPlayerInput(sf::RenderWindow& win) {
@@ -56,6 +56,9 @@ vector<string> getPlayerInput(sf::RenderWindow& win) {
 			if (event.key.code == sf::Keyboard::Escape) {
 				inputs.push_back("esc");
 			}
+			if (event.key.code == sf::Keyboard::Space) {
+				inputs.push_back("space");
+			}
 		}
 	}
 	return inputs;
@@ -77,6 +80,20 @@ char playerBehavior(sf::RenderWindow& win, character& player, vector<enemy> &ene
 			return 'e';
 		}
 
+		//pause
+		if (i == "space") {
+			this_thread::sleep_for(chrono::milliseconds(500));
+			int do_nothing = 0;
+			while (true) {
+				do_nothing++;
+				if (do_nothing > 7) {
+					do_nothing = 0;
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+					break;
+				}
+			}
+		}
 
 		if (i == "mLeft") {
 			player.usePrimary(enemyArray);
@@ -98,7 +115,9 @@ char playerBehavior(sf::RenderWindow& win, character& player, vector<enemy> &ene
 			player.useUlt();
 		}*/
 	}
-	if (std::count(inputs.begin(), inputs.end(), "d")!=0) {
+
+	
+	if (std::count(inputs.begin(), inputs.end(), "d")!=0) {// if "d" in inputs 
 		return 'r';
 	}
 	else if (std::count(inputs.begin(), inputs.end(), "a") != 0) {

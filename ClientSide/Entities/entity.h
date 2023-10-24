@@ -5,13 +5,13 @@
 class entity:public drawable {
 
 	protected:
-		void switchTextArray(char direction, char d2 = ' ');
-		std::vector<std::vector<sf::Texture>> listOfTexts = { {},{},{},{},{},{},{} };// up, down,right, still, rightAttack, upRightAttack,downRightAttack
-		char entityCurrentDirection = 's';
+		void switchTextArray(char direction, char d2 = ' ', char d3 = ' ');//direction is the direction, or a if attacking. d2 is left or right when attacking, d3 is the direction you are attacking in(only for the player)
+		std::vector<std::vector<sf::Texture>> listOfTexts = { {},{},{},{},{},{},{} };// up, down,right, still, rightAttack, upRightAttack,downRightAttack	
 		float speed;
 
 		bool checkEnd(char direction, int nums = 0);//Checks whether a character is going to move off the edge of the map. returns true if the move is OK
 	public:
+		char entityCurrentDirection = 's';
 		bool damaged = false;
 		int damageTick = 0;
 		int hpMax;

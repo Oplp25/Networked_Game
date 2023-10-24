@@ -8,18 +8,60 @@ void character::usePrimary(vector<enemy>& enemyArray) {
 	cout << "Entered usePrimary" << endl;
 	int j = 0;
 	float newDist = 0.0;
-	float distSquared = 0.0;
+	float distSquared = INT_MAX;
 	for (int i = 0; i < enemyArray.size(); i++) {
 		newDist = pow(enemyArray[i].localPosition.x - localPosition.x, 2) + pow(enemyArray[i].localPosition.y - localPosition.y, 2);
-		if(newDist>distSquared){
+		if (newDist > distSquared or distSquared == INT_MAX) {
 			distSquared = newDist;
 			j = i;
 		}
 	}
-	//add animation
-	if (distSquared <= currentWeapon.reach*currentWeapon.reach) {
-		attack(enemyArray[j],currentWeapon.damage);
+	if (distSquared <= currentWeapon.reach * currentWeapon.reach) {
+		attack(enemyArray[j], currentWeapon.damage);
 	}
+	else {
+		attack();
+	}
+}
+void character::attack(entity& ent, int damage)
+{
+	ent.damageSelf(damage);
+	attack();
+}
+void character::attack() {
+	cout << name << " attacking nothing" << endl;
+	attacking = true;
+	char dir = ' ';
+	char xDir = ' ';
+	sf::Vector2i mousePos = sf::Mouse::getPosition();
+	//cout << mousePos.x << " , " << mousePos.y << endl;
+	//cout << localPosition.x << " , " << localPosition.y << endl;
+	if (mousePos.x > localPosition.x) {
+		xDir = 'r';
+		if (mousePos.y > 0.5 * (mousePos.x - localPosition.x) + localPosition.y) {
+			dir = 'd';
+		}
+		else if (mousePos.y < -0.5 * (mousePos.x - localPosition.x) + localPosition.y) {
+			dir = 'u';
+		}
+		else {
+			dir = xDir;
+		}
+	}
+	else {
+		xDir = 'l';
+		if (mousePos.y < 0.5 * (mousePos.x - localPosition.x) + localPosition.y) {
+			dir = 'd';
+		}
+		else if (mousePos.y > -0.5 * (mousePos.x - localPosition.x) + localPosition.y) {
+			dir = 'u';
+		}
+		else {
+			dir = xDir;
+		}
+	}
+	cout << dir << " " << xDir << endl;
+	switchTextArray('a', xDir, dir);
 }
 void character::useSecondary() {
 	classPtr->secondary();
@@ -174,7 +216,6 @@ void character::changeSpriteText(string textArgs) {
 		sprite.setTexture(textArray[currentText]);
 	}
 	else if (textArgs == "still") {
-		sprite.setTexture(listOfTexts[3][0]);//
 		switchTextArray('s');
 	}
 	else if (textArgs == "up") {
@@ -185,7 +226,6 @@ void character::changeSpriteText(string textArgs) {
 	}
 	else if (textArgs == "left") {
 		switchTextArray('l');
-		left = true;
 	}
 	else if (textArgs == "right") {
 		switchTextArray('r');

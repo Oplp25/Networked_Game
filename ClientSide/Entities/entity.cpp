@@ -5,14 +5,15 @@
 using namespace std;
 entity::entity()
 {
-
+	speed = 1;
+	name = "d";
 	hpCurrent = 1;
 	hpMax = 1;
 }
 
 void entity::attack(entity &ent,int damage)
 {
-	cout << name << " attacking " << ent.name << endl;
+	//cout << name << " attacking " << ent.name << endl;
 	attacking = true;
 	char dir;
 	if (ent.localPosition.x > localPosition.x) {
@@ -61,30 +62,27 @@ void entity::death()
 {
 }
 
-void entity::switchTextArray(char direction, char d2)
+void entity::switchTextArray(char direction, char d2, char d3)
 {
 	if (direction != entityCurrentDirection) {
 		if (direction != 'a') {
 			entityCurrentDirection = direction;
 		}
+		currentText = 0;
 		if (direction == 'u') {
 			textArray = listOfTexts[0];
-			currentText = 0;
 			sprite.setScale(1, 1);
 		}
 		else if (direction == 'd') {
 			textArray = listOfTexts[1];
-			currentText = 0;
 			sprite.setScale(1, 1);
 		}
 		else if (direction == 'r') {
 			textArray = listOfTexts[2];
-			currentText = 0;
 			sprite.setScale(1, 1);
 		}
 		else if (direction == 'l') {
 			textArray = listOfTexts[2];
-			currentText = 0;
 			sprite.setScale(-1, 1);
 		}
 		else if (direction == 's') {
@@ -92,18 +90,20 @@ void entity::switchTextArray(char direction, char d2)
 			sprite.setScale(1, 1);
 		}
 		else if (direction == 'a') {
+			cout << "attack" << endl;
+			if (d3 == ' '){
+				d3 = entityCurrentDirection;
+			}
 			// order of listOfTexts: up, down, right, still, rightAttack, upRightAttack,downRightAttack
-			if (entityCurrentDirection == 'r') {
+			if (d3 == 'r') {
+				cout << "right" << endl;
 				textArray = listOfTexts[4];
-				currentText = 0;
 				sprite.setScale(1, 1);
-			}else if (entityCurrentDirection == 'l') {
+			}else if (d3 == 'l') {
 				textArray = listOfTexts[4];
-				currentText = 0;
 				sprite.setScale(-1, 1);
-			}else if (entityCurrentDirection == 'u') {//need a way to tell if thing attacking is left or right
+			}else if (d3 == 'u') {
 				textArray = listOfTexts[5];
-				currentText = 0;
 				if (d2 == 'r') {
 					sprite.setScale(1, 1);
 				}
@@ -113,7 +113,6 @@ void entity::switchTextArray(char direction, char d2)
 			}
 			else {//down
 				textArray = listOfTexts[6];
-				currentText = 0;
 				if (d2 == 'r') {
 					sprite.setScale(1, 1);
 				}
@@ -122,6 +121,7 @@ void entity::switchTextArray(char direction, char d2)
 				}
 			}
 		}
+		sprite.setTexture(textArray[currentText]);
 	}
 }
 
@@ -156,12 +156,10 @@ void entity::changeSpriteText(string textArgs) {
 		sprite.setTexture(textArray[currentText]);
 	}
 	else if (textArgs == "still") {
-		left = false;
 		sprite.setTexture(listOfTexts[3][0]);
 		switchTextArray('s');
 	}
 	else if (textArgs == "up") {
-		left = false;
 		switchTextArray('u');
 	}
 	else if (textArgs == "down") {
@@ -169,10 +167,8 @@ void entity::changeSpriteText(string textArgs) {
 	}
 	else if (textArgs == "left") {
 		switchTextArray('l');
-		left = true;
 	}
 	else if (textArgs == "right") {
-		left = false;
 		switchTextArray('r');
 	}
 }

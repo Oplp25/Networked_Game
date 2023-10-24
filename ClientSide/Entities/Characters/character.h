@@ -37,7 +37,6 @@ class character :public entity {
 
 		int profBonus;
 
-		void makeAttack(entity &attackee);
 
 		std::vector<void(archetype::*)()> levelUpFuncs;//when accessing, have to do levelUpFunc[level-2]. need to use std::invoke to call these functions, E.G, std::invoke(myCharacter.levelUpFuncs[myCharacter.level-2],myCharacter.classPtr)
 
@@ -60,6 +59,9 @@ class character :public entity {
 		void useSpecial();
 		void useBuff();
 		void useUlt();
+
+		void attack(entity& ent, int damage);
+		void attack();
 
 		void classSetUp();
 
