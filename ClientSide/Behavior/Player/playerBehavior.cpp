@@ -66,15 +66,21 @@ vector<string> getPlayerInput(sf::RenderWindow& win) {
 
 char playerBehavior(sf::RenderWindow& win, character& player, vector<enemy> &enemyArray) {
 	vector<string> inputs = getPlayerInput(win);
+	vector<sf::Vector2f> coll;
+	for (enemy i : enemyArray) {
+		if (i.tile == player.tile) {
+			coll.push_back(i.localPosition);
+		}
+	}
 	for (string i : inputs) {
 		if (i == "w") {
-			player.move('u');
+			player.move('u',coll);
 		}if (i == "a") {
-			player.move('l');
+			player.move('l', coll);
 		}if (i == "s") {
-			player.move('d');
+			player.move('d', coll);
 		}if (i == "d") {
-			player.move('r');
+			player.move('r', coll);
 		}if (i == "esc") {
 			win.close();
 			return 'e';

@@ -27,21 +27,29 @@ void entity::attack(entity &ent,int damage)
 	switchTextArray('a',dir);
 }
 
-void entity::move(char direction)
+void entity::move(char direction, vector<sf::Vector2f> collPositions)
 {
 	if (!checkEnd(direction)) {
 		return void();
 	}
+	vector<sf::Rect<int>> rectList = {};
+	for (sf::Vector2f i : collPositions) {
+		rectList.push_back(sf::Rect<int>(i.x,i.y,64,64));
+	}
 	if (direction == 'u') {
+		for (sf::Rect<int> i : rectList) {if (i.intersects(sf::Rect<int>(localPosition.x, localPosition.y - speed,64,64))) { return void(); }}
 		localPosition.y -= speed;
 	}
 	else if (direction == 'd') {
+		for (sf::Rect<int> i : rectList) { if (i.intersects(sf::Rect<int>(localPosition.x, localPosition.y + speed, 64, 64))) { return void(); } }
 		localPosition.y += speed;
 	}
 	else if (direction == 'r') {
+		for (sf::Rect<int> i : rectList) { if (i.intersects(sf::Rect<int>(localPosition.x + speed, localPosition.y, 64, 64))) { return void(); } }
 		localPosition.x += speed;
 	}
 	else if (direction == 'l') {
+		for (sf::Rect<int> i : rectList) { if (i.intersects(sf::Rect<int>(localPosition.x - speed, localPosition.y, 64, 64))) { return void(); } }
 		localPosition.x -= speed;
 	}
 }
