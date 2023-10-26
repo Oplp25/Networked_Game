@@ -5,7 +5,6 @@
 using namespace std;
 
 void character::usePrimary(vector<enemy>& enemyArray) {
-	cout << "Entered usePrimary" << endl;
 	int j = 0;
 	float newDist = 0.0;
 	float distSquared = INT_MAX;
@@ -29,7 +28,6 @@ void character::attack(entity& ent, int damage)
 	attack();
 }
 void character::attack() {
-	cout << name << " attacking nothing" << endl;
 	attacking = true;
 	char dir = ' ';
 	char xDir = ' ';
@@ -60,7 +58,6 @@ void character::attack() {
 			dir = xDir;
 		}
 	}
-	cout << dir << " " << xDir << endl;
 	switchTextArray('a', xDir, dir);
 }
 void character::useSecondary() {

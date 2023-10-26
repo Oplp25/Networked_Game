@@ -6,6 +6,7 @@
 #include "../GraphicsFunctions/Colours/colourConsts.h"
 #include "../Behavior/Player/playerBehavior.h"
 #include "../Entities/Enemies/enemyTemplates.h"
+#include "../GraphicsFunctions/gameOutcomes.h"
 //#include "../GraphicsFunctions/textureLoaders/textureLoaders.h"
 using namespace std;
 const filesystem::path cwd = filesystem::current_path();
@@ -30,6 +31,12 @@ void runArenaFighterSingle(sf::RenderWindow& win)
 	if (result == "exit") {
 		return void();
 	}
+	else if (result == "win") {
+		spWin(win);
+	}
+	else if (result == "loss") {
+		spLoss(win);
+		}
 }
 
 void runArenaFighterMulti(sf::RenderWindow& win)
@@ -69,7 +76,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	leftBoundary.setPosition(sf::Vector2f(0, 0));
 	leftBoundary.setFillColor(colours::cinereous);
 
-	sf::RectangleShape temp2 = sf::RectangleShape(sf::Vector2f(64, 64));
+	/*sf::RectangleShape temp2 = sf::RectangleShape(sf::Vector2f(64, 64));
 	temp2.setOutlineColor(sf::Color(0, 0, 255));
 	temp2.setOutlineThickness(5);
 	temp2.setFillColor(sf::Color::Transparent);
@@ -78,12 +85,12 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	temp3.setOutlineColor(sf::Color(0, 0, 255));
 	temp3.setOutlineThickness(5);
 	temp3.setFillColor(sf::Color::Transparent);
-	/*
+	
 	sf::CircleShape temp4(enemyArray[0].sight);
 	temp4.setOutlineColor(sf::Color(255, 0, 0));
 	temp4.setOutlineThickness(5);
 	temp4.setFillColor(sf::Color::Transparent);
-
+	
 	sf::CircleShape temp5(enemyArray[0].reach);
 	temp5.setOutlineColor(sf::Color(255, 0, 0));
 	temp5.setOutlineThickness(5);
@@ -96,7 +103,9 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 
 	while (!finished) {
 		//player graphics
-
+		if (player.hpCurrent <= 0) {
+			return "loss";
+		}
 		currentDir = playerBehavior(win, player,enemyArray, collObjs);
 		if (currentDir == 'e') {
 			return "exit";
@@ -122,10 +131,8 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			}
 			else {
 				player.changeSpriteText("next");
-				cout << "Player AttackTick" << endl;
 				player.attackTick++;
 				if (player.attackTick == player.maxAttackTick) {
-					cout << "Player no longer attacking" << endl;
 					player.attacking = false;
 					player.attackTick = 0;
 					char x = player.entityCurrentDirection;
@@ -199,6 +206,13 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		//enemy graphics
 		
 		for (int i = 0; i < enemyArray.size();i++) {
+			if (enemyArray[i].hpCurrent <= 0) {
+				enemyArray.erase(enemyArray.begin()+i);
+				if (enemyArray.empty()) {
+					return "win";
+				}
+				break;
+			}
 			if (enemyArray[i].tile == player.tile) {
 				enemyArray[i].tick();
 				if (enemyArray[i].directionTick == enemyArray[i].tickMax && !enemyArray[i].attacking) {
@@ -253,17 +267,17 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 
 		//to reflect a sprite, do sprite.setScale(-1,1)
 		win.draw(player.draw());
-		//win.draw(player.currentWeapon.draw());
-		temp2.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
+		win.draw(player.currentWeapon.draw());
+		/*temp2.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
 		temp2.setOrigin(player.sprite.getOrigin());
 		temp2.setScale(player.sprite.getScale());
 		temp2.setRotation(player.sprite.getRotation());
-		/*temp6.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
+		temp6.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
 		temp6.setOrigin(player.sprite.getOrigin());
 		temp6.setScale(player.sprite.getScale());
 		temp6.setRotation(player.sprite.getRotation());
-		win.draw(temp6);*/
-		win.draw(temp2);
+		win.draw(temp6);
+		win.draw(temp2);*/
 		for (character i : charsArray) {
 			win.draw(i.draw());
 			win.draw(i.currentWeapon.draw());
@@ -271,7 +285,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		for (enemy i : enemyArray) {
 			if (i.tile == player.tile) {
 				win.draw(i.draw());
-				temp3.setPosition(i.sprite.getPosition().x, i.sprite.getPosition().y);
+				/*temp3.setPosition(i.sprite.getPosition().x, i.sprite.getPosition().y);
 				temp3.setOrigin(i.sprite.getOrigin());
 				temp3.setScale(i.sprite.getScale());
 				temp3.setRotation(i.sprite.getRotation());
@@ -283,9 +297,9 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 				temp5.setOrigin(temp5.getGlobalBounds().width / 2, temp5.getGlobalBounds().height / 2);
 				temp5.setScale(i.sprite.getScale());
 				temp5.setRotation(i.sprite.getRotation());
-				win.draw(temp4);*/
+				win.draw(temp5);
 				win.draw(temp3);
-				//win.draw(temp5);
+				win.draw(temp4);*/
 			}
 				
 		}

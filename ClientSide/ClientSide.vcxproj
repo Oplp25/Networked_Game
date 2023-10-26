@@ -168,6 +168,7 @@
     <ClCompile Include="Entities\Enemies\enemy.cpp" />
     <ClCompile Include="Entities\entity.cpp" />
     <ClCompile Include="GraphicsFunctions\drawable\drawable.cpp" />
+    <ClCompile Include="GraphicsFunctions\gameOutcomes.cpp" />
     <ClCompile Include="GraphicsFunctions\Intro\intro.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\arenaFighterMenu.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\button.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Entities\entity.h" />
     <ClInclude Include="GraphicsFunctions\Colours\colourConsts.h" />
     <ClInclude Include="GraphicsFunctions\drawable\drawable.h" />
+    <ClInclude Include="GraphicsFunctions\gameOutcomes.h" />
     <ClInclude Include="GraphicsFunctions\Intro\intro.h" />
     <ClInclude Include="GraphicsFunctions\Menus\arenaFighterMenu.h" />
     <ClInclude Include="GraphicsFunctions\Menus\button.h" />

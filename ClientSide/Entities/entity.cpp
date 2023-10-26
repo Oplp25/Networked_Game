@@ -94,13 +94,11 @@ void entity::switchTextArray(char direction, char d2, char d3)
 			sprite.setScale(1, 1);
 		}
 		else if (direction == 'a') {
-			cout << "attack" << endl;
 			if (d3 == ' '){
 				d3 = entityCurrentDirection;
 			}
 			// order of listOfTexts: up, down, right, still, rightAttack, upRightAttack,downRightAttack
 			if (d3 == 'r') {
-				cout << "right" << endl;
 				textArray = listOfTexts[4];
 				sprite.setScale(1, 1);
 			}else if (d3 == 'l') {

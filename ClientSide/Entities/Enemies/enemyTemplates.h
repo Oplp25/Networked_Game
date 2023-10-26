@@ -43,4 +43,4 @@ public:
 
 };
 
-const enemyTemplate orcSwordsman = enemyTemplate(14,3,"Orc Swordsman",0.5,300,4,false,0.1,52,250,"Resources\\Sprite Assets\\Orc Swordsman");
+const enemyTemplate orcSwordsman = enemyTemplate(14,3,"Orc Swordsman",0.5,300,4,false,0.1,75,250,"Resources\\Sprite Assets\\Orc Swordsman");
