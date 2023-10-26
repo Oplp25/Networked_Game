@@ -46,6 +46,15 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	int spriteChangeInterval = 12;
 	char currentDir = 's';
 
+	vector<vector<sf::Vector2f*>> collObjs;
+
+	for (int i = 0; i < enemyArray.size();i++) {
+		collObjs.push_back({&enemyArray[i].tile, &enemyArray[i].localPosition });
+	}for (int i = 0; i < charsArray.size(); i++) {
+		collObjs.push_back({ &charsArray[i].tile, &charsArray[i].localPosition });
+	}
+	collObjs.push_back({ &player.tile, &player.localPosition });
+
 	//Temporary tile boundaries. tile =1840,1000
 	sf::RectangleShape topBoundary(sf::Vector2f(1920,40));
 	topBoundary.setPosition(sf::Vector2f(0, 0));
@@ -88,7 +97,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	while (!finished) {
 		//player graphics
 
-		currentDir = playerBehavior(win, player,enemyArray);
+		currentDir = playerBehavior(win, player,enemyArray, collObjs);
 		if (currentDir == 'e') {
 			return "exit";
 		}
@@ -208,14 +217,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 					}
 				}
 				if (!enemyArray[i].attacking) {
-					vector<sf::Vector2f> coll;
-					for (enemy j : enemyArray) {
-						if (j.tile == enemyArray[i].tile) {
-							coll.push_back(j.localPosition);
-						}
-					}
-					coll.push_back(player.localPosition);
-					enemyArray[i].move(enemyArray[i].currentDir,coll);
+					enemyArray[i].move(enemyArray[i].currentDir,collObjs);
 				}
 				if (spriteChangeCounter == spriteChangeInterval) {
 					if (enemyArray[i].attacking) {

@@ -22,10 +22,9 @@ class entity:public drawable {
 		std::string name;
 		void changeSpriteText(std::string textArgs);
 		void loadTextures();
-		sf::Vector2f tile;//Which tile it is on
 		entity();
 		void attack(entity &ent, int damage);
-		void move(char direction,std::vector<sf::Vector2f> collPositions);
+		void move(char direction, std::vector<std::vector<sf::Vector2f*>> collObjs);
 		void damageSelf(int damage);
 		void death();
 		void spawn();

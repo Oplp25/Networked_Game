@@ -64,23 +64,17 @@ vector<string> getPlayerInput(sf::RenderWindow& win) {
 	return inputs;
 }
 
-char playerBehavior(sf::RenderWindow& win, character& player, vector<enemy> &enemyArray) {
+char playerBehavior(sf::RenderWindow& win, character& player, vector<enemy> &enemyArray, vector<vector<sf::Vector2f*>> collObjs) {
 	vector<string> inputs = getPlayerInput(win);
-	vector<sf::Vector2f> coll;
-	for (enemy i : enemyArray) {
-		if (i.tile == player.tile) {
-			coll.push_back(i.localPosition);
-		}
-	}
 	for (string i : inputs) {
 		if (i == "w") {
-			player.move('u',coll);
+			player.move('u',collObjs);
 		}if (i == "a") {
-			player.move('l', coll);
+			player.move('l', collObjs);
 		}if (i == "s") {
-			player.move('d', coll);
+			player.move('d', collObjs);
 		}if (i == "d") {
-			player.move('r', coll);
+			player.move('r', collObjs);
 		}if (i == "esc") {
 			win.close();
 			return 'e';
