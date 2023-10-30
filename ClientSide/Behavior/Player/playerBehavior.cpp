@@ -95,7 +95,7 @@ char playerBehavior(sf::RenderWindow& win, character& player, vector<enemy> &ene
 			}
 		}
 
-		if (i == "mLeft") {
+		if (i == "mLeft" && !player.attacking) {
 			player.usePrimary(enemyArray);
 		}
 		/*

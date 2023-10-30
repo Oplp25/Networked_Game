@@ -98,35 +98,60 @@ void weapon::changeSpriteText(string textArgs) {
 	}
 }
 
-void weapon::switchTextArray(char direction)
+void weapon::switchTextArray(char direction, char d2, char d3)
 {
 	if (direction != itemCurrentDirection) {
 		itemCurrentDirection = direction;
+		currentText = 0;
 		if (direction == 'u') {
 			textArray = listOfTexts[0];
-			currentText = 0;
 			sprite.setScale(1, 1);
 		}
 		else if (direction == 'd') {
 			textArray = listOfTexts[1];
-			currentText = 0;
 			sprite.setScale(1, 1);
 		}
 		else if (direction == 'l') {
 			textArray = listOfTexts[2];
-			currentText = 0;
-			sprite.setOrigin(32, 32);
 			sprite.setScale(-1, 1);
-			sprite.setOrigin(0, 0);
 		}
 		else if (direction == 'r') {
 			textArray = listOfTexts[2];
-			currentText = 0;
 			sprite.setScale(1, 1);
 		}
 		else if (direction == 's') {
 			textArray = listOfTexts[3];
 			sprite.setScale(1, 1);
 		}
+		else if (direction == 'a') {
+			// order of listOfTexts: up, down, right, still, rightAttack, upRightAttack,downRightAttack
+			if (d3 == 'r') {
+				textArray = listOfTexts[4];
+				sprite.setScale(1, 1);
+			}
+			else if (d3 == 'l') {
+				textArray = listOfTexts[4];
+				sprite.setScale(-1, 1);
+			}
+			else if (d3 == 'u') {
+				textArray = listOfTexts[5];
+				if (d2 == 'r') {
+					sprite.setScale(1, 1);
+				}
+				else {
+					sprite.setScale(-1, 1);
+				}
+			}
+			else {//down
+				textArray = listOfTexts[6];
+				if (d2 == 'r') {
+					sprite.setScale(1, 1);
+				}
+				else {
+					sprite.setScale(-1, 1);
+				}
+			}	
+		}
+		sprite.setTexture(textArray[currentText]);
 	}
 }

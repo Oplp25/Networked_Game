@@ -59,6 +59,7 @@ void character::attack() {
 		}
 	}
 	switchTextArray('a', xDir, dir);
+	currentWeapon.switchTextArray('a', xDir, dir);
 }
 void character::useSecondary() {
 	classPtr->secondary();

@@ -99,7 +99,12 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	sf::CircleShape temp6(player.currentWeapon.reach);
 	temp6.setOutlineColor(sf::Color(255, 0, 0));
 	temp6.setOutlineThickness(5);
-	temp6.setFillColor(sf::Color::Transparent);*/
+	temp6.setFillColor(sf::Color::Transparent);
+
+	sf::RectangleShape temp7 = sf::RectangleShape(sf::Vector2f(player.currentWeapon.sprite.getLocalBounds().width, player.currentWeapon.sprite.getLocalBounds().height));
+	temp7.setOutlineColor(sf::Color(0, 0, 255));
+	temp7.setOutlineThickness(5);
+	temp7.setFillColor(sf::Color::Transparent);*/
 
 	while (!finished) {
 		//player graphics
@@ -276,7 +281,13 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		temp6.setOrigin(player.sprite.getOrigin());
 		temp6.setScale(player.sprite.getScale());
 		temp6.setRotation(player.sprite.getRotation());
+		temp7.setPosition(player.currentWeapon.sprite.getPosition().x, player.currentWeapon.sprite.getPosition().y);
+		temp7.setOrigin(player.currentWeapon.sprite.getOrigin());
+		temp7.setScale(player.currentWeapon.sprite.getScale());
+		temp7.setRotation(player.currentWeapon.sprite.getRotation());
+		temp7.setSize(sf::Vector2f(player.currentWeapon.sprite.getLocalBounds().width, player.currentWeapon.sprite.getLocalBounds().height));
 		win.draw(temp6);
+		win.draw(temp7);
 		win.draw(temp2);*/
 		for (character i : charsArray) {
 			win.draw(i.draw());
