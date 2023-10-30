@@ -5,7 +5,7 @@ using namespace std;
 vector<string> getPlayerInput(sf::RenderWindow& win) {
 	vector<string> inputs;
 
-	//For buttons that need to be held downcock
+	//For buttons that need to be held down
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 		inputs.push_back("w");
 	}
