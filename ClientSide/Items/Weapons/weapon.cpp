@@ -48,7 +48,7 @@ void weapon::loadTextures() {
 	vector<filesystem::directory_entry> imageFiles;//Vector of all the files in the imagePath directory
 	unordered_map<int, filesystem::directory_entry> filesMap;// a map that stores all of the files, along with an integer that represents the integer at the end of the file name
 	unordered_map<int, string> mapping({ {0,"up"},{1,"down"},{2,"right"},{3,"still"},{4,"rightAttack"},{5,"upRightAttack"},{6,"downRightAttack"} });
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 7; i++) {
 		imageFiles = {};//resets the imageFiles vector
 		filesMap = {};//resets filesMap
 		thisPath = cwd / imagePath / mapping[i];// sets the thisPath directory to the next folder to be looped through
@@ -65,7 +65,7 @@ void weapon::loadTextures() {
 			listOfTexts[i][j - 1].loadFromFile(filesMap[j].path().string());//inserting the textures in the correct order
 		}
 	}
-	textArray = listOfTexts[4];//sest the first textArray to the misc array, as the entity will start still
+	textArray = listOfTexts[3];//sets the first textArray to the misc array, as the entity will start still
 	currentText = 0;
 }
 
@@ -102,7 +102,6 @@ void weapon::switchTextArray(char direction, char d2, char d3)
 {
 	if (direction != itemCurrentDirection) {
 		itemCurrentDirection = direction;
-		currentText = 0;
 		if (direction == 'u') {
 			textArray = listOfTexts[0];
 			sprite.setScale(1, 1);
@@ -152,6 +151,7 @@ void weapon::switchTextArray(char direction, char d2, char d3)
 				}
 			}	
 		}
+		currentText = 0;
 		sprite.setTexture(textArray[currentText]);
 	}
 }

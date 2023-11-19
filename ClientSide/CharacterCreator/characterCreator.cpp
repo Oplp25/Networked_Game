@@ -20,12 +20,14 @@ character characterCreator(sf::RenderWindow& win)
 	character myChar;
 	char errorCode = 'n';
 	while (!happy) {
-		string classChoiceString = "paladin";//classPicker(win);
+		//string classChoiceString = "paladin";
+		string classChoiceString = classPicker(win);
 		if(classChoiceString == "False"){
 			errorCode = 'e';
 			break;
 		}
-		string raceChoiceString = "dwarf";// racePicker(win, classChoiceString);
+		//string raceChoiceString = "dwarf";
+		string raceChoiceString = racePicker(win, classChoiceString);
 		if (raceChoiceString == "Unhappy") {
 
 			continue;
