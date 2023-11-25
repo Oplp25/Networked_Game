@@ -16,7 +16,7 @@ string c4 = "L__";
 string h4 = "-|-";
 string v2 = " | ";
 string v3r = "|--";
-string v3l = "--|";
+string v3l = "--|";//11 symbols
 unordered_map<string,string> cellstrings = {{"h2",h2},{"h3d",h3d},{"h3u",h3u},{"c1",c1},{"c2",c2},{"c3",c3},{"c4",c4},{"h4",h4},{"v2",v2},{"v3r",v3r},{"v3l",v3l}};
 unordered_map<string,vector<int>> cellConns={{"h2",{2,4}},{"h3d",{2,3,4}},{"h3u",{1,2,4}},{"c1",{1,4}},{"c2",{1,2}},{"c3",{2,3}},{"c4",{3,4}},{"h4",{1,2,3,4}},{"v2",{1,3}},{"v3r",{1,2,3}},{"v3l",{1,3,4}}};
 //unordered_map<vector<int>,string> cellConnsReverse={{{2,4},"h2"},{{2,3,4},"h3d"},{{1,2,4},"h3u"},{{1,4},"c1"},{{1,2},"c2"},{{2,3},"c3"},{{3,4},"c4"},{{1,2,3,4},"h4"},{{1,3},"v2"},{{1,2,3},"v3r"},{{1,3,4},"v3l"}};
@@ -24,6 +24,9 @@ vector<string> cellTypes = {"h2","h3d","h3u","c1","c2","c3","c4","h4","v2","v3r"
 vector<vector<int>> combos = {{1,2},{1,3},{1,4},{2,3},{2,4},{3,4},{1,2,3},{1,2,4},{1,3,4},{2,3,4},{1,2,3,4}};
 vector<vector<int>> order = {{2,3},{1,3},{1,2},{1,1},{2,1},{3,1},{3,2},{3,3},{3,4},{2,4},{1,4},{0,4},{0,3},{0,2},{0,1},{0,0},{1,0},{2,0},{3,0},{4,0},{4,1},{4,2},{4,3},{4,4}};
 //unordered_map<vector<int>,int> posEnum = {{vector<int>(0,1),1},{vector<int>(1,0),2},{vector<int>(0,-1),3},{vector<int>(-1,0),4}};
+
+default_random_engine randGen;
+
 
 class cell{
     private:
@@ -46,11 +49,11 @@ class cell{
                     connsList1.push_back(i);
                 }
             }
+            cout<<connsList1.size()<<endl;
             //select random item from list
-            default_random_engine randGen;
 	        uniform_int_distribution<int> distX(1, connsList1.size());
-	        randGen.seed(time(0));
 	        int rolled = distX(randGen);
+            cout<<"Rolled: "<<rolled<<endl;
             vector<int> rtn = connsList1[rolled];
             for(string i:cellTypes){
                 if(cellConns[i] == rtn){
@@ -75,7 +78,6 @@ class cell{
         }
 };
 int main(){
-    default_random_engine randGen;
 	randGen.seed(time(0));
 	cell aCell;
     vector<vector<cell>> cellList = {{cell(),cell(),cell(),cell(),cell()},{cell(),cell(),cell(),cell(),cell()},{cell(),cell(),cell(),cell(),cell()},{cell(),cell(),cell(),cell(),cell()},{cell(),cell(),cell(),cell(),cell()}};
@@ -119,9 +121,10 @@ int main(){
     }
     for (vector<cell> i:cellList){
         for(cell j:i){
-            cout<<j.draw();
+            cout<<j.draw()<<" ";
             //cout<<h3u;
         }
+        cout<<endl;
         cout<<endl;
     }
     
