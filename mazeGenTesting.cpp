@@ -6,18 +6,28 @@
 #include <fcntl.h>
 using namespace std;
 
-string h2 = "---";
-string h3d = " T ";
-string h3u = "_|_";
-string c1 = "|^-";
-string c2 = "¬";
-string c3 = "__|";
-string c4 = "L__";
-string h4 = "-|-";
-string v2 = " | ";
-string v3r = "|--";
-string v3l = "--|";//11 symbols
-unordered_map<string,string> cellstrings = {{"h2",h2},{"h3d",h3d},{"h3u",h3u},{"c1",c1},{"c2",c2},{"c3",c3},{"c4",c4},{"h4",h4},{"v2",v2},{"v3r",v3r},{"v3l",v3l}};
+vector<string> h2 = {"______","______","      "};
+
+vector<string> h3d = {"______","__  __"," |  | "};
+
+vector<string> h3u = {"_|  |_","______","      "};
+
+vector<string> c1 = {" ____"," |  _"," |  | "};
+
+vector<string> c2 = {"_____ ","__  | "," |  | "};
+
+vector<string> c3 = {"_|  | ","____| ","      "};
+
+vector<string> c4 = {" |  |_"," |____","      "};      
+
+vector<string> h4 = {"_|  |_","_    _"," |  | "};
+
+vector<string> v2 = {" |  | "," |  | "," |  | "};
+
+vector<string> v3r = {" |  |_"," |   _"," |  | "};
+
+vector<string> v3l = {"_|  | ","_   | "," |  | "};//11 symbols
+unordered_map<string,vector<string>> cellstrings = {{"h2",h2},{"h3d",h3d},{"h3u",h3u},{"c1",c1},{"c2",c2},{"c3",c3},{"c4",c4},{"h4",h4},{"v2",v2},{"v3r",v3r},{"v3l",v3l}};
 unordered_map<string,vector<int>> cellConns={{"h2",{2,4}},{"h3d",{2,3,4}},{"h3u",{1,2,4}},{"c1",{1,4}},{"c2",{1,2}},{"c3",{2,3}},{"c4",{3,4}},{"h4",{1,2,3,4}},{"v2",{1,3}},{"v3r",{1,2,3}},{"v3l",{1,3,4}}};
 //unordered_map<vector<int>,string> cellConnsReverse={{{2,4},"h2"},{{2,3,4},"h3d"},{{1,2,4},"h3u"},{{1,4},"c1"},{{1,2},"c2"},{{2,3},"c3"},{{3,4},"c4"},{{1,2,3,4},"h4"},{{1,3},"v2"},{{1,2,3},"v3r"},{{1,3,4},"v3l"}};
 vector<string> cellTypes = {"h2","h3d","h3u","c1","c2","c3","c4","h4","v2","v3r","v3l"};
@@ -30,13 +40,13 @@ default_random_engine randGen;
 
 class cell{
     private:
-        string symbol;
+        vector<string> symbol;
     public:
         vector<int> conns;// 1-up, 2-right, 3-down, 4-left
         vector<int> pos;//sf::Vector2f pos;
         string cellType;
-        string draw(){
-            return symbol;
+        string draw(int i){
+            return symbol[i];
         }
         string genNewCell(int pos){
             if(count(conns.begin(),conns.end(),pos)==0){
@@ -73,7 +83,7 @@ class cell{
         cell(){
             pos = {5,5};
             cellType = "e";
-            symbol = "OOO";
+            symbol = {"OOO","OOO","OOO"};
             conns = {2,4};
         }
 };
@@ -120,12 +130,18 @@ int main(){
         //cellList[i[0]][i[1]] = cell("h3u",i);
     }
     for (vector<cell> i:cellList){
-        for(cell j:i){
-            cout<<j.draw()<<" ";
-            //cout<<h3u;
+        for(cell k:i){
+                cout<<k.cellType;
         }
         cout<<endl;
-        cout<<endl;
+    }
+    for (vector<cell> i:cellList){
+        for(int j=0;j<3;j++){
+            for(cell k:i){
+                cout<<k.draw(j);
+            }
+            cout<<endl;
+        }
     }
     
     return 0;
