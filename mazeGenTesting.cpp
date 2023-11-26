@@ -59,11 +59,9 @@ class cell{
                     connsList1.push_back(i);
                 }
             }
-            cout<<connsList1.size()<<endl;
             //select random item from list
 	        uniform_int_distribution<int> distX(1, connsList1.size());
 	        int rolled = distX(randGen);
-            cout<<"Rolled: "<<rolled<<endl;
             vector<int> rtn = connsList1[rolled];
             for(string i:cellTypes){
                 if(cellConns[i] == rtn){
@@ -74,7 +72,6 @@ class cell{
             //return that string
         }
         cell(string cType, vector<int> posP){
-            cout<<cType<<endl;
             cellType = cType;
             symbol = cellstrings[cType];
             conns = cellConns[cType];
@@ -105,17 +102,26 @@ int main(){
                 b = {j,k-1};
                 c = {j+1,k};
                 d = {j-1,k};
-                if (a==i || b==i || c==i || d==i && cellList[j][k].cellType!="e"){
+                if ((a==i || b==i || c==i || d==i) && cellList[j][k].cellType!="e"){
                     chooseList.push_back(cellList[j][k]);
                 }
             }
         }
+        if(chooseList.size() == 0){
+            cout<<"Error while parsing cell "<<i[0]<<" , "<<i[1]<<". ChooseList == 0"<<endl;
+            exit(NULL);
+        }
         uniform_int_distribution<int> distX(0, chooseList.size()-1);
         int rolled = distX(randGen);
         aCell = chooseList[rolled];
+        if(aCell.pos[0] == 5 && aCell.pos[1] == 5){
+            cout<<"Error while parsing cell "<<i[0]<<" , "<<i[1]<<". aCell.pos == {5,5}"<<endl;
+            exit(NULL);
+        }
         //int relation = posEnum[{i[0]-aCell.pos[0],i[1]-aCell.pos[1]}];
         int relation;
-        cout<<aCell.pos[0]<<" , "<<aCell.pos[1]<<endl;
+        cout<<"I: "<<i[0]<<" , "<<i[1]<<endl;
+        cout<<"acell: "<<aCell.pos[0]<<" , "<<aCell.pos[1]<<endl;
         vector<int> comp = {i[0]-aCell.pos[0],i[1]-aCell.pos[1]};
         if(comp == vector<int>(0,1)){
             relation = 1;
@@ -127,7 +133,6 @@ int main(){
             relation = 4;
         }
         cellList[i[0]][i[1]] = cell(aCell.genNewCell(relation),i);
-        //cellList[i[0]][i[1]] = cell("h3u",i);
     }
     for (vector<cell> i:cellList){
         for(cell k:i){
