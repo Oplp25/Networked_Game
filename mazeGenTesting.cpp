@@ -56,12 +56,12 @@ class cell{
             };
             vector<int> connst = conns;
             connst.push_back(0);
-            cout<<"connst: ";
+            /*cout<<"connst: ";
             for(int i: connst){
                 cout<<i<<" , ";
             }cout<<endl;
             cout<<"Relation: "<<relation<<endl;
-            cout<<"Relop: "<<relop<<endl;
+            cout<<"Relop: "<<relop<<endl;*/
             if(find(connst.begin(),connst.end(),relation) == connst.end()){
                 return "h4";// instead, could try and find another cell it is ajacent to
             }
@@ -75,17 +75,17 @@ class cell{
                     connsList1.push_back(i);
                 }
             }
-            cout<<"connsList1: ";
+            /*cout<<"connsList1: ";
             for(vector<int> i: connsList1){
-                cout<<"("<<i[0]<<" , "<<i[1]<<")"<<" , ";
-            }cout<<endl;
+                //cout<<"("<<i[0]<<" , "<<i[1]<<")"<<" , ";
+            }cout<<endl;*/
             //select random item from list
 	        uniform_int_distribution<int> distX(1, connsList1.size());
 	        int rolled = distX(randGen);
             vector<int> rtn = connsList1[rolled];
             for(string i:cellTypes){
                 if(cellConns[i] == rtn){
-                    cout<<"cellType: "<<i<<endl;
+                    //cout<<"cellType: "<<i<<endl;
                     return i;
                 }
             }
@@ -141,8 +141,8 @@ int main(){
         }
         //int relation = posEnum[{i[0]-aCell.pos[0],i[1]-aCell.pos[1]}];
         int relation;
-        cout<<"I: "<<i[0]<<" , "<<i[1]<<endl;
-        cout<<"acell: "<<aCell.pos[0]<<" , "<<aCell.pos[1]<<endl;
+        //cout<<"I: "<<i[0]<<" , "<<i[1]<<endl;
+        //cout<<"acell: "<<aCell.pos[0]<<" , "<<aCell.pos[1]<<endl;
         vector<int> comp = {i[0]-aCell.pos[0],i[1]-aCell.pos[1]};
         if(comp [0] == 0 && comp[1] == 1){//i is to the right of aCell
             relation = 2;
@@ -154,7 +154,7 @@ int main(){
             relation = 1;
         }
         cellList[i[0]][i[1]] = cell(aCell.genNewCell(relation),i);
-        cout<<endl<<"------------------------------------------"<<endl<<endl;
+        //cout<<endl<<"------------------------------------------"<<endl<<endl;
     }
     for (vector<cell> i:cellList){
         for(cell k:i){
