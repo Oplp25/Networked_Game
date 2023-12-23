@@ -31,15 +31,16 @@ void character::attack() {
 	attacking = true;
 	char dir = ' ';
 	char xDir = ' ';
+	float gradient = 0.5;//0.5tan(angle) where angle is the angle between the top and bottom bounds of the right or left attcak, compared to rightup or rightdown
 	sf::Vector2i mousePos = sf::Mouse::getPosition();
 	//cout << mousePos.x << " , " << mousePos.y << endl;
 	//cout << localPosition.x << " , " << localPosition.y << endl;
 	if (mousePos.x > localPosition.x) {
 		xDir = 'r';
-		if (mousePos.y > 0.5 * (mousePos.x - localPosition.x) + localPosition.y) {
+		if (mousePos.y > gradient* (mousePos.x - localPosition.x) + localPosition.y) {
 			dir = 'd';
 		}
-		else if (mousePos.y < -0.5 * (mousePos.x - localPosition.x) + localPosition.y) {
+		else if (mousePos.y < -gradient * (mousePos.x - localPosition.x) + localPosition.y) {
 			dir = 'u';
 		}
 		else {
@@ -48,10 +49,10 @@ void character::attack() {
 	}
 	else {
 		xDir = 'l';
-		if (mousePos.y < 0.5 * (mousePos.x - localPosition.x) + localPosition.y) {
+		if (mousePos.y < gradient * (mousePos.x - localPosition.x) + localPosition.y) {
 			dir = 'd';
 		}
-		else if (mousePos.y > -0.5 * (mousePos.x - localPosition.x) + localPosition.y) {
+		else if (mousePos.y > -gradient * (mousePos.x - localPosition.x) + localPosition.y) {
 			dir = 'u';
 		}
 		else {
