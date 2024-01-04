@@ -7,11 +7,13 @@ const filesystem::path cwd = filesystem::current_path();
 void runArenaFighterTeamsMenu(sf::RenderWindow& win) {
 	int width = win.getSize().x;
 	int height = win.getSize().y;
+	//setting up font
 	sf::Font comicsans;
 	if (!comicsans.loadFromFile(cwd.string() + "\\Resources\\Fonts\\ComicSans.ttf")) {
 		cout << "Error. Failed to load font Comic Sans" << endl;
 	}
-	sf::Text titleText = sf::Text("Arena Crawler", comicsans, 120);
+	//title text
+	sf::Text titleText = sf::Text("Arena Fighter Teams", comicsans, 120);
 	titleText.setPosition((width-titleText.getLocalBounds().width)/2,height/16);
 	titleText.setFillColor(sf::Color(0,0,0));
 
@@ -33,6 +35,7 @@ void runArenaFighterTeamsMenu(sf::RenderWindow& win) {
 	multiText.setPosition(sf::Vector2f(multiShape.getPosition().x+ (multiShape.getLocalBounds().width - multiText.getLocalBounds().width) / 2, multiShape.getPosition().y + (multiShape.getLocalBounds().height - multiText.getLocalBounds().height) / 4));
 	multiText.setFillColor(sf::Color(0, 0, 0));
 
+	//arrays
 	vector<button> buttonList = {singleButton, multiButton};
 	vector<sf::Sprite> spriteList;
 	vector<sf::RectangleShape> rectShapeList = { singleShape, multiShape };
@@ -42,15 +45,15 @@ void runArenaFighterTeamsMenu(sf::RenderWindow& win) {
 	bool run = true;
 	while (run) {
 		while (win.pollEvent(event)) {
-			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {// if x in corner of window clicked or escape pressed
 				win.close();
 			}
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 				sf::Vector2i mouseLoc = sf::Mouse::getPosition();
-				sf::Vector2f mouseLocF = sf::Vector2f(mouseLoc.x, mouseLoc.y);
-				for (button i : buttonList) {
-					if (i.hitbox.contains(mouseLocF)) {
-						i.fncPtr(win);
+				sf::Vector2f mouseLocF = sf::Vector2f(mouseLoc.x, mouseLoc.y);//convert to floats
+				for (button i : buttonList) {//iterate over the buttons
+					if (i.hitbox.contains(mouseLocF)) {//if clicked on that button
+						i.fncPtr(win);//run that buttons function
 						run = false;
 					}
 				}

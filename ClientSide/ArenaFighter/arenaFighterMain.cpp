@@ -16,7 +16,7 @@ void createArenaLayout()
 
 void runArenaFighterSingle(sf::RenderWindow& win)
 {
-	character playerCharacter = characterCreator(win);
+	character playerCharacter = characterCreator(win);//create the player character
 	//character player2 = playerCharacter;
 	//player2.localPosition = sf::Vector2f(750,500);
 	//layout = createArenaLayout()
@@ -27,7 +27,7 @@ void runArenaFighterSingle(sf::RenderWindow& win)
 	
 	//vector<enemy> enemyArrayP = {};
 	vector<character> charsArrayP = {};//list of the AI controlled characters
-	string result = singleArenaGameloop(win,playerCharacter, charsArrayP, enemyArrayP);
+	string result = singleArenaGameloop(win,playerCharacter, charsArrayP, enemyArrayP);//run the gameloop
 	if (result == "exit") {
 		return void();
 	}
@@ -53,14 +53,14 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	int spriteChangeInterval = 12;
 	char currentDir = 's';
 
-	vector<vector<sf::Vector2f*>> collObjs;
+	vector<vector<sf::Vector2f*>> collObjs;//collision objects. 
 
 	for (int i = 0; i < enemyArray.size();i++) {
-		collObjs.push_back({&enemyArray[i].tile, &enemyArray[i].localPosition });
+		collObjs.push_back({&enemyArray[i].tile, &enemyArray[i].localPosition });//add enemy coords
 	}for (int i = 0; i < charsArray.size(); i++) {
-		collObjs.push_back({ &charsArray[i].tile, &charsArray[i].localPosition });
+		collObjs.push_back({ &charsArray[i].tile, &charsArray[i].localPosition });//add bot coords
 	}
-	collObjs.push_back({ &player.tile, &player.localPosition });
+	collObjs.push_back({ &player.tile, &player.localPosition });//add player coords
 
 	//Temporary tile boundaries. tile =1840,1000
 	sf::RectangleShape topBoundary(sf::Vector2f(1920,40));
@@ -108,18 +108,19 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 
 	while (!finished) {
 		//player graphics
-		if (player.hpCurrent <= 0) {
+		if (player.hpCurrent <= 0) {//if player is dead
 			return "loss";
 		}
-		currentDir = playerBehavior(win, player,enemyArray, collObjs);
+		currentDir = playerBehavior(win, player,enemyArray, collObjs);//get the direction of motion for the player
 		if (currentDir == 'e') {
 			return "exit";
 		}
 		if (currentDir == 's' && !player.attacking) {
-			player.changeSpriteText("still");
+			player.changeSpriteText("still");//player displays the still texture
 		}
-		if (spriteChangeCounter == spriteChangeInterval || ( player.entityCurrentDirection == 's' && !player.attacking)) {
+		if (spriteChangeCounter == spriteChangeInterval || ( player.entityCurrentDirection == 's' && !player.attacking)) {//player does not change every cycle
 			if (!player.attacking) {
+				//change player sptrite texture
 				if (currentDir == 'l') {
 					player.changeSpriteText("left");
 				}
@@ -132,16 +133,18 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 				else if (currentDir == 'd') {
 					player.changeSpriteText("down");
 				}
+				//move to the next texture in the array
 				player.changeSpriteText("next");
 			}
-			else {
-				player.changeSpriteText("next");
-				player.attackTick++;
-				if (player.attackTick == player.maxAttackTick) {
+			else {//if player is attacking
+				player.changeSpriteText("next");//move to the next texture in the array
+				player.attackTick++;//increment the attack tick
+				if (player.attackTick == player.maxAttackTick) {//if player reached the end of the cycle
 					player.attacking = false;
 					player.attackTick = 0;
 					char x = player.entityCurrentDirection;
 					player.entityCurrentDirection = 'a';
+					//change the player sprite to the direction they are facing
 					if (x == 'l') {
 						player.changeSpriteText("left");
 					}
@@ -161,24 +164,25 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 				}
 			}
 		}
+		//if player is damaged
 		if (player.damaged) {
 			player.damageTick++;
 			if (player.damageTick == 61) {
 				player.damaged = false;
 				player.damageTick = 0;
-				player.sprite.setColor(sf::Color(255, 255, 255));
+				player.sprite.setColor(sf::Color(255, 255, 255));//make them flash red
 			}
 		}
 
 		sf::Event event;
 		while (win.pollEvent(event)) {
-			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {// if x in corner of window clicked or escape pressed
 				win.close();
-				return "exit";
+				return "exit";//exit the game
 			}
 		}
 
-		//AI character behavior. very outdated
+		//bot character behavior. very outdated
 		for (character i : charsArray) {
 			//currentDir = characterBehavior(i);
 			if (currentDir == 's') {
@@ -210,15 +214,15 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 
 		//enemy graphics
 		
-		for (int i = 0; i < enemyArray.size();i++) {
-			if (enemyArray[i].hpCurrent <= 0) {
+		for (int i = 0; i < enemyArray.size();i++) {//iterate through enemy array
+			if (enemyArray[i].hpCurrent <= 0) {//if they're dead
 				enemyArray.erase(enemyArray.begin()+i);
 				if (enemyArray.empty()) {
-					return "win";
+					return "win";//if no enemies left
 				}
 				break;
 			}
-			if (enemyArray[i].tile == player.tile) {
+			if (enemyArray[i].tile == player.tile) {// only update texture if they on the same tile as the player
 				enemyArray[i].tick();
 				if (enemyArray[i].directionTick == enemyArray[i].tickMax && !enemyArray[i].attacking) {
 					enemyArray[i].behavior(player);
@@ -235,8 +239,8 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 						enemyArray[i].changeSpriteText("down");
 					}
 				}
-				if (!enemyArray[i].attacking) {
-					enemyArray[i].move(enemyArray[i].currentDir,collObjs);
+				if (!enemyArray[i].attacking) {//if they're not attacking
+					enemyArray[i].move(enemyArray[i].currentDir,collObjs);//move
 				}
 				if (spriteChangeCounter == spriteChangeInterval) {
 					if (enemyArray[i].attacking) {
@@ -248,6 +252,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 
 						}
 					}
+					//increment texture
 					enemyArray[i].changeSpriteText("next");
 				}
 				if (enemyArray[i].damaged) {
@@ -289,13 +294,13 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		win.draw(temp6);
 		win.draw(temp7);
 		win.draw(temp2);*/
-		for (character i : charsArray) {
+		for (character i : charsArray) {//draw bots
 			win.draw(i.draw());
 			win.draw(i.currentWeapon.draw());
 		}
 		for (enemy i : enemyArray) {
 			if (i.tile == player.tile) {
-				win.draw(i.draw());
+				win.draw(i.draw());//only draw if on same tile as player
 				/*temp3.setPosition(i.sprite.getPosition().x, i.sprite.getPosition().y);
 				temp3.setOrigin(i.sprite.getOrigin());
 				temp3.setScale(i.sprite.getScale());
