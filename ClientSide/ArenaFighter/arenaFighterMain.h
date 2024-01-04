@@ -2,12 +2,12 @@
 #include<SFML/Graphics.hpp>
 #include "../Entities/Characters/character.h"
 #include "../Entities/Enemies/enemy.h"
-void createArenaLayout();
+void createArenaLayout();//create the maze and populate it
 
-void runArenaFighterSingle(sf::RenderWindow &win);
+void runArenaFighterSingle(sf::RenderWindow &win);//run the singleplayer version
 
-void runArenaFighterMulti(sf::RenderWindow& win);
+void runArenaFighterMulti(sf::RenderWindow& win);//run the multiplayer variant
 
-std::string singleArenaGameloop(sf::RenderWindow& win, character& player, std::vector<character> charArray, std::vector<enemy> enemyArray);
+std::string singleArenaGameloop(sf::RenderWindow& win, character& player, std::vector<character> charArray, std::vector<enemy> enemyArray);//gameloop for the singleplayer version
 
-std::string multiArenaGameloop(sf::RenderWindow& win, character& player, std::vector<character> charArray);
+std::string multiArenaGameloop(sf::RenderWindow& win, character& player, std::vector<character> charArray);//game loop for the multiplayer version

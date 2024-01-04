@@ -3,6 +3,7 @@
 #include<string>
 #include<SFML/Graphics.hpp>
 #include "../GraphicsFunctions/drawable/drawable.h"
+// a base class for things that can be picked up like weapons
 class item: public drawable {
 public:
 	std::string name;

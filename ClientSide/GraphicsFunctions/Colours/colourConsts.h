@@ -1,5 +1,7 @@
 #pragma once
 #include<SFML/Graphics.hpp>
+
+//file with some preset colours to save using sf::Color a lot
 namespace colours {
 	const sf::Color pistachio(165, 204, 107);//Light green
 	const sf::Color pacificBlue(71, 168, 189);//Light blue

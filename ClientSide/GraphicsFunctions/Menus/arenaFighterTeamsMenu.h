@@ -6,4 +6,4 @@
 
 #include "button.h"
 
-void runDungeonCrawlerMenu(sf::RenderWindow &win);
+void runArenaFighterTeamsMenu(sf::RenderWindow &win);//run the menu

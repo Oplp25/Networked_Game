@@ -1,6 +1,7 @@
 #include "archetype.h"
 #include<iostream>
 
+
 int archetype::getHitDiceType()
 {
 	return hitDiceType;
@@ -44,15 +45,6 @@ void archetype::secondary() {
 }
 void archetype::defensive() {
 	std::cout << "defensive" << std::endl;
-}
-void archetype::special() {
-	std::cout << "special" << std::endl;
-}
-void archetype::buff() {
-	std::cout << "buff" << std::endl;
-}
-void archetype::ult() {
-	std::cout << "ult" << std::endl;
 }
 void archetype::level2()
 {

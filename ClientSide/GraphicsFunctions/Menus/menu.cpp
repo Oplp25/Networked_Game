@@ -6,7 +6,7 @@
 #include<filesystem>
 
 #include "../Colours/colourConsts.h"
-#include "dungeonCrawlerMenu.h"
+#include "arenaFighterTeamsMenu.h"
 #include "arenaFighterMenu.h"
 #include "../../ArenaFighter/arenaFighterMain.h"
 #include "button.h"
@@ -60,13 +60,13 @@ void runMenu(sf::RenderWindow& win, bool online) {
 
 	//buttons
 	button arenaButton = button(&runArenaFighterMenu, arenaButtonShape);
-	button dungeonButton = button(&runDungeonCrawlerMenu, dungeonButtonShape);
+	button dungeonButton = button(&runArenaFighterTeamsMenu, dungeonButtonShape);
 
 	vector<button> buttonList = {arenaButton,dungeonButton,networkStatusButton};
 
 	//text
 	sf::Text arenaText;
-	arenaText.setString("Arena Fighter");
+	arenaText.setString("Arena Fighter Solos");
 	arenaText.setCharacterSize(90);
 	arenaText.setFillColor(sf::Color(0, 0, 0));
 	arenaText.setStyle(sf::Text::Bold);
@@ -74,7 +74,7 @@ void runMenu(sf::RenderWindow& win, bool online) {
 	arenaText.setPosition(sf::Vector2f(arenaButtonShape.getPosition().x+(arenaButtonShape.getLocalBounds().width - arenaText.getLocalBounds().width)/2, arenaButtonShape.getPosition().y));
 
 	sf::Text dungeonText;
-	dungeonText.setString("Dungeon Crawler");
+	dungeonText.setString("Arena Fighter Teams");
 	dungeonText.setCharacterSize(90);
 	dungeonText.setFillColor(sf::Color(0, 0, 0));
 	dungeonText.setStyle(sf::Text::Bold);

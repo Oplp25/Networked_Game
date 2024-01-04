@@ -1,17 +1,17 @@
-#include "dungeonCrawlerMenu.h"
+#include "arenaFighterTeamsMenu.h"
 #include "../Colours/colourConsts.h"
-#include "../../DungeonCrawler/dungeonCrawlerMain.h"
+#include "../../ArenaFighterTeams/arenaFighterTeamsMain.h"
 using namespace std;
 const filesystem::path cwd = filesystem::current_path();
 
-void runDungeonCrawlerMenu(sf::RenderWindow& win) {
+void runArenaFighterTeamsMenu(sf::RenderWindow& win) {
 	int width = win.getSize().x;
 	int height = win.getSize().y;
 	sf::Font comicsans;
 	if (!comicsans.loadFromFile(cwd.string() + "\\Resources\\Fonts\\ComicSans.ttf")) {
 		cout << "Error. Failed to load font Comic Sans" << endl;
 	}
-	sf::Text titleText = sf::Text("Dungeon Crawler", comicsans, 120);
+	sf::Text titleText = sf::Text("Arena Crawler", comicsans, 120);
 	titleText.setPosition((width-titleText.getLocalBounds().width)/2,height/16);
 	titleText.setFillColor(sf::Color(0,0,0));
 
@@ -19,7 +19,7 @@ void runDungeonCrawlerMenu(sf::RenderWindow& win) {
 	sf::RectangleShape singleShape = sf::RectangleShape(sf::Vector2f(width-width/4,height/8));
 	singleShape.setPosition(sf::Vector2f(width/8, 4 * (height / 8)));
 	singleShape.setFillColor(colours::cinereous);
-	button singleButton(runDungeonCrawlerSingle,singleShape);
+	button singleButton(runArenaFighterTeamsSingle,singleShape);
 	sf::Text singleText = sf::Text("Singleplayer",comicsans,90);
 	singleText.setPosition(sf::Vector2f(singleShape.getPosition().x + (singleShape.getLocalBounds().width - singleText.getLocalBounds().width) / 2, singleShape.getPosition().y + (singleShape.getLocalBounds().height - singleText.getLocalBounds().height) / 4));
 	singleText.setFillColor(sf::Color(0, 0, 0));
@@ -28,7 +28,7 @@ void runDungeonCrawlerMenu(sf::RenderWindow& win) {
 	sf::RectangleShape multiShape = sf::RectangleShape(sf::Vector2f(width - width / 4, height / 8));
 	multiShape.setPosition(sf::Vector2f(width / 8, 6 * (height / 8)));
 	multiShape.setFillColor(colours::cinereous);
-	button multiButton(runDungeonCrawlerMulti, multiShape);
+	button multiButton(runArenaFighterTeamsMulti, multiShape);
 	sf::Text multiText = sf::Text("Multiplayer", comicsans, 90);
 	multiText.setPosition(sf::Vector2f(multiShape.getPosition().x+ (multiShape.getLocalBounds().width - multiText.getLocalBounds().width) / 2, multiShape.getPosition().y + (multiShape.getLocalBounds().height - multiText.getLocalBounds().height) / 4));
 	multiText.setFillColor(sf::Color(0, 0, 0));

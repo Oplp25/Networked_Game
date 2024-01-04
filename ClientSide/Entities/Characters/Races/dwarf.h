@@ -3,6 +3,8 @@
 
 #include "../abilityScoresEnum.h"
 #include "race.h"
+
+//child class of race
 class dwarf:public race {
 	public:
 		std::string raceName = "Dwarf";

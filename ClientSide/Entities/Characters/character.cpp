@@ -68,16 +68,6 @@ void character::useSecondary() {
 void character::useDefensive() {
 	classPtr->defensive();
 }
-void character::useSpecial() {
-	classPtr->special();
-}
-void character::useBuff() {
-	classPtr->buff();
-}
-void character::useUlt() {
-	classPtr->ult();
-}
-
 
 /*Function to make an ability score check, it generates a random number between 1 and 20, the adds the ability score modifier to it, then returns that
 If the roll is made with advantage, then the max of 2 dice rolls is added to the ability score modifier, then returned
@@ -138,10 +128,8 @@ void character::levelUp()
 	level++;
 	std::invoke(levelUpFuncs[level-2],classPtr);//runs the corresponding level function from the level it just reached
 	int i = hpIncrease();
-	hpMax += i;
+	hpMax += i;//increase hp
 	hpCurrent += i;
-
-	//need to have something to increase stamina and mana as well
 }
 
 void character::setScores(std::vector<abilityScoresEnum> abilityScoreUpgrades, int maxManaIncrease, int maxHealthIncrease, int maxStaminaIncrease, float rSpeed)

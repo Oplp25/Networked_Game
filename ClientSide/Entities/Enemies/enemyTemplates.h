@@ -1,6 +1,7 @@
 #pragma once
 #include<string>
 
+//a template for enemies
 struct enemyTemplate{
 public:
 	float aggro = 0.4;//likelyhood of chasing player
@@ -14,7 +15,7 @@ public:
 	int hpMax;
 	std::string name;
 	std::string imagePath;
-	enemyTemplate() {
+	enemyTemplate() {//empty constructor
 		damage = 0;
 		cooldown = 0;
 		reach = 0;
@@ -27,6 +28,7 @@ public:
 		speed = 0;
 		hpMax = 1;
 	}
+	//constructor
 	enemyTemplate(int hpMaxP, float speedP,std::string nameP, float aggroP, int sightP, int damageP, bool isRangedP, float cooldownP, int reachP, int patrolRangeP,std::string imagePathP) {
 		damage = damageP;
 		cooldown = cooldownP;
@@ -42,5 +44,5 @@ public:
 	}
 
 };
-
+//basic enemy
 const enemyTemplate orcSwordsman = enemyTemplate(14,3,"Orc Swordsman",0.5,300,4,false,0.1,75,250,"Resources\\Sprite Assets\\Orc Swordsman");
