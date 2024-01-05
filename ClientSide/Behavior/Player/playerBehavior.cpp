@@ -1,5 +1,6 @@
 #include "playerBehavior.h"
 #include <chrono>
+#include<thread>
 using namespace std;
 
 vector<string> getPlayerInput(sf::RenderWindow& win) {
