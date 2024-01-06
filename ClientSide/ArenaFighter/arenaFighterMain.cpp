@@ -1,5 +1,6 @@
 #include<random>
 #include<vector>
+#include<iostream>
 #include<filesystem>
 #include "arenaFighterMain.h"
 #include "../CharacterCreator/characterCreator.h"
@@ -106,6 +107,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	temp7.setOutlineThickness(5);
 	temp7.setFillColor(sf::Color::Transparent);*/
 
+
 	while (!finished) {
 		//player graphics
 		if (player.hpCurrent <= 0) {//if player is dead
@@ -118,9 +120,9 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		if (currentDir == 's' && !player.attacking) {
 			player.changeSpriteText("still");//player displays the still texture
 		}
-		if (spriteChangeCounter == spriteChangeInterval || ( player.entityCurrentDirection == 's' && !player.attacking)) {//player does not change every cycle
+		if (spriteChangeCounter == spriteChangeInterval || ( player.entityCurrentDirection == 's' && !player.attacking)) {//   player does not change every cycle
 			if (!player.attacking) {
-				//change player sptrite texture
+				//change player sprite texture
 				if (currentDir == 'l') {
 					player.changeSpriteText("left");
 				}
@@ -324,6 +326,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		if (spriteChangeCounter > spriteChangeInterval) {
 			spriteChangeCounter = 0;
 		}
+		//frames++;
 	}
 	return string();
 }

@@ -8,7 +8,7 @@ class drawable {
 	protected:
 		std::vector<sf::Texture> textArray;//an array of texture:used for animation
 		int currentText = 0;//the postion in the array
-		//path to find the textures, starts form cmd
+		//path to find the textures, starts from cmd
 		std::string imagePath;// mut be in form "Resources\\folder\\folder"
 		void loadTextures();// load the textures from file.
 	public:

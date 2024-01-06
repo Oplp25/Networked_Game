@@ -68,28 +68,28 @@ void entity::death()
 
 void entity::switchTextArray(char direction, char d2, char d3)
 {
-	if (direction != entityCurrentDirection) {
-		if (direction != 'a') {
+	if (direction != entityCurrentDirection) {//if you are changing direction
+		if (direction != 'a') {//if you are not attackin
 			entityCurrentDirection = direction;
 		}
-		currentText = 0;
-		if (direction == 'u') {
+		currentText = 0;//set the array to 0
+		if (direction == 'u') {//up
 			textArray = listOfTexts[0];
 			sprite.setScale(1, 1);
 		}
-		else if (direction == 'd') {
+		else if (direction == 'd') {//down
 			textArray = listOfTexts[1];
 			sprite.setScale(1, 1);
 		}
-		else if (direction == 'r') {
+		else if (direction == 'r') {//right
 			textArray = listOfTexts[2];
 			sprite.setScale(1, 1);
 		}
-		else if (direction == 'l') {
+		else if (direction == 'l') {//left
 			textArray = listOfTexts[2];
-			sprite.setScale(-1, 1);
+			sprite.setScale(-1, 1);//inverted right
 		}
-		else if (direction == 's') {
+		else if (direction == 's') {//still
 			textArray = listOfTexts[3];
 			sprite.setScale(1, 1);
 		}
@@ -154,7 +154,7 @@ void entity::changeSpriteText(string textArgs) {
 		if (currentText >= textArray.size()) {
 			currentText = 0;
 		}
-		sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
+		sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));//so that only a 64x64 texture is displayed
 		sprite.setTexture(textArray[currentText]);
 	}
 	else if (textArgs == "still") {
