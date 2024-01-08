@@ -5,27 +5,27 @@
 using namespace std;
 
 void character::usePrimary(vector<enemy>& enemyArray) {
-	int j = 0;
-	float newDist = 0.0;
-	float distSquared = INT_MAX;
-	for (int i = 0; i < enemyArray.size(); i++) {
-		newDist = pow(enemyArray[i].localPosition.x - localPosition.x, 2) + pow(enemyArray[i].localPosition.y - localPosition.y, 2);
-		if (newDist > distSquared or distSquared == INT_MAX) {
-			distSquared = newDist;
-			j = i;
+	int enemyChoice = 0;//which enemy will be attacked
+	float newDist;
+	float distSquared = INT_MAX;//shortest distance from player squared
+	for (int i = 0; i < enemyArray.size(); i++) {//iterate over every enemy in the player's tile
+		newDist = pow(enemyArray[i].localPosition.x - localPosition.x, 2) + pow(enemyArray[i].localPosition.y - localPosition.y, 2);//pythagorean thereom, distance from player to that enemy squared
+		if (newDist > distSquared or distSquared == INT_MAX) {// if this distance is shorter than the previous shortest distance
+			distSquared = newDist;//set the new shortest distance
+			enemyChoice = i;
 		}
 	}
-	if (distSquared <= currentWeapon.reach * currentWeapon.reach) {
-		attack(enemyArray[j], currentWeapon.damage);
+	if (distSquared <= currentWeapon.reach * currentWeapon.reach) {//if the closest enemy is in range
+		attack(enemyArray[enemyChoice], currentWeapon.damage);//attack that enemy
 	}
 	else {
-		attack();
+		attack();//play the animation, but don't attack anyone
 	}
 }
 void character::attack(entity& ent, int damage)
 {
-	ent.damageSelf(damage);
-	attack();
+	ent.damageSelf(damage);//damage the attacked entity
+	attack();//play the animation
 }
 void character::attack() {
 	attacking = true;
@@ -33,6 +33,7 @@ void character::attack() {
 	char xDir = ' ';
 	float gradient = 0.5;//0.5tan(angle) where angle is the angle between the top and bottom bounds of the right or left attack, compared to rightup or rightdown
 	sf::Vector2i mousePos = sf::Mouse::getPosition();
+	//get where the mouse is in relation to the player
 	if (mousePos.x > localPosition.x) {
 		xDir = 'r';
 		if (mousePos.y > gradient* (mousePos.x - localPosition.x) + localPosition.y) {
@@ -57,8 +58,8 @@ void character::attack() {
 			dir = xDir;
 		}
 	}
-	switchTextArray('a', xDir, dir);
-	currentWeapon.switchTextArray('a', xDir, dir);
+	switchTextArray('a', xDir, dir);//change texture to attack
+	currentWeapon.switchTextArray('a', xDir, dir);//change weapon texture to attack
 }
 void character::useSecondary() {
 	classPtr->secondary();
@@ -113,10 +114,11 @@ int character::makeCheck(abilityScoresEnum ability, char hasAdvantage)
 	return min(rolled, rolled2) + add;
 }
 
+
 void character::gainXP(int xpGained)
 {
 	xp += xpGained;
-	if ((xp / 100) > level) {
+	if ((xp / 100) > level) {//each level requires 100xp to get to the next level
 		levelUp();
 	}
 }
@@ -125,14 +127,14 @@ void character::levelUp()
 {
 	level++;
 	std::invoke(levelUpFuncs[level-2],classPtr);//runs the corresponding level function from the level it just reached
-	int i = hpIncrease();
+	int i = hpIncrease();//get randomised hp increase
 	hpMax += i;//increase hp
 	hpCurrent += i;
 }
 
 void character::setScores(std::vector<abilityScoresEnum> abilityScoreUpgrades, int maxManaIncrease, int maxHealthIncrease, int maxStaminaIncrease, float rSpeed)
 {
-
+	//set scores for things determined by race or class
 	manaMax += maxManaIncrease;
 	staminaMax += maxStaminaIncrease;
 	hpMax = 30 + maxHealthIncrease + hpIncrease();
@@ -147,11 +149,11 @@ int character::hpIncrease()
 {
 	default_random_engine randGen;
 	uniform_int_distribution<int> distX(1, hitDiceType);
-	randGen.seed(time(0));
+	randGen.seed(time(0));//set the seed, otherwise every random distrobution would be the same
 	return distX(randGen);
 }
 
-character::character(string thisRace, string thisClass, string nameP, char error)
+character::character(string thisRace, string thisClass, string nameP, char error)//constructor
 {
 	string thisClassL = thisClass;
 	transform(thisClassL.begin(), thisClassL.end(), thisClassL.begin(), ::tolower);//making every letter lowercase
