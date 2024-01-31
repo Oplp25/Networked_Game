@@ -78,6 +78,9 @@
     <ClCompile Include="ArenaFighterTeams\arenaFighterTeamsMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicsFunctions\Maze\node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsFunctions\Intro\intro.h">
@@ -165,6 +168,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsFunctions\Menus\arenaFighterTeamsMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsFunctions\Maze\node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
