@@ -9,7 +9,7 @@ class enemy :public entity {
 		bool isRanged;//is it ranged
 		float cooldown;//the attack cooldown
 		int patrolRange;//the distance it can go from baseCoords
-		sf::Vector2f baseCoords;//The coords that it patrols around
+		sf::Vector2f baseCoords;//The coords that it patrols around cock
 
 		bool checkPatRange(char direction);//check if a move will go outside of the patrol range
 		std::default_random_engine randGen;// the random engine to generate random numbers

@@ -4,6 +4,7 @@
 using namespace std;
 
 vector<vector<cell>> mazeGen() {
+    default_random_engine randGen;
     randGen.seed(time(0));
     cell aCell;
     vector<vector<cell>> cellList = { {cell(),cell(),cell(),cell(),cell()},{cell(),cell(),cell(),cell(),cell()},{cell(),cell(),cell(),cell(),cell()},{cell(),cell(),cell(),cell(),cell()},{cell(),cell(),cell(),cell(),cell()} };//cellList[y][x]

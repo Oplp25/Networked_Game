@@ -8,6 +8,10 @@
 
 using namespace std;
 
+std::default_random_engine randGen;
+std::unordered_map<std::string, std::vector<int>> cellConns = { {"h2",{2,4}},{"h3d",{2,3,4}},{"h3u",{1,2,4}},{"c1",{2,3}},{"c2",{3,4}},{"c3",{1,4}},{"c4",{1,2}},{"h4",{1,2,3,4}},{"v2",{1,3}},{"v3r",{1,2,3}},{"v3l",{1,3,4}} };
+
+
 string cell::draw(int i) {
     return string();
 }

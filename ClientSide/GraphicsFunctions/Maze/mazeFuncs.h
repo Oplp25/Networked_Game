@@ -4,7 +4,7 @@
 #include "mazeGraph.h"
 #include "cell.h"
 
-
+ 
 std::vector<std::vector<cell>> mazeGen();
 
 mazeGraph genGraph();

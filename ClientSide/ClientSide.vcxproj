@@ -170,6 +170,8 @@
     <ClCompile Include="GraphicsFunctions\drawable\drawable.cpp" />
     <ClCompile Include="GraphicsFunctions\gameOutcomes.cpp" />
     <ClCompile Include="GraphicsFunctions\Intro\intro.cpp" />
+    <ClCompile Include="GraphicsFunctions\Maze\cell.cpp" />
+    <ClCompile Include="GraphicsFunctions\Maze\mazeFuncs.cpp" />
     <ClCompile Include="GraphicsFunctions\Maze\mazeGraph.cpp" />
     <ClCompile Include="GraphicsFunctions\Maze\node.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\arenaFighterMenu.cpp" />
@@ -207,6 +209,8 @@
     <ClInclude Include="GraphicsFunctions\drawable\drawable.h" />
     <ClInclude Include="GraphicsFunctions\gameOutcomes.h" />
     <ClInclude Include="GraphicsFunctions\Intro\intro.h" />
+    <ClInclude Include="GraphicsFunctions\Maze\cell.h" />
+    <ClInclude Include="GraphicsFunctions\Maze\mazeFuncs.h" />
     <ClInclude Include="GraphicsFunctions\Maze\mazeGraph.h" />
     <ClInclude Include="GraphicsFunctions\Maze\node.h" />
     <ClInclude Include="GraphicsFunctions\Menus\arenaFighterMenu.h" />

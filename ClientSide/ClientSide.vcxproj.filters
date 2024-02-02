@@ -84,6 +84,12 @@
     <ClCompile Include="GraphicsFunctions\Maze\mazeGraph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicsFunctions\Maze\cell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsFunctions\Maze\mazeFuncs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsFunctions\Intro\intro.h">
@@ -177,6 +183,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsFunctions\Maze\mazeGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsFunctions\Maze\cell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsFunctions\Maze\mazeFuncs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
