@@ -2,8 +2,12 @@
 
 using namespace std;
 
-mazeGraph::mazeGraph()
+mazeGraph::mazeGraph() 
 {
+}
+
+mazeGraph::mazeGraph(std::vector<std::vector<cell>> cellListP){
+	cellList = cellListP;
 }
 
 bool mazeGraph::isConnected()

@@ -16,6 +16,7 @@ const std::vector<std::vector<int>> order = { {2,3},{1,3},{1,2},{1,1},{2,1},{3,1
 
 class cell{
     private:
+        std::vector<std::string> symbol;
     public:
         std::vector<int> conns;// 1-up, 2-right, 3-down, 4-left
         sf::Vector2f pos;//sf::vector2f pos;

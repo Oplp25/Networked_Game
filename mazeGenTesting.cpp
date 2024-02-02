@@ -27,7 +27,7 @@ vector<string> v2 = {" |  | "," |  | "," |  | "};
 vector<string> v3r = {" |  |_"," |   _"," |  | "};
 
 vector<string> v3l = {"_|  | ","__  | "," |  | "};//11 symbols
-unordered_map<string,vector<string>> cellstrings = {{"h2",h2},{"h3d",h3d},{"h3u",h3u},{"c1",c1},{"c2",c2},{"c3",c3},{"c4",c4},{"h4",h4},{"v2",v2},{"v3r",v3r},{"v3l",v3l}};
+ 
 unordered_map<string,vector<int>> cellConns={{"h2",{2,4}},{"h3d",{2,3,4}},{"h3u",{1,2,4}},{"c1",{2,3}},{"c2",{3,4}},{"c3",{1,4}},{"c4",{1,2}},{"h4",{1,2,3,4}},{"v2",{1,3}},{"v3r",{1,2,3}},{"v3l",{1,3,4}}};
 vector<string> cellTypes = {"h2","h3d","h3u","c1","c2","c3","c4","h4","v2","v3r","v3l"};
 vector<vector<int>> combos = {{1,2},{1,3},{1,4},{2,3},{2,4},{3,4},{1,2,3},{1,2,4},{1,3,4},{2,3,4},{1,2,3,4}};

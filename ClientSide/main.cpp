@@ -14,6 +14,9 @@
 #include<format>
 #include "SQlite/sqlite3.h"
 
+#include "GraphicsFunctions/Maze/mazeGraph.h"
+#include "GraphicsFunctions/Maze/mazeFuncs.h"
+
 #include "GraphicsFunctions/Intro/intro.h"
 #include "GraphicsFunctions/Menus/menu.h"
 #include "ConnectionFunctions/serverConnection.h"
@@ -22,7 +25,7 @@ using namespace std;
 
 
 int main() {
-	sf::RenderWindow win(sf::VideoMode(1920, 1080), "Welcome to the Arena");//the main window
+	/*sf::RenderWindow win(sf::VideoMode(1920, 1080), "Welcome to the Arena");//the main window
 	//sf::RenderWindow win(sf::VideoMode(1920, 1080), "Welcome to the Arena",sf::Style::Fullscreen);
 	win.setFramerateLimit(60);
 	//promise<bool> serverConProm;
@@ -34,6 +37,19 @@ int main() {
 
 	//bool online = serverConFut.get();
 	bool online = false;
-	runMenu(win, online);
+	runMenu(win, online);*/
+
+	mazeGraph x = genGraph();
+
+	for (vector<cell> i : x.cellList) {
+		for (int j = 0; j < 3; j++) {
+			for (cell k : i) {
+				cout << k.draw(j);
+			}
+			cout << endl;
+		}
+	}
+
+
 	return 0;
 }

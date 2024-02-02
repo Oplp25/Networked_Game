@@ -63,7 +63,7 @@ mazeGraph genGraph()
     std::vector<std::vector<cell>> cellList;
     while(true){
         cellList = mazeGen();
-        ret= mazeGraph();
+        ret= mazeGraph(cellList);
         for (int i = 0; i < cellList.size(); i++) {
             for (int j = 0; j < cellList[i].size(); j++) {
                 ret.addNode(node(cellList[i][j].conns, sf::Vector2i(j, i)));
@@ -73,5 +73,5 @@ mazeGraph genGraph()
             break;
         }
     }
-    return mazeGraph();
+    return ret;
 }
