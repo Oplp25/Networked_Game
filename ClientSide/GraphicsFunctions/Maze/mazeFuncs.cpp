@@ -1,6 +1,8 @@
 #include "mazeFuncs.h"
 #include "cell.h"
 
+#include<iostream>
+
 using namespace std;
 
 vector<vector<cell>> mazeGen() {
@@ -59,9 +61,11 @@ vector<vector<cell>> mazeGen() {
 
 mazeGraph genGraph()
 {
+    int iterations = 0;
     mazeGraph ret;
     std::vector<std::vector<cell>> cellList;
     while(true){
+        iterations++;
         cellList = mazeGen();
         ret= mazeGraph(cellList);
         for (int i = 0; i < cellList.size(); i++) {
@@ -73,5 +77,6 @@ mazeGraph genGraph()
             break;
         }
     }
+    cout << "iterations: " << iterations << endl;
     return ret;
 }

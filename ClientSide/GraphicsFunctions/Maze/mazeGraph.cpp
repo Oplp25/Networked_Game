@@ -15,17 +15,23 @@ bool mazeGraph::isConnected()
 	vector<node> nodeQueue = { nodeList[0] };
 	bool flag;
 	int vectNum;
+	vector<int> vists = {1};
+	for (int i = 0; i < 24; i++) {
+		vists.push_back(0);
+	}
 	while (true) {
-		nodeQueue[0].visited = true;
 		if (nodeQueue[0].connections == vector<sf::Vector2i>()) {
 			break;
 		}
 		flag = false;
 		for (sf::Vector2i i : nodeQueue[0].connections) {
-			vectNum = i.y * 5 + i.x;
-			if (!nodeList[vectNum].visited) {
-				flag = true;
-				nodeQueue.push_back(nodeList[vectNum]);
+			if (i.x<5 && i.x>-1 && i.y<5 && i.y>-1) {
+				vectNum = i.y * 5 + i.x;
+				if (vists[vectNum] == 0) {
+					flag = true;
+					vists[vectNum] = 1;
+					nodeQueue.push_back(nodeList[vectNum]);
+				}
 			}
 		}
 		if (!flag) {
@@ -35,8 +41,8 @@ bool mazeGraph::isConnected()
 		nodeQueue.erase(nodeQueue.begin());
 
 	}
-	for (node i : nodeList) {
-		if (!i.visited) {
+	for (int i : vists) {
+		if (i==0) {
 			return false;
 		}
 	}
