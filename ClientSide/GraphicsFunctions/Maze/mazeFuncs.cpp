@@ -78,7 +78,6 @@ mazeGraph genGraph()//returns the mazeGraph of a newly generated maze
             break;
         }
     }
-    cout << "iterations: " << iterations << endl;
     return ret;
 }
 

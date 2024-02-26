@@ -38,5 +38,6 @@ int main() {
 	//bool online = serverConFut.get();
 	bool online = false;
 	runMenu(win, online);
+
 	return 0;
 }

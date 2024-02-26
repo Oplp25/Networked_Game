@@ -53,32 +53,31 @@ void mazeGraph::setConnections(){
 
 bool mazeGraph::isConnected()
 {
-	vector<node> nodeQueue = { nodeList[0] };
+	vector<node> nodeQueue = { nodeList[0] };//nodes to visit
 	bool flag;
 	int vectNum;
-	vector<int> vists = {1};
+	vector<int> vists = {1};//nodes that have been visited
 	for (int i = 0; i < 24; i++) {
 		vists.push_back(0);
 	}
 	while (true) {
-		if (nodeQueue[0].connections == vector<sf::Vector2i>()) {
+		if (nodeQueue[0].connections == vector<sf::Vector2i>()) {//if a node has no connections
 			break;
 		}
-		flag = false;
 		for (sf::Vector2i i : nodeQueue[0].connections) {
-			vectNum = i.y * 5 + i.x;
-			if (vists[vectNum] == 0) {
+			vectNum = i.y * 5 + i.x;// the index that node is in nodeList
+			if (vists[vectNum] == 0) {//if not visited
 				vists[vectNum] = 1;
 				nodeQueue.push_back(nodeList[vectNum]);
 			}
 		}
-
 		nodeQueue.erase(nodeQueue.begin());
-		if (nodeQueue.size() == 0) {
+		if (nodeQueue.size() == 0) {//if nodeQueue is empty
 			break;
 		}
 
 	}
+	//if every node has been visited.
 	for (int i : vists) {
 		if (i==0) {
 			return false;
