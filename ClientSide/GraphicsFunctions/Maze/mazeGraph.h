@@ -13,4 +13,5 @@ class mazeGraph {
 		void setConnections();
 		bool isConnected();
 		void addNode(node newNode);
+		void printMaze();
 };

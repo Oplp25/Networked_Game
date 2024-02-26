@@ -81,3 +81,14 @@ mazeGraph genGraph()//returns the mazeGraph of a newly generated maze
     cout << "iterations: " << iterations << endl;
     return ret;
 }
+
+void mazeGraph::printMaze() {
+    for (vector<cell> i : cellList) {
+        for (int j = 0; j < 3; j++) {
+            for (cell k : i) {
+                cout << k.draw(j);
+            }
+            cout << endl;
+        }
+    }
+}
