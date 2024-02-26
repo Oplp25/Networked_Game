@@ -15,3 +15,7 @@ node::node(std::vector<int> connectionsP,sf::Vector2i posP)
 		}
 	}
 }
+node::node() {
+	connections = {};
+	pos = sf::Vector2i(-1, -1);
+}

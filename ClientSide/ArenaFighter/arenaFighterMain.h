@@ -2,7 +2,8 @@
 #include<SFML/Graphics.hpp>
 #include "../Entities/Characters/character.h"
 #include "../Entities/Enemies/enemy.h"
-void createArenaLayout();//create the maze and populate it
+#include "../GraphicsFunctions/Maze/mazeGraph.h"
+mazeGraph createArenaLayout();//create the maze and populate it
 
 void runArenaFighterSingle(sf::RenderWindow &win);//run the singleplayer version
 

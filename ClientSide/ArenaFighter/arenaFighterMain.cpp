@@ -8,11 +8,15 @@
 #include "../Behavior/Player/playerBehavior.h"
 #include "../Entities/Enemies/enemyTemplates.h"
 #include "../GraphicsFunctions/gameOutcomes.h"
+#include "../GraphicsFunctions/Maze/mazeFuncs.h"
 //#include "../GraphicsFunctions/textureLoaders/textureLoaders.h"
 using namespace std;
 const filesystem::path cwd = filesystem::current_path();
-void createArenaLayout()
+mazeGraph createArenaLayout()
 {
+	mazeGraph graph = genGraph();
+	//populate with enemies and loot
+	return graph;
 }
 
 void runArenaFighterSingle(sf::RenderWindow& win)
@@ -20,7 +24,7 @@ void runArenaFighterSingle(sf::RenderWindow& win)
 	character playerCharacter = characterCreator(win);//create the player character
 	//character player2 = playerCharacter;
 	//player2.localPosition = sf::Vector2f(750,500);
-	//layout = createArenaLayout()
+	mazeGraph layout = createArenaLayout();
 	sf::Vector2f starter = sf::Vector2f(500, 500);
 	sf::Vector2f origin = sf::Vector2f(0, 0);
 	enemy x = enemy(orcSwordsman, starter, origin);

@@ -7,4 +7,4 @@
  
 std::vector<std::vector<cell>> mazeGen();
 
-mazeGraph genGraph();
+mazeGraph genGraph();//returns the mazeGraph of a newly generated maze

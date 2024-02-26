@@ -59,7 +59,7 @@ vector<vector<cell>> mazeGen() {
     return cellList;
 }
 
-mazeGraph genGraph()
+mazeGraph genGraph()//returns the mazeGraph of a newly generated maze
 {
     int iterations = 0;
     mazeGraph ret;
@@ -73,6 +73,7 @@ mazeGraph genGraph()
                 ret.addNode(node(cellList[i][j].conns, sf::Vector2i(j, i)));
             }
         }
+        ret.setConnections();
         if (ret.isConnected()) {
             break;
         }
