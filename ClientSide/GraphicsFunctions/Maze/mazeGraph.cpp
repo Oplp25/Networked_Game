@@ -27,7 +27,7 @@ void mazeGraph::setConnections(){
 			vectNum = nodeList[i].connections[j].y * 5 + nodeList[i].connections[j].x;//generating the index in nodeList for the connection
 			connectedTo = nodeList[vectNum];
 			flag = false;
-			for (sf::Vector2i k : connectedTo.connections) {
+			for (sf::Vector2f k : connectedTo.connections) {
 				if (k == nodeList[i].pos) {
 					flag = true;
 					break;
@@ -40,10 +40,10 @@ void mazeGraph::setConnections(){
 
 		//remove any connection that has an index in toPop
 		for (int j : toPop) {
-			nodeList[i].connections[j] = sf::Vector2i(-1, -1);
+			nodeList[i].connections[j] = sf::Vector2f(-1, -1);
 		}
 		for (iter = 0; iter < nodeList[i].connections.size();iter++) {
-			if (nodeList[i].connections[iter] == sf::Vector2i(-1, -1)) {
+			if (nodeList[i].connections[iter] == sf::Vector2f(-1, -1)) {
 				nodeList[i].connections.erase(nodeList[i].connections.begin() + iter);
 				iter--;
 			}
@@ -61,10 +61,10 @@ bool mazeGraph::isConnected()
 		vists.push_back(0);
 	}
 	while (true) {
-		if (nodeQueue[0].connections == vector<sf::Vector2i>()) {//if a node has no connections
+		if (nodeQueue[0].connections == vector<sf::Vector2f>()) {//if a node has no connections
 			break;
 		}
-		for (sf::Vector2i i : nodeQueue[0].connections) {
+		for (sf::Vector2f i : nodeQueue[0].connections) {
 			vectNum = i.y * 5 + i.x;// the index that node is in nodeList
 			if (vists[vectNum] == 0) {//if not visited
 				vists[vectNum] = 1;
@@ -88,4 +88,20 @@ bool mazeGraph::isConnected()
 
 void mazeGraph::addNode(node newNode) {
 	nodeList.push_back(newNode);
+}
+
+void mazeGraph::printMaze() {
+	for (vector<cell> i : cellList) {
+		for (int j = 0; j < 3; j++) {
+			for (cell k : i) {
+				cout << k.draw(j);
+			}
+			cout << endl;
+		}
+	}
+}
+
+node mazeGraph::getNode(sf::Vector2f nodePos)
+{
+	return nodeList[nodePos.y * 5 + nodePos.x];
 }

@@ -1,6 +1,6 @@
 #include "mazeFuncs.h"
 #include "cell.h"
-
+#include "../Colours/colourConsts.h"
 #include<iostream>
 
 using namespace std;
@@ -70,7 +70,7 @@ mazeGraph genGraph()//returns the mazeGraph of a newly generated maze
         ret= mazeGraph(cellList);
         for (int i = 0; i < cellList.size(); i++) {
             for (int j = 0; j < cellList[i].size(); j++) {
-                ret.addNode(node(cellList[i][j].conns, sf::Vector2i(j, i)));
+                ret.addNode(node(cellList[i][j].conns, sf::Vector2f(j, i)));
             }
         }
         ret.setConnections();
@@ -81,13 +81,30 @@ mazeGraph genGraph()//returns the mazeGraph of a newly generated maze
     return ret;
 }
 
-void mazeGraph::printMaze() {
-    for (vector<cell> i : cellList) {
-        for (int j = 0; j < 3; j++) {
-            for (cell k : i) {
-                cout << k.draw(j);
-            }
-            cout << endl;
-        }
+
+
+vector<sf::RectangleShape> getCellRects(sf::Vector2f pos, std::vector < sf::Vector2f > conns, sf::RenderWindow& win) {
+    vector<vector<int>> connsSimp = {};
+    vector<sf::RectangleShape> ret;
+    for (sf::Vector2f i : conns) {
+        connsSimp.push_back({ static_cast<int>(i.x - pos.x),static_cast<int>(i.y - pos.y) });
     }
+    
+    int width = win.getSize().x;
+    int height = win.getSize().y;
+
+    ret.push_back(sf::RectangleShape(sf::Vector2f(width, height)));
+    ret[ret.size()-1].setPosition(sf::Vector2f(0, 0));
+    ret[ret.size()-1].setFillColor(colours::cinereous);
+
+    ret.push_back(sf::RectangleShape(sf::Vector2f(width/3, height/3)));
+    ret[ret.size()-1].setFillColor(colours::hunterGreen);
+    ret[ret.size()-1].setPosition(sf::Vector2f(width / 3, height / 3));
+
+    for (vector<int> i : connsSimp) {
+        ret.push_back(sf::RectangleShape(sf::Vector2f(width / 3, height / 3)));
+        ret[ret.size()-1].setFillColor(colours::hunterGreen);
+        ret[ret.size()-1].setPosition(sf::Vector2f(width / 3 + width/3 * i[0], height / 3 + height / 3 * i[1]));
+    }
+    return ret;
 }

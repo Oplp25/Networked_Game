@@ -32,7 +32,7 @@ void runArenaFighterSingle(sf::RenderWindow& win)
 	
 	//vector<enemy> enemyArrayP = {};
 	vector<character> charsArrayP = {};//list of the AI controlled characters
-	string result = singleArenaGameloop(win,playerCharacter, charsArrayP, enemyArrayP);//run the gameloop
+	string result = singleArenaGameloop(win,playerCharacter, charsArrayP, enemyArrayP,layout);//run the gameloop
 	if (result == "exit") {
 		return void();
 	}
@@ -49,7 +49,7 @@ void runArenaFighterMulti(sf::RenderWindow& win)
 	character playerCharacter = characterCreator(win);
 }
 
-string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<character> charsArray,vector<enemy> enemyArray)
+string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<character> charsArray,vector<enemy> enemyArray, mazeGraph currentMazeGraph)
 {
 	//seting up variables
 	bool won = false;
@@ -57,6 +57,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	int spriteChangeCounter = 0;
 	int spriteChangeInterval = 12;
 	char currentDir = 's';
+	vector<sf::RectangleShape> backgroundRects = getCellRects(currentMazeGraph.getNode(player.tile).pos, currentMazeGraph.getNode(player.tile).connections,win);
 
 	vector<vector<sf::Vector2f*>> collObjs;//collision objects. 
 
@@ -68,7 +69,8 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	collObjs.push_back({ &player.tile, &player.localPosition });//add player coords
 
 	//Temporary tile boundaries. tile =1840,1000
-	sf::RectangleShape topBoundary(sf::Vector2f(1920,40));
+
+	/*sf::RectangleShape topBoundary(sf::Vector2f(1920, 40));
 	topBoundary.setPosition(sf::Vector2f(0, 0));
 	topBoundary.setFillColor(colours::cinereous);
 	sf::RectangleShape bottomBoundary(sf::Vector2f(1920, 40));
@@ -79,7 +81,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	rightBoundary.setFillColor(colours::cinereous);
 	sf::RectangleShape leftBoundary(sf::Vector2f(40, 1080));
 	leftBoundary.setPosition(sf::Vector2f(0, 0));
-	leftBoundary.setFillColor(colours::cinereous);
+	leftBoundary.setFillColor(colours::cinereous);*/
 
 	/*sf::RectangleShape temp2 = sf::RectangleShape(sf::Vector2f(64, 64));
 	temp2.setOutlineColor(sf::Color(0, 0, 255));
@@ -275,11 +277,9 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		//drawing graphics
 		win.clear(colours::hunterGreen);
 		//Draw background
-		win.draw(topBoundary);
-		win.draw(bottomBoundary);
-		win.draw(bottomBoundary);
-		win.draw(rightBoundary);
-		win.draw(leftBoundary);
+		for (sf::RectangleShape i : backgroundRects) {
+			win.draw(i);
+		}
 
 		//to reflect a sprite, do sprite.setScale(-1,1)
 		win.draw(player.draw());

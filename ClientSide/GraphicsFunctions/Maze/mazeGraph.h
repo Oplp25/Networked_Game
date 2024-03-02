@@ -14,4 +14,5 @@ class mazeGraph {
 		bool isConnected();
 		void addNode(node newNode);
 		void printMaze();
+		node getNode(sf::Vector2f nodePos);
 };
