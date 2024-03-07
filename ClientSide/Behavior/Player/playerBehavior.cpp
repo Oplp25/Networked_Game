@@ -65,7 +65,7 @@ vector<string> getPlayerInput(sf::RenderWindow& win) {
 	return inputs;
 }
 
-char playerBehavior(sf::RenderWindow& win, character& player, vector<enemy> &enemyArray, vector<vector<sf::Vector2f*>> collObjs, vector<sf::RectangleShape> tileLayout) {
+char playerBehavior(sf::RenderWindow& win, character& player, vector<enemy> &enemyArray, vector<vector<sf::Vector2f*>> collObjs,vector<vector<int>> tileLayout) {
 	vector<string> inputs = getPlayerInput(win);
 	for (string i : inputs) {
 		if (i == "w") {

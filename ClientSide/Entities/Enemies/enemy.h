@@ -21,7 +21,7 @@ class enemy :public entity {
 		int tickMax;//how many cycles it walks in one dicertion for
 
 		char currentDir;// current direction
-		void behavior(entity &player, std::vector<vector<int>> tileLayout);//method to determine what it will do
+		void behavior(entity &player, std::vector<std::vector<int>> tileLayout);//method to determine what it will do
 		void tick();//increment the tick
 		enemy();//empty constructor
 		enemy(enemyTemplate stats, sf::Vector2f startingCoords, sf::Vector2f startingTile);//template constructor

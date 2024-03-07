@@ -27,7 +27,7 @@ void entity::attack(entity &ent,int damage)
 	switchTextArray('a',dir);
 }
 
-void entity::move(char direction, vector<vector<sf::Vector2f*>> collObjs, vector<sf::RectangleShape> tileLayout)
+void entity::move(char direction, vector<vector<sf::Vector2f*>> collObjs,vector<vector<int>> tileLayout)
 {
 	if (!checkEnd(direction,1,tileLayout)) {
 		return void();
@@ -127,7 +127,7 @@ void entity::switchTextArray(char direction, char d2, char d3)
 	}
 }
 
-bool entity::checkEnd(char direction,int nums, vector<sf::RectangleShape> tileLayout)
+bool entity::checkEnd(char direction,int nums,vector<vector<int>> tileLayout)
 {
 	
 	if (direction == 'u' && localPosition.y - 32 - speed*nums > 40) {
