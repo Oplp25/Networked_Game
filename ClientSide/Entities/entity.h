@@ -12,7 +12,7 @@ class entity:public drawable {
 		std::vector<std::vector<sf::Texture>> listOfTexts = { {},{},{},{},{},{},{} };// up, down,right, still, rightAttack, upRightAttack,downRightAttack	
 		float speed;
 
-		bool checkEnd(char direction, int nums = 0);//Checks whether a character is going to move off the edge of the map. returns true if the move is OK
+		bool checkEnd(char direction, int nums, std::vector<vector<int>> tileLayout);//Checks whether a character is going to move off the edge of the map. returns true if the move is OK
 	public:
 		char entityCurrentDirection = 's';
 		bool damaged = false;//are they in the damage animation - they cannot be damaged if true
@@ -27,7 +27,7 @@ class entity:public drawable {
 		void loadTextures();//load all the textures from file
 		entity();//empty constructor
 		void attack(entity &ent, int damage);//method to attack
-		void move(char direction, std::vector<std::vector<sf::Vector2f*>> collObjs);//move the entity
+		void move(char direction, std::vector<std::vector<sf::Vector2f*>> collObjs, std::vector<vector<int>> tileLayout);//move the entity
 		void damageSelf(int damage);//take damage
 		void death();
 		void spawn();

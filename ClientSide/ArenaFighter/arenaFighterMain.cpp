@@ -59,6 +59,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	char currentDir = 's';
 	vector<sf::RectangleShape> backgroundRects = getCellRects(currentMazeGraph.getNode(player.tile).pos, currentMazeGraph.getNode(player.tile).connections,win);
 
+	vector<vector<int>> collisionRectangles = getCollisionRectangles(backgroundRects);
 	vector<vector<sf::Vector2f*>> collObjs;//collision objects. 
 
 	for (int i = 0; i < enemyArray.size();i++) {
@@ -119,7 +120,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		if (player.hpCurrent <= 0) {//if player is dead
 			return "loss";
 		}
-		currentDir = playerBehavior(win, player,enemyArray, collObjs);//get the direction of motion for the player
+		currentDir = playerBehavior(win, player,enemyArray, collObjs,collisionRectangles);//get the direction of motion for the player
 		if (currentDir == 'e') {
 			return "exit";
 		}
@@ -233,7 +234,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			if (enemyArray[i].tile == player.tile) {// only update texture if they on the same tile as the player
 				enemyArray[i].tick();
 				if (enemyArray[i].directionTick == enemyArray[i].tickMax && !enemyArray[i].attacking) {
-					enemyArray[i].behavior(player);
+					enemyArray[i].behavior(player, collisionRectangless);
 					if (enemyArray[i].currentDir == 'l') {
 						enemyArray[i].changeSpriteText("left");
 					}
@@ -248,7 +249,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 					}
 				}
 				if (!enemyArray[i].attacking) {//if they're not attacking
-					enemyArray[i].move(enemyArray[i].currentDir,collObjs);//move
+					enemyArray[i].move(enemyArray[i].currentDir,collObjs, collisionRectangles);//move
 				}
 				if (spriteChangeCounter == spriteChangeInterval) {
 					if (enemyArray[i].attacking) {

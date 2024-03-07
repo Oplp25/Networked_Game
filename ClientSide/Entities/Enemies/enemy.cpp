@@ -18,9 +18,9 @@ bool enemy::checkPatRange(char direction)
 		return true;
 	}
 	return false;
-}
+} 
 
-void enemy::behavior(entity &player)
+void enemy::behavior(entity &player, vector<sf::RectangleShape> tileLayout)
 {
 	if (pow((player.localPosition.x-localPosition.x),2)+pow((player.localPosition.y - localPosition.y),2)<pow(sight,2)) {//if player is within sight
 		if (pow((player.localPosition.x - localPosition.x), 2) + pow((player.localPosition.y - localPosition.y), 2) < pow(reach, 2)) {//if player is in reach
@@ -71,7 +71,7 @@ void enemy::behavior(entity &player)
 		char dir;
 		while (x) {
 			dir = dirs[distX(randGen)];
-			if (checkEnd(dir,tickMax) && checkPatRange(dir) && dir+currentDir!=217 && dir+currentDir != 222) {// if the direction is not the opposite direction, and ends within patrol range, and not outside of the area
+			if (checkEnd(dir,tickMax,tileLayout) && checkPatRange(dir) && dir+currentDir!=217 && dir+currentDir != 222) {// if the direction is not the opposite direction, and ends within patrol range, and not outside of the area
 				x = false;
 			}
 		}

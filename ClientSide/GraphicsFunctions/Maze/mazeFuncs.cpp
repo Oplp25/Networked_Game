@@ -108,3 +108,15 @@ vector<sf::RectangleShape> getCellRects(sf::Vector2f pos, std::vector < sf::Vect
     }
     return ret;
 }
+
+std::vector<std::vector<int>> getCollisionRectangles(std::vector<sf::RectangleShape> backRects)
+{
+    vector<vector<int>> ret;
+    vector<int> temp;
+    for (sf::RectangleShape i : backRects) {
+        ret.push_back({
+            static_cast<int>(i.getPosition().x),static_cast<int>(i.getPosition().y),static_cast<int>(i.getSize().x),static_cast<int>(i.getSize().y) });
+
+    }
+    return ret;
+}

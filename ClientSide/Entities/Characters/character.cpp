@@ -172,7 +172,7 @@ character::character(string thisRace, string thisClass, string nameP, char error
 	className = thisClass;
 	name = characterName;
 	imagePath = "Resources\\Sprite Assets\\" + thisRace + " " + thisClass;
-	localPosition = sf::Vector2f(300, 300);
+	localPosition = sf::Vector2f(960, 540);
 	tile = { 0,0 };//Temporary, for testing
 }
 void character::classSetUp() {

@@ -27,9 +27,9 @@ void entity::attack(entity &ent,int damage)
 	switchTextArray('a',dir);
 }
 
-void entity::move(char direction, vector<vector<sf::Vector2f*>> collObjs)
+void entity::move(char direction, vector<vector<sf::Vector2f*>> collObjs, vector<sf::RectangleShape> tileLayout)
 {
-	if (!checkEnd(direction)) {
+	if (!checkEnd(direction,1,tileLayout)) {
 		return void();
 	}
 	if (direction == 'u') {
@@ -127,19 +127,19 @@ void entity::switchTextArray(char direction, char d2, char d3)
 	}
 }
 
-bool entity::checkEnd(char direction,int nums)
+bool entity::checkEnd(char direction,int nums, vector<sf::RectangleShape> tileLayout)
 {
 	
-	if (direction == 'u' && localPosition.y - 32 - speed > 40) {
+	if (direction == 'u' && localPosition.y - 32 - speed*nums > 40) {
 		return true;
 	}
-	if (direction == 'd' && localPosition.y + 32 + speed < 1040) {
+	if (direction == 'd' && localPosition.y + 32 + speed*nums < 1040) {
 		return true;
 	}
-	if (direction == 'r' && localPosition.x + 32 + speed < 1880) {
+	if (direction == 'r' && localPosition.x + 32 + speed*nums < 1880) {
 		return true;
 	}
-	if (direction == 'l' && localPosition.x - 32  - speed > 40) {
+	if (direction == 'l' && localPosition.x - 32  - speed*nums > 40) {
 		return true;
 	}
 	return false;

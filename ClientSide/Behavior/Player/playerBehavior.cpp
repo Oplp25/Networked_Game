@@ -65,17 +65,17 @@ vector<string> getPlayerInput(sf::RenderWindow& win) {
 	return inputs;
 }
 
-char playerBehavior(sf::RenderWindow& win, character& player, vector<enemy> &enemyArray, vector<vector<sf::Vector2f*>> collObjs) {
+char playerBehavior(sf::RenderWindow& win, character& player, vector<enemy> &enemyArray, vector<vector<sf::Vector2f*>> collObjs, vector<sf::RectangleShape> tileLayout) {
 	vector<string> inputs = getPlayerInput(win);
 	for (string i : inputs) {
 		if (i == "w") {
-			player.move('u',collObjs);
+			player.move('u',collObjs, tileLayout);
 		}if (i == "a") {
-			player.move('l', collObjs);
+			player.move('l', collObjs, tileLayout);
 		}if (i == "s") {
-			player.move('d', collObjs);
+			player.move('d', collObjs, tileLayout);
 		}if (i == "d") {
-			player.move('r', collObjs);
+			player.move('r', collObjs, tileLayout);
 		}if (i == "esc") {
 			win.close();
 			return 'e';
