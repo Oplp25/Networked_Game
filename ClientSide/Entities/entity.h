@@ -27,7 +27,7 @@ class entity:public drawable {
 		void loadTextures();//load all the textures from file
 		entity();//empty constructor
 		void attack(entity &ent, int damage);//method to attack
-		void move(char direction, std::vector<std::vector<sf::Vector2f*>> collObjs, std::vector<std::vector<int>> tileLayout);//move the entity
+		void move(char direction, std::vector<std::vector<sf::Vector2f*>> collObjs, std::vector<std::vector<int>> tileLayout );//move the entity
 		void damageSelf(int damage);//take damage
 		void death();
 		void spawn();

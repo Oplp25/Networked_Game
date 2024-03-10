@@ -129,6 +129,58 @@ void entity::switchTextArray(char direction, char d2, char d3)
 
 bool entity::checkEnd(char direction,int nums,vector<vector<int>> tileLayout)
 {
+	float comparisonCoord;
+	float limit;
+	if (direction == 'u') {
+		comparisonCoord = localPosition.y -32 -speed*nums;
+		limit = 65535;
+	}else if (direction == 'd') {
+		comparisonCoord = localPosition.y + 32 +speed*nums;
+		limit = 0;
+	}
+	else if (direction == 'r') {
+		comparisonCoord = localPosition.x + 32 + speed * nums;
+		limit = 0;
+	}
+	else if (direction == 'l') {
+		comparisonCoord = localPosition.x - 32 - speed * nums;
+		limit = 65535;
+	}
+	
+	for (vector<int> i : tileLayout) {
+		if (direction == 'u' && localPosition.x<i[0]+i[2] && localPosition.x>i[0] && i[1]<limit) {
+			if (comparisonCoord < i[1]) {
+				limit = i[1];
+			}
+			else {
+				return true;
+			}
+		}else if (direction == 'd' && localPosition.x<i[0] + i[2] && localPosition.x>i[0] && i[1]+i[3] > limit) {
+			if (comparisonCoord > i[1]+i[3]) {
+				limit = i[1]+i[3];
+			}
+			else {
+				return true;
+			}
+		}else if (direction == 'r' && localPosition.y<i[1] + i[3] && localPosition.y>i[1] && i[0]+i[2] > limit) {
+			if (comparisonCoord > i[0] + i[2]) {
+				limit = i[0] + i[2];
+			}
+			else {
+				return true;
+			}
+		}else if (direction == 'l' && localPosition.y<i[1] + i[3] && localPosition.y>i[1] && i[0] < limit) {
+			if (comparisonCoord < i[0]) {
+				limit = i[0];
+			}
+			else {
+				return true;
+			}
+		}
+	}
+	return false;
+
+	/*
 	
 	if (direction == 'u' && localPosition.y - 32 - speed*nums > 40) {
 		return true;
@@ -143,6 +195,7 @@ bool entity::checkEnd(char direction,int nums,vector<vector<int>> tileLayout)
 		return true;
 	}
 	return false;
+	*/
 }
 
 void entity::changeSpriteText(string textArgs) {

@@ -64,10 +64,10 @@ mazeGraph genGraph()//returns the mazeGraph of a newly generated maze
     int iterations = 0;
     mazeGraph ret;
     std::vector<std::vector<cell>> cellList;
-    while(true){
+    while (true) {
         iterations++;
         cellList = mazeGen();
-        ret= mazeGraph(cellList);
+        ret = mazeGraph(cellList);
         for (int i = 0; i < cellList.size(); i++) {
             for (int j = 0; j < cellList[i].size(); j++) {
                 ret.addNode(node(cellList[i][j].conns, sf::Vector2f(j, i)));
@@ -86,6 +86,7 @@ mazeGraph genGraph()//returns the mazeGraph of a newly generated maze
 vector<sf::RectangleShape> getCellRects(sf::Vector2f pos, std::vector < sf::Vector2f > conns, sf::RenderWindow& win) {
     vector<vector<int>> connsSimp = {};
     vector<sf::RectangleShape> ret;
+
     for (sf::Vector2f i : conns) {
         connsSimp.push_back({ static_cast<int>(i.x - pos.x),static_cast<int>(i.y - pos.y) });
     }
@@ -93,11 +94,13 @@ vector<sf::RectangleShape> getCellRects(sf::Vector2f pos, std::vector < sf::Vect
     int width = win.getSize().x;
     int height = win.getSize().y;
 
+    
+
     ret.push_back(sf::RectangleShape(sf::Vector2f(width, height)));
     ret[ret.size()-1].setPosition(sf::Vector2f(0, 0));
     ret[ret.size()-1].setFillColor(colours::cinereous);
 
-    ret.push_back(sf::RectangleShape(sf::Vector2f(width/3, height/3)));
+    ret.push_back(sf::RectangleShape(sf::Vector2f(width / 3, height / 3)));
     ret[ret.size()-1].setFillColor(colours::hunterGreen);
     ret[ret.size()-1].setPosition(sf::Vector2f(width / 3, height / 3));
 
@@ -105,7 +108,7 @@ vector<sf::RectangleShape> getCellRects(sf::Vector2f pos, std::vector < sf::Vect
         ret.push_back(sf::RectangleShape(sf::Vector2f(width / 3, height / 3)));
         ret[ret.size()-1].setFillColor(colours::hunterGreen);
         ret[ret.size()-1].setPosition(sf::Vector2f(width / 3 + width/3 * i[0], height / 3 + height / 3 * i[1]));
-    }
+    }            
     return ret;
 }
 
@@ -114,8 +117,7 @@ std::vector<std::vector<int>> getCollisionRectangles(std::vector<sf::RectangleSh
     vector<vector<int>> ret;
     vector<int> temp;
     for (sf::RectangleShape i : backRects) {
-        ret.push_back({
-            static_cast<int>(i.getPosition().x),static_cast<int>(i.getPosition().y),static_cast<int>(i.getSize().x),static_cast<int>(i.getSize().y) });
+        ret.push_back({static_cast<int>(i.getPosition().x),static_cast<int>(i.getPosition().y),static_cast<int>(i.getSize().x),static_cast<int>(i.getSize().y) });
 
     }
     return ret;
