@@ -116,6 +116,7 @@ std::vector<std::vector<int>> getCollisionRectangles(std::vector<sf::RectangleSh
 {
     vector<vector<int>> ret;
     vector<int> temp;
+    backRects.erase(backRects.begin());
     for (sf::RectangleShape i : backRects) {
         ret.push_back({static_cast<int>(i.getPosition().x),static_cast<int>(i.getPosition().y),static_cast<int>(i.getSize().x),static_cast<int>(i.getSize().y) });
 

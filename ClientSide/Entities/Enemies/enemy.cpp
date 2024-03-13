@@ -151,3 +151,23 @@ void enemy::tick() {
 		directionTick = 0;
 	}
 }
+
+void enemy::move(char direction, vector<vector<sf::Vector2f*>> collObjs)
+{
+	if (direction == 'u') {
+		for (vector<sf::Vector2f*> i : collObjs) { if (*i[0] == tile && *i[1] != localPosition) { if (sf::Rect<float>(*i[1], sf::Vector2f(64, 64)).intersects(sf::Rect<float>(localPosition.x, localPosition.y - speed, 64, 64))) { return void(); } } }
+		localPosition.y -= speed;
+	}
+	else if (direction == 'd') {
+		for (vector<sf::Vector2f*> i : collObjs) { if (*i[0] == tile && *i[1] != localPosition) { if (sf::Rect<float>(*i[1], sf::Vector2f(64, 64)).intersects(sf::Rect<float>(localPosition.x, localPosition.y + speed, 64, 64))) { return void(); } } }
+		localPosition.y += speed;
+	}
+	else if (direction == 'r') {
+		for (vector<sf::Vector2f*> i : collObjs) { if (*i[0] == tile && *i[1] != localPosition) { if (sf::Rect<float>(*i[1], sf::Vector2f(64, 64)).intersects(sf::Rect<float>(localPosition.x + speed, localPosition.y, 64, 64))) { return void(); } } }
+		localPosition.x += speed;
+	}
+	else if (direction == 'l') {
+		for (vector<sf::Vector2f*> i : collObjs) { if (*i[0] == tile && *i[1] != localPosition) { if (sf::Rect<float>(*i[1], sf::Vector2f(64, 64)).intersects(sf::Rect<float>(localPosition.x - speed, localPosition.y, 64, 64))) { return void(); } } }
+		localPosition.x -= speed;
+	}
+}

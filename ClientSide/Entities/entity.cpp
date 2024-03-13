@@ -135,15 +135,15 @@ bool entity::checkEnd(char direction,int nums,vector<vector<int>> tileLayout)
 		comparisonCoord = localPosition.y -32 -speed*nums;
 		limit = 65535;
 	}else if (direction == 'd') {
-		comparisonCoord = localPosition.y + 32 +speed*nums;
+		comparisonCoord = localPosition.y +32 +speed*nums;
 		limit = 0;
 	}
 	else if (direction == 'r') {
-		comparisonCoord = localPosition.x + 32 + speed * nums;
+		comparisonCoord = localPosition.x +32+ speed * nums;
 		limit = 0;
 	}
 	else if (direction == 'l') {
-		comparisonCoord = localPosition.x - 32 - speed * nums;
+		comparisonCoord = localPosition.x-32 - speed * nums;
 		limit = 65535;
 	}
 	

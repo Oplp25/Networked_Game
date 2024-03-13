@@ -25,7 +25,7 @@ void runArenaFighterSingle(sf::RenderWindow& win)
 	//character player2 = playerCharacter;
 	//player2.localPosition = sf::Vector2f(750,500);
 	mazeGraph layout = createArenaLayout();
-	sf::Vector2f starter = sf::Vector2f(500, 500);
+	sf::Vector2f starter = sf::Vector2f(win.getSize().x/3+32, win.getSize().y/ 3 + 32);
 	sf::Vector2f origin = sf::Vector2f(0, 0);
 	enemy x = enemy(orcSwordsman, starter, origin);
 	vector<enemy> enemyArrayP = {x};//Will be created by createArenaLayout, but for now will just be manually added
@@ -191,6 +191,8 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			}
 		}
 
+
+
 		//bot character behavior. very outdated
 		for (character i : charsArray) {
 			//currentDir = characterBehavior(i);
@@ -249,7 +251,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 					}
 				}
 				if (!enemyArray[i].attacking) {//if they're not attacking
-					enemyArray[i].move(enemyArray[i].currentDir,collObjs, collisionRectangles);//move
+					enemyArray[i].move(enemyArray[i].currentDir,collObjs);//move
 				}
 				if (spriteChangeCounter == spriteChangeInterval) {
 					if (enemyArray[i].attacking) {
