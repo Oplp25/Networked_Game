@@ -123,3 +123,49 @@ std::vector<std::vector<int>> getCollisionRectangles(std::vector<sf::RectangleSh
     }
     return ret;
 }
+
+sf::Vector2f checkMoveTile(sf::Vector2f charPos,node currNode, vector<int> backgroundDimensions) {
+    vector<char> relativeConns;
+    sf::Vector2f check;
+    for (sf::Vector2f i : currNode.connections) {
+        check = sf::Vector2f(i.x-currNode.pos.x,i.y-currNode.pos.y);
+        if (check.x == 0 && check.y == -1) {
+            relativeConns.push_back('u');
+        }else if (check.x == 0 && check.y == 1) {
+            relativeConns.push_back('d');
+        }else if (check.x == 1 && check.y == 0) {
+            relativeConns.push_back('r');
+        }else if (check.x == -1 && check.y == 0) {
+            relativeConns.push_back('l');
+        }
+    }
+    if (charPos.y < 48) {
+        for (char i : relativeConns) {
+            if (i == 'u') {
+                return sf::Vector2f(currNode.pos.x,currNode.pos.y - 1);
+            }
+        }
+    }
+    else if (charPos.y > backgroundDimensions[1] - 48) {
+        for (char i : relativeConns) {
+            if (i == 'd') {
+                return  sf::Vector2f(currNode.pos.x,currNode.pos.y + 1);
+            }
+        }
+    }
+    else if (charPos.x < 48) {
+        for (char i : relativeConns) {
+            if (i == 'l') {
+                return  sf::Vector2f(currNode.pos.x-1,currNode.pos.y);
+            }
+        }
+    }
+    else if (charPos.x > backgroundDimensions[0] - 48) {
+        for (char i : relativeConns) {
+            if (i == 'r') {
+                return  sf::Vector2f(currNode.pos.x+1,currNode.pos.y);
+            }
+        }
+    }
+    return currNode.pos;
+}

@@ -57,6 +57,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	int spriteChangeCounter = 0;
 	int spriteChangeInterval = 12;
 	char currentDir = 's';
+	vector<int> check;
 	vector<sf::RectangleShape> backgroundRects = getCellRects(currentMazeGraph.getNode(player.tile).pos, currentMazeGraph.getNode(player.tile).connections,win);
 
 	vector<vector<int>> collisionRectangles = getCollisionRectangles(backgroundRects);
@@ -68,51 +69,8 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		collObjs.push_back({ &charsArray[i].tile, &charsArray[i].localPosition });//add bot coords
 	}
 	collObjs.push_back({ &player.tile, &player.localPosition });//add player coords
-
-	//Temporary tile boundaries. tile =1840,1000
-
-	/*sf::RectangleShape topBoundary(sf::Vector2f(1920, 40));
-	topBoundary.setPosition(sf::Vector2f(0, 0));
-	topBoundary.setFillColor(colours::cinereous);
-	sf::RectangleShape bottomBoundary(sf::Vector2f(1920, 40));
-	bottomBoundary.setPosition(sf::Vector2f(0, 1040));
-	bottomBoundary.setFillColor(colours::cinereous);
-	sf::RectangleShape rightBoundary(sf::Vector2f(40, 1080));
-	rightBoundary.setPosition(sf::Vector2f(1880, 0));
-	rightBoundary.setFillColor(colours::cinereous);
-	sf::RectangleShape leftBoundary(sf::Vector2f(40, 1080));
-	leftBoundary.setPosition(sf::Vector2f(0, 0));
-	leftBoundary.setFillColor(colours::cinereous);*/
-
-	/*sf::RectangleShape temp2 = sf::RectangleShape(sf::Vector2f(64, 64));
-	temp2.setOutlineColor(sf::Color(0, 0, 255));
-	temp2.setOutlineThickness(5);
-	temp2.setFillColor(sf::Color::Transparent);
-
-	sf::RectangleShape temp3 = sf::RectangleShape(sf::Vector2f(64, 64));
-	temp3.setOutlineColor(sf::Color(0, 0, 255));
-	temp3.setOutlineThickness(5);
-	temp3.setFillColor(sf::Color::Transparent);
 	
-	sf::CircleShape temp4(enemyArray[0].sight);
-	temp4.setOutlineColor(sf::Color(255, 0, 0));
-	temp4.setOutlineThickness(5);
-	temp4.setFillColor(sf::Color::Transparent);
-	
-	sf::CircleShape temp5(enemyArray[0].reach);
-	temp5.setOutlineColor(sf::Color(255, 0, 0));
-	temp5.setOutlineThickness(5);
-	temp5.setFillColor(sf::Color::Transparent);
-
-	sf::CircleShape temp6(player.currentWeapon.reach);
-	temp6.setOutlineColor(sf::Color(255, 0, 0));
-	temp6.setOutlineThickness(5);
-	temp6.setFillColor(sf::Color::Transparent);
-
-	sf::RectangleShape temp7 = sf::RectangleShape(sf::Vector2f(player.currentWeapon.sprite.getLocalBounds().width, player.currentWeapon.sprite.getLocalBounds().height));
-	temp7.setOutlineColor(sf::Color(0, 0, 255));
-	temp7.setOutlineThickness(5);
-	temp7.setFillColor(sf::Color::Transparent);*/
+	sf::Vector2f newTile = player.tile;
 
 
 	while (!finished) {
@@ -120,14 +78,14 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		if (player.hpCurrent <= 0) {//if player is dead
 			return "loss";
 		}
-		currentDir = playerBehavior(win, player,enemyArray, collObjs,collisionRectangles);//get the direction of motion for the player
+		currentDir = playerBehavior(win, player, enemyArray, collObjs, collisionRectangles);//get the direction of motion for the player
 		if (currentDir == 'e') {
 			return "exit";
 		}
 		if (currentDir == 's' && !player.attacking) {
 			player.changeSpriteText("still");//player displays the still texture
 		}
-		if (spriteChangeCounter == spriteChangeInterval || ( player.entityCurrentDirection == 's' && !player.attacking)) {//   player does not change every cycle
+		if (spriteChangeCounter == spriteChangeInterval || (player.entityCurrentDirection == 's' && !player.attacking)) {//   player does not change every cycle
 			if (!player.attacking) {
 				//change player sprite texture
 				if (currentDir == 'l') {
@@ -191,8 +149,26 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			}
 		}
 
+		newTile = checkMoveTile(player.localPosition, currentMazeGraph.getNode(player.tile), {static_cast<int>(backgroundRects[0].getSize().x),static_cast<int>(backgroundRects[0].getSize().y)});
 
-
+		if (newTile != player.tile) {
+			check = { static_cast<int>(newTile.x - player.tile.x),static_cast<int>(newTile.y - player.tile.y) };
+			if (check == vector<int>({ 0, -1 })) {
+				player.localPosition = sf::Vector2f(player.localPosition.x, backgroundRects[0].getSize().y - 50);
+			}
+			else if (check == vector<int>({ 0, 1 })) {
+				player.localPosition = sf::Vector2f(player.localPosition.x, 50);
+			}
+			else if (check == vector<int>({ -1, 0 })) {
+				player.localPosition = sf::Vector2f(backgroundRects[0].getSize().x - 50, player.localPosition.y);
+			}
+			else if (check == vector<int>({1, 0})) {
+				player.localPosition = sf::Vector2f(50, player.localPosition.y);
+			}
+			player.tile = newTile;
+			backgroundRects = getCellRects(currentMazeGraph.getNode(player.tile).pos, currentMazeGraph.getNode(player.tile).connections, win);
+			collisionRectangles = getCollisionRectangles(backgroundRects);
+		}
 		//bot character behavior. very outdated
 		for (character i : charsArray) {
 			//currentDir = characterBehavior(i);
