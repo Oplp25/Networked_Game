@@ -90,6 +90,9 @@
     <ClCompile Include="GraphicsFunctions\Maze\mazeFuncs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="testFolder(Temp)\clientTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsFunctions\Intro\intro.h">
@@ -189,6 +192,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsFunctions\Maze\mazeFuncs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testFolder(Temp)\clientTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

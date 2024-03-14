@@ -186,6 +186,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SFML_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="testFolder(Temp)\clientTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArenaFighterTeams\arenaFighterTeamsMain.h" />
@@ -221,6 +222,7 @@
     <ClInclude Include="Items\itemTemplates.h" />
     <ClInclude Include="Items\Weapons\weapon.h" />
     <ClInclude Include="Items\Weapons\weaponTemplates.h" />
+    <ClInclude Include="testFolder(Temp)\clientTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

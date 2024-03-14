@@ -25,6 +25,9 @@ using namespace std;
 
 
 int main() {
+
+
+	/*
 	sf::RenderWindow win(sf::VideoMode(1920, 1080), "Welcome to the Arena");//the main window
 	//sf::RenderWindow win(sf::VideoMode(1920, 1080), "Welcome to the Arena",sf::Style::Fullscreen);
 	win.setFramerateLimit(60);
@@ -38,6 +41,6 @@ int main() {
 	//bool online = serverConFut.get();
 	bool online = false;
 	runMenu(win, online);
-
+	*/
 	return 0;
 }
