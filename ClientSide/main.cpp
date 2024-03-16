@@ -21,11 +21,20 @@
 #include "GraphicsFunctions/Menus/menu.h"
 #include "ConnectionFunctions/serverConnection.h"
 
+
+#include "testFolder(Temp)/clientTest.h"
 using namespace std;
 
 
 int main() {
 
+	sf::TcpSocket socket;
+
+	getConnection(socket,sf::IpAddress::getLocalAddress(), 55001);
+
+	sendMessage(socket, "Hello World");
+	int x;
+	cin >> x;
 
 	/*
 	sf::RenderWindow win(sf::VideoMode(1920, 1080), "Welcome to the Arena");//the main window

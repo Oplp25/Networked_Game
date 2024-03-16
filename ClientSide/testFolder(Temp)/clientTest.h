@@ -3,6 +3,6 @@
 #include<iostream>
 #include<string>
 
-void getConnection(sf::TcpSocket &socket, std::string address, int port);
+void getConnection(sf::TcpSocket &socket, sf::IpAddress address, int port);
 
 void sendMessage(sf::TcpSocket& socket, std::string message);

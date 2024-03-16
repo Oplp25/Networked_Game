@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void getConnection(sf::TcpSocket &socket, std::string address, int port)
+void getConnection(sf::TcpSocket &socket, sf::IpAddress address , int port)
 {
 	sf::Socket::Status status = socket.connect(address, port);
 	if (status != sf::Socket::Done){
