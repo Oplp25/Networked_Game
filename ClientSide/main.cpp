@@ -33,6 +33,13 @@ int main() {
 	getConnection(socket,sf::IpAddress::getLocalAddress(), 55001);
 
 	sendMessage(socket, "Hello World");
+
+	char buffer[1024];
+	std::size_t received = 0;
+	socket.receive(buffer, sizeof(buffer), received);
+	std::cout << "The server said: " << buffer << std::endl;
+
+	sendPacket(socket,"Packets are cool");
 	int x;
 	cin >> x;
 

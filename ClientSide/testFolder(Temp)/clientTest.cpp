@@ -19,3 +19,15 @@ void sendMessage(sf::TcpSocket& socket, std::string message)
 		throw std::invalid_argument("Message not sent");
 	}
 }
+
+void sendPacket(sf::TcpSocket& socket, std::string message) {
+	sf::Packet packet;
+
+	packet << message;
+
+	if (socket.send(packet) != sf::Socket::Done)
+	{
+		cout << "Error. Message not sent." << endl;
+		throw std::invalid_argument("Message not sent");
+	}
+}

@@ -16,7 +16,14 @@ int main() {
 	std::size_t received = 0;
 	clientSocket.receive(buffer, sizeof(buffer), received);
 	std::cout << "The client said: " << buffer << std::endl;
-	int x;
+
+	clientSocket.send("Hello World",15);
+
+	sf::Packet packet;
+	clientSocket.receive(packet);
+	string x;
+	packet >> x;
+	std::cout << "The client said: " << x << std::endl;
 	cin >> x; 
 	return 0;
 }

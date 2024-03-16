@@ -6,3 +6,5 @@
 void getConnection(sf::TcpSocket &socket, sf::IpAddress address, int port);
 
 void sendMessage(sf::TcpSocket& socket, std::string message);
+
+void sendPacket(sf::TcpSocket& socket, std::string message);
