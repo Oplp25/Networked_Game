@@ -30,8 +30,14 @@ int main() {
 
 	sf::TcpSocket socket;
 
-	getConnection(socket,sf::IpAddress::getLocalAddress(), 55001);
 
+	//use this if testing on one computer
+	//getConnection(socket,sf::IpAddress::getLocalAddress(), 55001);
+
+
+	//use this if connecting over a LAN
+	sf::IpAddress address("Jakob_PC");//change IP address each time
+	getConnection(socket, address, 55001);
 	sendMessage(socket, "Hello World");
 
 	char buffer[1024];
