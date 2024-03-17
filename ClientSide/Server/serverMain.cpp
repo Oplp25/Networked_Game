@@ -2,7 +2,8 @@
 #include<iostream>
 using namespace std;
 
-int main() {
+int runServer() {
+
 	/*
 	cout << "Booted" << endl;
 	sf::TcpListener listener;
