@@ -227,6 +227,7 @@
     <ClInclude Include="Items\Weapons\weaponTemplates.h" />
     <ClInclude Include="Server\lobby.h" />
     <ClInclude Include="Server\player.h" />
+    <ClInclude Include="Server\serverMain.h" />
     <ClInclude Include="testFolder(Temp)\clientTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

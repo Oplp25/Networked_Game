@@ -212,5 +212,8 @@
     <ClInclude Include="Server\player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Server\serverMain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

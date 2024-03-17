@@ -1,14 +1,25 @@
+#include "serverMain.h"
+
 #include<SFML/Network.hpp>
 #include<iostream>
+
+#include "lobby.h"
+
 using namespace std;
 
 int runServer() {
 
-	/*
 	cout << "Booted" << endl;
 	sf::TcpListener listener;
 	listener.listen(55001);
 
+	bool run = true;
+	vector<lobby> lobbyList = { lobby() };
+	int currLobbySize = 0;
+	while (run){
+		listener.accept(lobbyList[lobbyList.size()-1].accessPlayer(currLobbySize).accessSocket());
+	}
+	/*
 	sf::TcpSocket clientSocket;
 	listener.accept(clientSocket);
 	std::cout << "New client connected: " << clientSocket.getRemoteAddress() << std::endl;

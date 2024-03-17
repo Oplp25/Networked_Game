@@ -9,5 +9,6 @@ class player {
 		//character playerChar;
 		bool setConnection();
 		bool sendMessage(std::string message);
+		sf::TcpSocket& accessSocket();
 		player();
 };

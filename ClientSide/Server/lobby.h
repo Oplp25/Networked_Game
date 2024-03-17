@@ -3,11 +3,17 @@
 #include<SFML/Network.hpp>
 #include<vector>
 
+#include "../GraphicsFunctions/Maze/mazeGraph.h"
 #include "player.h"
 
 class lobby {
-public:
-	int playerCount;
-private:
-	std::vector<player> playerList;
+	private:
+		std::vector<player> playerList;
+	public:
+		
+		int playerCount;
+		//Ai character list
+		mazeGraph lobbyMaze;
+		player& accessPlayer(int playerNumber);
+		lobby();
 };
