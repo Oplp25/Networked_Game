@@ -3,7 +3,7 @@
 using namespace std;
 
 int main() {
-
+	/*
 	cout << "Booted" << endl;
 	sf::TcpListener listener;
 	listener.listen(55001);
@@ -24,6 +24,7 @@ int main() {
 	string x;
 	packet >> x;
 	std::cout << "The client said: " << x << std::endl;
-	cin >> x; 
+	cin >> x;
+	*/
 	return 0;
 }

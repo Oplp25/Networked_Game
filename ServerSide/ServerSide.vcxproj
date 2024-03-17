@@ -19,7 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Lobbies\Lobby.cpp" />
+    <ClCompile Include="Lobbies\player.cpp" />
     <ClCompile Include="test\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Lobbies\lobby.h" />
+    <ClInclude Include="Lobbies\player.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
