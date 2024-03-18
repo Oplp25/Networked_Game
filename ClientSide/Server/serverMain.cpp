@@ -2,8 +2,10 @@
 
 #include<SFML/Network.hpp>
 #include<iostream>
+#include<thread>
 
 #include "lobby.h"
+#include "../GraphicsFunctions/Maze/mazeFuncs.h"
 
 using namespace std;
 
@@ -16,8 +18,27 @@ int runServer() {
 	bool run = true;
 	vector<lobby> lobbyList = { lobby() };
 	int currLobbySize = 0;
+	lobbyList[0].lobbyMaze = genGraph();
 	while (run){
-		listener.accept(lobbyList[lobbyList.size()-1].accessPlayer(currLobbySize).accessSocket());
+		if (listener.accept(lobbyList[lobbyList.size() - 1].accessPlayer(currLobbySize).accessSocket()) == sf::Socket::Done) {
+			currLobbySize++;
+			if (currLobbySize == 8) {
+				lobbyList[lobbyList.size() - 1].startGame();
+				lobbyList.push_back(lobby());
+				lobbyList[lobbyList.size() - 1].lobbyMaze = genGraph();
+			}
+		}
+		for (lobby i : lobbyList) {
+			if (i.started) {
+				if (tickGame(i)) {
+
+				}
+			}
+			else {
+				updatePreGameLobby(i);
+			}
+		}
+
 	}
 	/*
 	sf::TcpSocket clientSocket;
@@ -39,4 +60,13 @@ int runServer() {
 	cin >> x;
 	*/
 	return 0;
+}
+
+
+void tickGame(lobby toTick) {
+	
+}
+
+bool updatePreGameLobby(lobby toTick){
+	return false;
 }
