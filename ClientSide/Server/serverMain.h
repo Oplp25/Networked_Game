@@ -1,4 +1,5 @@
 #pragma once
+#include "lobby.h"
 
 int runServer();
 

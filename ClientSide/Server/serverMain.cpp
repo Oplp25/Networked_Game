@@ -30,12 +30,12 @@ int runServer() {
 		}
 		for (lobby i : lobbyList) {
 			if (i.started) {
-				if (tickGame(i)) {
-
-				}
+				tickGame(i);
 			}
 			else {
-				updatePreGameLobby(i);
+				if (updatePreGameLobby(i)) {
+					i.startGame();
+				}
 			}
 		}
 

@@ -12,4 +12,5 @@ class player {
 		bool sendMessage(std::string message);
 		sf::TcpSocket& accessSocket();
 		player();
+		std::string recieveMessage();
 };
