@@ -10,6 +10,7 @@ class lobby {
 	private:
 		std::vector<player> playerList;
 	public:
+		std::vector<enemy> enemyArray;
 		bool started;
 		int playerCount;
 		//Ai character list
