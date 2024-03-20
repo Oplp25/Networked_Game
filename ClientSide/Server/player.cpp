@@ -4,13 +4,15 @@ using namespace std;
 
 player::player() {
 	socket.setBlocking(false);
+	currentDir = 's';
+	message = "";
 }
 
 sf::TcpSocket& player::accessSocket() {
 	return socket;
 }
 
-bool player::sendMessage(string message) {
+bool player::sendMessage() {
 	sf::Packet packet;
 	packet << message;
 	if (socket.send(packet) == sf::Socket::Done){
@@ -30,4 +32,8 @@ std::string player::recieveMessage()
 	else {
 		return "error, packet not recieved";
 	}
+}
+
+void player::addToMessage(string toAdd) {
+	message += ";" + toAdd;
 }

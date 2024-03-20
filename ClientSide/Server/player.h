@@ -7,9 +7,12 @@
 class player {
 	private:
 		sf::TcpSocket socket;
+		std::string message;
 	public:
+		char currentDir;
 		character playerChar;
-		bool sendMessage(std::string message);
+		bool sendMessage();
+		void addToMessage(std::string toAdd);
 		sf::TcpSocket& accessSocket();
 		player();
 		std::string recieveMessage();
