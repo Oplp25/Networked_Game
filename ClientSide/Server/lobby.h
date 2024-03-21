@@ -10,6 +10,8 @@ class lobby {
 	private:
 		std::vector<player> playerList;
 	public:
+		std::vector<std::vector<std::vector<sf::RectangleShape>>> backgroundRectsArray;//access using tile
+		std::vector < std::vector < std::vector < std::vector<int>>>> collisionRectsArray;//access using tile
 		std::vector<enemy> enemyArray;
 		bool started;
 		int playerCount;

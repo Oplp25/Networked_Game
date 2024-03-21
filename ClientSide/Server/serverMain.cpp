@@ -66,9 +66,11 @@ int runServer() {
 void tickGame(lobby currentLobby) {
 	bool finished = false;
 	vector<int> check;
-	vector<sf::RectangleShape> backgroundRects = getCellRects(currentLobby.lobbyMaze.getNode(currentLobby.accessPlayer(i).playerChar.tile).pos, currentLobby.lobbyMaze.getNode(currentLobby.accessPlayer(i).playerChar.tile).connections, win);
 
-	vector<vector<int>> collisionRectangles = getCollisionRectangles(backgroundRects);
+	for (int i = 0; i < currentLobby.playerCount; i++) {
+		currentLobby.backgroundRectsArray[currentLobby.accessPlayer(i).playerChar.tile.x][currentLobby.accessPlayer(i).playerChar.tile.y] = getCellRectsServer(currentLobby.lobbyMaze.getNode(currentLobby.accessPlayer(i).playerChar.tile).pos, currentLobby.lobbyMaze.getNode(currentLobby.accessPlayer(i).playerChar.tile).connections);
+		currentLobby.collisionRectsArray[currentLobby.accessPlayer(i).playerChar.tile.x][currentLobby.accessPlayer(i).playerChar.tile.y] = getCollisionRectangles(currentLobby.backgroundRectsArray[currentLobby.accessPlayer(i).playerChar.tile.x][currentLobby.accessPlayer(i).playerChar.tile.y]);
+	}
 	vector<vector<sf::Vector2f*>> collObjs;//collision objects. 
 
 	for (int i = 0; i < currentLobby.enemyArray.size(); i++) {
@@ -82,10 +84,12 @@ void tickGame(lobby currentLobby) {
 		collObjs.push_back({ &currentLobby.accessPlayer(i).playerChar.tile, &currentLobby.accessPlayer(i).playerChar.localPosition});//add player coords
 	}
 
+	sf::Vector2f newTile;
 
 	while (!finished) {
 		//player graphics
 		for (int i = 0; i < currentLobby.playerCount; i++) {
+			sf::Vector2f curTile = currentLobby.accessPlayer(i).playerChar.tile;
 			if (currentLobby.accessPlayer(i).playerChar.hpCurrent <= 0) {//if player is dead
 				currentLobby.accessPlayer(i).addToMessage("dead");
 			}
@@ -108,24 +112,14 @@ void tickGame(lobby currentLobby) {
 				if (currentLobby.accessPlayer(i).playerChar.damageTick == 61) {
 					currentLobby.accessPlayer(i).playerChar.damaged = false;
 					currentLobby.accessPlayer(i).playerChar.damageTick = 0;
-					currentLobby.accessPlayer(i).playerChar.sprite.setColor(sf::Color(255, 255, 255));//make them flash red
 				}
 			}
 
-			//Done up to here
 
-			sf::Event event;
-			while (win.pollEvent(event)) {
-				if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {// if x in corner of window clicked or escape pressed
-					win.close();
-					return "exit";//exit the game
-				}
-			}
+			newTile = checkMoveTile(currentLobby.accessPlayer(i).playerChar.localPosition, currentLobby.lobbyMaze.getNode(curTile), { static_cast<int>(backgroundRects[0].getSize().x),static_cast<int>(backgroundRects[0].getSize().y) });
 
-			newTile = checkMoveTile(currentLobby.accessPlayer(i).playerChar.localPosition, currentLobby.lobbyMaze.getNode(currentLobby.accessPlayer(i).playerChar.tile), { static_cast<int>(backgroundRects[0].getSize().x),static_cast<int>(backgroundRects[0].getSize().y) });
-
-			if (newTile != currentLobby.accessPlayer(i).playerChar.tile) {
-				check = { static_cast<int>(newTile.x - currentLobby.accessPlayer(i).playerChar.tile.x),static_cast<int>(newTile.y - currentLobby.accessPlayer(i).playerChar.tile.y) };
+			if (newTile != curTile) {
+				check = { static_cast<int>(newTile.x - curTile.x),static_cast<int>(newTile.y - curTile.y) };
 				if (check == vector<int>({ 0, -1 })) {
 					currentLobby.accessPlayer(i).playerChar.localPosition = sf::Vector2f(currentLobby.accessPlayer(i).playerChar.localPosition.x, backgroundRects[0].getSize().y - 50);
 				}
@@ -138,94 +132,66 @@ void tickGame(lobby currentLobby) {
 				else if (check == vector<int>({ 1, 0 })) {
 					currentLobby.accessPlayer(i).playerChar.localPosition = sf::Vector2f(50, currentLobby.accessPlayer(i).playerChar.localPosition.y);
 				}
-				currentLobby.accessPlayer(i).playerChar.tile = newTile;
-				backgroundRects = getCellRects(currentLobby.lobbyMaze.getNode(currentLobby.accessPlayer(i).playerChar.tile).pos, currentLobby.lobbyMaze.getNode(currentLobby.accessPlayer(i).playerChar.tile).connections, win);
-				collisionRectangles = getCollisionRectangles(backgroundRects);
-			}
-			//bot character behavior. very outdated
-			for (character i : charsArray) {
-				//currentDir = characterBehavior(i);
-				if (currentDir == 's') {
-					i.changeSpriteText("still");
-				}
-				else if (spriteChangeCounter == spriteChangeInterval) {
-					if (!i.attacking) {
-						if (currentDir == 'l') {
-							i.changeSpriteText("left");
-						}
-						else if (currentDir == 'r') {
-							i.changeSpriteText("right");
-						}
-						else if (currentDir == 'u') {
-							i.changeSpriteText("up");
-						}
-						else if (currentDir == 'd') {
-							i.changeSpriteText("down");
-						}
-						i.changeSpriteText("next");
-					}
-					else {
-						i.changeSpriteText("next");
-					}
-				}
-				i.sprite.setPosition(i.localPosition);
-				i.currentWeapon.sprite.setPosition(i.localPosition);
-			}
+				curTile = newTile;
 
-			//enemy graphics
-
-			for (int i = 0; i < currentLobby.enemyArray.size(); i++) {//iterate through enemy array
-				if (currentLobby.enemyArray[i].hpCurrent <= 0) {//if they're dead
-					currentLobby.enemyArray.erase(currentLobby.enemyArray.begin() + i);
-					if (currentLobby.enemyArray.empty()) {
-						return "win";//if no enemies left
-					}
-					break;
-				}
-				if (currentLobby.enemyArray[i].tile == currentLobby.accessPlayer(i).playerChar.tile) {// only update texture if they on the same tile as the player
-					currentLobby.enemyArray[i].tick();
-					if (currentLobby.enemyArray[i].directionTick == currentLobby.enemyArray[i].tickMax && !currentLobby.enemyArray[i].attacking) {
-						currentLobby.enemyArray[i].behavior(player, collisionRectangles);
-						if (currentLobby.enemyArray[i].currentDir == 'l') {
-							currentLobby.enemyArray[i].changeSpriteText("left");
-						}
-						else if (currentLobby.enemyArray[i].currentDir == 'r') {
-							currentLobby.enemyArray[i].changeSpriteText("right");
-						}
-						else if (currentLobby.enemyArray[i].currentDir == 'u') {
-							currentLobby.enemyArray[i].changeSpriteText("up");
-						}
-						else if (currentLobby.enemyArray[i].currentDir == 'd') {
-							currentLobby.enemyArray[i].changeSpriteText("down");
-						}
-					}
-					if (!currentLobby.enemyArray[i].attacking) {//if they're not attacking
-						currentLobby.enemyArray[i].move(currentLobby.enemyArray[i].currentDir, collObjs);//move
-					}
-					if (spriteChangeCounter == spriteChangeInterval) {
-						if (currentLobby.enemyArray[i].attacking) {
-							currentLobby.enemyArray[i].attackTick++;
-							if (currentLobby.enemyArray[i].attackTick == currentLobby.enemyArray[i].maxAttackTick) {
-								currentLobby.enemyArray[i].attacking = false;
-								currentLobby.enemyArray[i].attackTick = 0;
-								currentLobby.enemyArray[i].directionTick = currentLobby.enemyArray[i].tickMax - 1;
-
-							}
-						}
-						//increment texture
-						currentLobby.enemyArray[i].changeSpriteText("next");
-					}
-					if (currentLobby.enemyArray[i].damaged) {
-						currentLobby.enemyArray[i].damageTick++;
-						if (currentLobby.enemyArray[i].damageTick == 61) {
-							currentLobby.enemyArray[i].damaged = false;
-							currentLobby.enemyArray[i].damageTick = 0;
-							currentLobby.enemyArray[i].sprite.setColor(sf::Color(255, 255, 255));
-						}
-					}
+				if (currentLobby.backgroundRectsArray[curTile.x][curTile.y] == vector<sf::RectangleShape>()) {
+					currentLobby.backgroundRectsArray[curTile.x][curTile.y] = getCellRectsServer(currentLobby.lobbyMaze.getNode(curTile).pos, currentLobby.lobbyMaze.getNode(curTile).connections);
+					currentLobby.collisionRectsArray[curTile.x][curTile.y] = getCollisionRectangles(currentLobby.backgroundRectsArray[curTile.x][curTile.y]);
 				}
 			}
 		}
+		//bot character behavior goes here
+			
+		//done to here
+			
+		//enemy behaviour
+		for (int i = 0; i < currentLobby.enemyArray.size(); i++) {//iterate through enemy array
+			if (currentLobby.enemyArray[i].hpCurrent <= 0) {//if they're dead
+				currentLobby.enemyArray.erase(currentLobby.enemyArray.begin() + i);
+				break;
+			}
+			currentLobby.enemyArray[i].tick();
+			if (currentLobby.enemyArray[i].directionTick == currentLobby.enemyArray[i].tickMax && !currentLobby.enemyArray[i].attacking) {
+				currentLobby.enemyArray[i].behavior(player, collisionRectangles);
+				if (currentLobby.enemyArray[i].currentDir == 'l') {
+					currentLobby.enemyArray[i].changeSpriteText("left");
+				}
+				else if (currentLobby.enemyArray[i].currentDir == 'r') {
+					currentLobby.enemyArray[i].changeSpriteText("right");
+				}
+				else if (currentLobby.enemyArray[i].currentDir == 'u') {
+					currentLobby.enemyArray[i].changeSpriteText("up");
+				}
+				else if (currentLobby.enemyArray[i].currentDir == 'd') {
+					currentLobby.enemyArray[i].changeSpriteText("down");
+				}
+			}
+			if (!currentLobby.enemyArray[i].attacking) {//if they're not attacking
+				currentLobby.enemyArray[i].move(currentLobby.enemyArray[i].currentDir, collObjs);//move
+			}
+			if (spriteChangeCounter == spriteChangeInterval) {
+				if (currentLobby.enemyArray[i].attacking) {
+					currentLobby.enemyArray[i].attackTick++;
+					if (currentLobby.enemyArray[i].attackTick == currentLobby.enemyArray[i].maxAttackTick) {
+						currentLobby.enemyArray[i].attacking = false;
+						currentLobby.enemyArray[i].attackTick = 0;
+						currentLobby.enemyArray[i].directionTick = currentLobby.enemyArray[i].tickMax - 1;
+
+					}
+				}
+				//increment texture
+				currentLobby.enemyArray[i].changeSpriteText("next");
+			}
+			if (currentLobby.enemyArray[i].damaged) {
+				currentLobby.enemyArray[i].damageTick++;
+				if (currentLobby.enemyArray[i].damageTick == 61) {
+					currentLobby.enemyArray[i].damaged = false;
+					currentLobby.enemyArray[i].damageTick = 0;
+					currentLobby.enemyArray[i].sprite.setColor(sf::Color(255, 255, 255));
+				}
+			}
+		}
+	}
 }
 
 bool updatePreGameLobby(lobby currentLobby){

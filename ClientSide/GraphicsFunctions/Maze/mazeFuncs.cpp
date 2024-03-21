@@ -112,6 +112,35 @@ vector<sf::RectangleShape> getCellRects(sf::Vector2f pos, std::vector < sf::Vect
     return ret;
 }
 
+vector<sf::RectangleShape> getCellRectsServer(sf::Vector2f pos, std::vector < sf::Vector2f > conns) {
+    vector<vector<int>> connsSimp = {};
+    vector<sf::RectangleShape> ret;
+
+    for (sf::Vector2f i : conns) {
+        connsSimp.push_back({ static_cast<int>(i.x - pos.x),static_cast<int>(i.y - pos.y) });
+    }
+
+    int width = 1920;
+    int height = 1080;
+
+
+
+    ret.push_back(sf::RectangleShape(sf::Vector2f(width, height)));
+    ret[ret.size() - 1].setPosition(sf::Vector2f(0, 0));
+    ret[ret.size() - 1].setFillColor(colours::cinereous);
+
+    ret.push_back(sf::RectangleShape(sf::Vector2f(width / 3, height / 3)));
+    ret[ret.size() - 1].setFillColor(colours::hunterGreen);
+    ret[ret.size() - 1].setPosition(sf::Vector2f(width / 3, height / 3));
+
+    for (vector<int> i : connsSimp) {
+        ret.push_back(sf::RectangleShape(sf::Vector2f(width / 3, height / 3)));
+        ret[ret.size() - 1].setFillColor(colours::hunterGreen);
+        ret[ret.size() - 1].setPosition(sf::Vector2f(width / 3 + width / 3 * i[0], height / 3 + height / 3 * i[1]));
+    }
+    return ret;
+}
+
 std::vector<std::vector<int>> getCollisionRectangles(std::vector<sf::RectangleShape> backRects)
 {
     vector<vector<int>> ret;
