@@ -66,13 +66,18 @@ int runServer() {
 void tickGame(lobby currentLobby) {
 	bool finished = false;
 	vector<int> check;
+	int spriteChangeCounter = 0;
+	int spriteChangeInterval = 12;
 
 	for (int i = 0; i < currentLobby.playerCount; i++) {
 		currentLobby.backgroundRectsArray[currentLobby.accessPlayer(i).playerChar.tile.x][currentLobby.accessPlayer(i).playerChar.tile.y] = getCellRectsServer(currentLobby.lobbyMaze.getNode(currentLobby.accessPlayer(i).playerChar.tile).pos, currentLobby.lobbyMaze.getNode(currentLobby.accessPlayer(i).playerChar.tile).connections);
 		currentLobby.collisionRectsArray[currentLobby.accessPlayer(i).playerChar.tile.x][currentLobby.accessPlayer(i).playerChar.tile.y] = getCollisionRectangles(currentLobby.backgroundRectsArray[currentLobby.accessPlayer(i).playerChar.tile.x][currentLobby.accessPlayer(i).playerChar.tile.y]);
 	}
 	vector<vector<sf::Vector2f*>> collObjs;//collision objects. 
-
+	vector<entity&> playerCharArray;
+	for (int i = 0; i < currentLobby.playerCount; i++) {
+		playerCharArray.push_back(currentLobby.accessPlayer(i).playerChar);
+	}
 	for (int i = 0; i < currentLobby.enemyArray.size(); i++) {
 		collObjs.push_back({ &currentLobby.enemyArray[i].tile, &currentLobby.enemyArray[i].localPosition });//add enemy coords
 	}
@@ -81,7 +86,7 @@ void tickGame(lobby currentLobby) {
 		collObjs.push_back({ &charsArray[i].tile, &charsArray[i].localPosition });//add bot coords
 		}*/
 	for (int i = 0; i < currentLobby.playerCount; i++) {
-		collObjs.push_back({ &currentLobby.accessPlayer(i).playerChar.tile, &currentLobby.accessPlayer(i).playerChar.localPosition});//add player coords
+		collObjs.push_back({ &currentLobby.accessPlayer(i).playerChar.tile, &currentLobby.accessPlayer(i).playerChar.localPosition});//add 2 coords
 	}
 
 	sf::Vector2f newTile;
@@ -152,7 +157,7 @@ void tickGame(lobby currentLobby) {
 			}
 			currentLobby.enemyArray[i].tick();
 			if (currentLobby.enemyArray[i].directionTick == currentLobby.enemyArray[i].tickMax && !currentLobby.enemyArray[i].attacking) {
-				currentLobby.enemyArray[i].behavior(player, collisionRectangles);
+				currentLobby.enemyArray[i].behavior(playerCharArray, currentLobby.collisionRectsArray[currentLobby.enemyArray[i].tile.x][currentLobby.enemyArray[i].tile.y]);
 				if (currentLobby.enemyArray[i].currentDir == 'l') {
 					currentLobby.enemyArray[i].changeSpriteText("left");
 				}

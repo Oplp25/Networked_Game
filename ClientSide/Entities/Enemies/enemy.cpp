@@ -20,16 +20,54 @@ bool enemy::checkPatRange(char direction)
 	return false;
 } 
 
-void enemy::behavior(entity &player,vector<vector<int>> tileLayout)
+void enemy::behavior(vector<entity&> playerArray,vector<vector<int>> tileLayout)
 {
-	if (pow((player.localPosition.x-localPosition.x),2)+pow((player.localPosition.y - localPosition.y),2)<pow(sight,2)) {//if player is within sight
-		if (pow((player.localPosition.x - localPosition.x), 2) + pow((player.localPosition.y - localPosition.y), 2) < pow(reach, 2)) {//if player is in reach
-			attack(player,damage);
+	vector<entity&> inTileArray;
+	int minDist = 2047;
+
+	for (auto i : playerArray) {//get all players on same tile
+		if (i.tile == tile) {
+			inTileArray.push_back(i);
 		}
-		else {
-			//move towards player
-			if (abs(player.localPosition.x - localPosition.x)> abs(player.localPosition.y - localPosition.y)) {//check if the player is closer in x or y direction
-				if (player.localPosition.x > localPosition.x) {
+	}
+	if (inTileArray.size() > 0) {
+		entity& toAttack = inTileArray[0];
+		int temp = 0;
+
+		for (auto i : inTileArray) {
+			temp = pow((i.localPosition.x - localPosition.x), 2) + pow((i.localPosition.y - localPosition.y), 2);
+			if (temp < minDist) {
+				minDist = temp;
+				toAttack = i;
+			}
+		}
+		if (minDist < pow(sight, 2)) {//if player is within sight
+			if (minDist < pow(reach, 2)) {//if player is in reach
+				attack(toAttack, damage);
+			}
+			else {
+				//move towards player
+				if (abs(toAttack.localPosition.x - localPosition.x) > abs(toAttack.localPosition.y - localPosition.y)) {//check if the toAttack is closer in x or y direction
+					if (toAttack.localPosition.x > localPosition.x) {
+						currentDir = 'r';
+					}
+					else {
+						currentDir = 'l';
+					}
+				}
+				else {
+					if (toAttack.localPosition.y > localPosition.y) {
+						currentDir = 'd';
+					}
+					else {
+						currentDir = 'u';
+					}
+				}
+			}
+		}
+		else if (pow((baseCoords.x - localPosition.x), 2) + pow((baseCoords.y - localPosition.y), 2) > pow(patrolRange, 2)) {//if outside of patrol range, move back towards baseCoords
+			if (abs(baseCoords.x - localPosition.x) > abs(baseCoords.y - localPosition.y)) {
+				if (baseCoords.x > localPosition.x) {
 					currentDir = 'r';
 				}
 				else {
@@ -37,13 +75,26 @@ void enemy::behavior(entity &player,vector<vector<int>> tileLayout)
 				}
 			}
 			else {
-				if (player.localPosition.y > localPosition.y) {
+				if (baseCoords.y > localPosition.y) {
 					currentDir = 'd';
 				}
 				else {
 					currentDir = 'u';
 				}
 			}
+		}
+		else {//move in a random direction
+			bool x = true;
+			randGen.seed(time(0));
+			vector<char> dirs = { 'u','d','l','r' };
+			char dir;
+			while (x) {
+				dir = dirs[distX(randGen)];
+				if (checkEnd(dir, tickMax, tileLayout) && checkPatRange(dir) && dir + currentDir != 217 && dir + currentDir != 222) {// if the direction is not the opposite direction, and ends within patrol range, and not outside of the area
+					x = false;
+				}
+			}
+			currentDir = dir;
 		}
 	}
 	else if(pow((baseCoords.x - localPosition.x), 2) + pow((baseCoords.y - localPosition.y), 2) > pow(patrolRange, 2)){//if outside of patrol range, move back towards baseCoords
@@ -75,9 +126,6 @@ void enemy::behavior(entity &player,vector<vector<int>> tileLayout)
 				x = false;
 			}
 		}
-		/*int choice = distX(randGen);
-		cout << "choice"<<choice << endl;
-		dir = dirs[choice];*/
 		currentDir = dir;
 	}
 }

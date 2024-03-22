@@ -66,6 +66,12 @@ void entity::death()
 {
 }
 
+int entity::getCurrentText() const
+{
+	return currentText;
+
+}
+
 void entity::switchTextArray(char direction, char d2, char d3)
 {
 	if (direction != entityCurrentDirection) {//if you are changing direction

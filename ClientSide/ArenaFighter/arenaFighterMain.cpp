@@ -212,7 +212,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			if (enemyArray[i].tile == player.tile) {// only update texture if they on the same tile as the player
 				enemyArray[i].tick();
 				if (enemyArray[i].directionTick == enemyArray[i].tickMax && !enemyArray[i].attacking) {
-					enemyArray[i].behavior(player, collisionRectangles);
+					enemyArray[i].behavior({ player }, collisionRectangles);
 					if (enemyArray[i].currentDir == 'l') {
 						enemyArray[i].changeSpriteText("left");
 					}

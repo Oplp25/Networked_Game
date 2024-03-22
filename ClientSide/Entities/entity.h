@@ -31,6 +31,7 @@ class entity:public drawable {
 		void damageSelf(int damage);//take damage
 		void death();
 		void spawn();
+		int getCurrentText() const;
 
 
 };
