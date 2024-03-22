@@ -8,6 +8,7 @@ class entity:public drawable {
 	protected:
 		//a method to switch which is the current texture array
 		void switchTextArray(char direction, char d2 = ' ', char d3 = ' ');//direction is the direction, or a if attacking. d2 is left or right when attacking, d3 is the direction you are attacking in(only for the player)
+		void switchTextArrayServer(char direction);
 		//array of text arrays
 		std::vector<std::vector<sf::Texture>> listOfTexts = { {},{},{},{},{},{},{} };// up, down,right, still, rightAttack, upRightAttack,downRightAttack	
 		float speed;
@@ -32,6 +33,7 @@ class entity:public drawable {
 		void death();
 		void spawn();
 		int getCurrentText() const;
+		void changeSpriteTextServer(std::string textArgs);
 
 
 };

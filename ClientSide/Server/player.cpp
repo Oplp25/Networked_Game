@@ -1,5 +1,7 @@
 #include "player.h"
 
+#include "packetOverrides.h"
+
 using namespace std;
 
 player::player() {
@@ -12,10 +14,19 @@ sf::TcpSocket& player::accessSocket() {
 	return socket;
 }
 
-bool player::sendMessage() {
+bool player::sendPreparedMessage() {
 	sf::Packet packet;
 	packet << message;
 	if (socket.send(packet) == sf::Socket::Done){
+		return true;
+	}
+	return false;
+}
+
+bool player::sendMessage(entity& toSend) {
+	sf::Packet packet;
+	packet << toSend;
+	if (socket.send(packet) == sf::Socket::Done) {
 		return true;
 	}
 	return false;

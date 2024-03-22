@@ -7,6 +7,7 @@
 #include "lobby.h"
 #include "../GraphicsFunctions/Maze/mazeFuncs.h"
 #include "../Behavior/Player/playerBehavior.h"
+#include "packetOverrides.h"
 using namespace std;
 
 int runServer() {
@@ -90,7 +91,7 @@ void tickGame(lobby currentLobby) {
 	}
 
 	sf::Vector2f newTile;
-
+	char currentDir;
 	while (!finished) {
 		//player graphics
 		for (int i = 0; i < currentLobby.playerCount; i++) {
@@ -100,6 +101,31 @@ void tickGame(lobby currentLobby) {
 			}
 			//need to use sockets to get inputs
 			//currentLobby.accessPlayer(i).currentDir = playerBehavior(win, player, currentLobby.enemyArray, collObjs, collisionRectangles);//get the direction of motion for the player
+
+			currentDir = 's';
+			if (currentDir == 's' && !currentLobby.accessPlayer(i).playerChar.attacking) {
+				currentLobby.accessPlayer(i).playerChar.changeSpriteText("still");//player displays the still texture
+			}
+			if (spriteChangeCounter == spriteChangeInterval || (currentLobby.accessPlayer(i).playerChar.entityCurrentDirection == 's' && !currentLobby.accessPlayer(i).playerChar.attacking)) {//   player does not change every cycle
+				if (!currentLobby.accessPlayer(i).playerChar.attacking) {
+					//change player sprite texture
+					if (currentDir == 'l') {
+						currentLobby.accessPlayer(i).playerChar.changeSpriteTextServer("left");
+					}
+					else if (currentDir == 'r') {
+						currentLobby.accessPlayer(i).playerChar.changeSpriteTextServer("right");
+					}
+					else if (currentDir == 'u') {
+						currentLobby.accessPlayer(i).playerChar.changeSpriteTextServer("up");
+					}
+					else if (currentDir == 'd') {
+						currentLobby.accessPlayer(i).playerChar.changeSpriteTextServer("down");
+					}
+					//move to the next texture in the array
+					currentLobby.accessPlayer(i).playerChar.changeSpriteText("next");
+				}
+			}
+
 
 			if (currentLobby.accessPlayer(i).playerChar.attacking) {//if player is attacking
 				currentLobby.accessPlayer(i).playerChar.attackTick++;//increment the attack tick
@@ -159,16 +185,16 @@ void tickGame(lobby currentLobby) {
 			if (currentLobby.enemyArray[i].directionTick == currentLobby.enemyArray[i].tickMax && !currentLobby.enemyArray[i].attacking) {
 				currentLobby.enemyArray[i].behavior(playerCharArray, currentLobby.collisionRectsArray[currentLobby.enemyArray[i].tile.x][currentLobby.enemyArray[i].tile.y]);
 				if (currentLobby.enemyArray[i].currentDir == 'l') {
-					currentLobby.enemyArray[i].changeSpriteText("left");
+					currentLobby.enemyArray[i].changeSpriteTextServer("left");
 				}
 				else if (currentLobby.enemyArray[i].currentDir == 'r') {
-					currentLobby.enemyArray[i].changeSpriteText("right");
+					currentLobby.enemyArray[i].changeSpriteTextServer("right");
 				}
 				else if (currentLobby.enemyArray[i].currentDir == 'u') {
-					currentLobby.enemyArray[i].changeSpriteText("up");
+					currentLobby.enemyArray[i].changeSpriteTextServer("up");
 				}
 				else if (currentLobby.enemyArray[i].currentDir == 'd') {
-					currentLobby.enemyArray[i].changeSpriteText("down");
+					currentLobby.enemyArray[i].changeSpriteTextServer("down");
 				}
 			}
 			if (!currentLobby.enemyArray[i].attacking) {//if they're not attacking
@@ -185,16 +211,23 @@ void tickGame(lobby currentLobby) {
 					}
 				}
 				//increment texture
-				currentLobby.enemyArray[i].changeSpriteText("next");
+				currentLobby.enemyArray[i].changeSpriteTextServer("next");
 			}
 			if (currentLobby.enemyArray[i].damaged) {
 				currentLobby.enemyArray[i].damageTick++;
 				if (currentLobby.enemyArray[i].damageTick == 61) {
 					currentLobby.enemyArray[i].damaged = false;
 					currentLobby.enemyArray[i].damageTick = 0;
-					currentLobby.enemyArray[i].sprite.setColor(sf::Color(255, 255, 255));
 				}
 			}
+			for (int j = 0; j < currentLobby.playerCount; j++) {
+				if (currentLobby.accessPlayer(j).playerChar.tile == currentLobby.enemyArray[i].tile) {
+					currentLobby.accessPlayer(j).sendMessage(currentLobby.enemyArray[i]);
+				}
+			}
+		}
+		for (int j = 0; j < currentLobby.playerCount; j++) {
+			currentLobby.accessPlayer(j).sendPreparedMessage();
 		}
 	}
 }

@@ -11,7 +11,8 @@ class player {
 	public:
 		char currentDir;
 		character playerChar;
-		bool sendMessage();
+		bool sendPreparedMessage();
+		bool sendMessage(entity& toSend);
 		void addToMessage(std::string toAdd);
 		sf::TcpSocket& accessSocket();
 		player();
