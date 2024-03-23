@@ -5,9 +5,9 @@
 #include "../GraphicsFunctions/Maze/mazeGraph.h"
 mazeGraph createArenaLayout();//create the maze and populate it
 
-void runArenaFighterSingle(sf::RenderWindow &win);//run the singleplayer version
+void runArenaFighterSingle(sf::RenderWindow &win, sf::TcpSocket& socket);//run the singleplayer version
 
-void runArenaFighterMulti(sf::RenderWindow& win);//run the multiplayer variant
+void runArenaFighterMulti(sf::RenderWindow& win, sf::TcpSocket& socket);//run the multiplayer variant
 
 std::string singleArenaGameloop(sf::RenderWindow& win, character& player, std::vector<character> charArray, std::vector<enemy> enemyArray, mazeGraph currentMazeGraph);//gameloop for the singleplayer version
 

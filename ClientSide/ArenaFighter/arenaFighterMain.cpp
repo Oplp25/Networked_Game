@@ -20,7 +20,7 @@ mazeGraph createArenaLayout()
 	return graph;
 }
 
-void runArenaFighterSingle(sf::RenderWindow& win)
+void runArenaFighterSingle(sf::RenderWindow& win, sf::TcpSocket& socket)
 {
 	character playerCharacter = characterCreator(win);//create the player character
 	//character player2 = playerCharacter;
@@ -310,9 +310,12 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	return string();
 }
 
-void runArenaFighterMulti(sf::RenderWindow& win)
+void runArenaFighterMulti(sf::RenderWindow& win, sf::TcpSocket& socket)
 {
-	character playerCharacter = characterCreator(win);
+	if (socket.getRemotePort() == 0) {
+		return void();
+	}
+	character playerCharacter = characterCreator(win); 
 
 }
 

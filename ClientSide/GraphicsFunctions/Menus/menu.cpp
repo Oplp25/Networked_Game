@@ -10,12 +10,13 @@
 #include "../../ArenaFighter/arenaFighterMain.h"
 #include "button.h"
 #include "../../ConnectionFunctions/serverConnection.h"
+#include "../../Server/serverAddresses.h"
 using namespace std;
 using namespace colours;
 
 const filesystem::path cwd = filesystem::current_path();
 
-void runMenu(sf::RenderWindow& win, sf::Socket::Status online) {
+void runMenu(sf::RenderWindow& win, sf::TcpSocket& socket, bool online) {
 	int width = win.getSize().x;
 	int height = win.getSize().y;
 	sf::Font comicsans;
@@ -27,7 +28,16 @@ void runMenu(sf::RenderWindow& win, sf::Socket::Status online) {
 	button networkStatusButton;
 	sf::Text networkStatusText;
 	if (online) {
-		
+		networkStatusShape = sf::RectangleShape(sf::Vector2f(width / 6, height / 12));
+		networkStatusShape.setPosition(sf::Vector2f(width / 20, height / 20));
+		networkStatusShape.setFillColor(cinereous);
+
+		networkStatusText.setString("Connected");
+		networkStatusText.setCharacterSize(60);
+		networkStatusText.setFillColor(sf::Color(0, 0, 0));
+		networkStatusText.setStyle(sf::Text::Bold);
+		networkStatusText.setFont(comicsans);
+		networkStatusText.setPosition(sf::Vector2f(networkStatusShape.getPosition().x + (networkStatusShape.getLocalBounds().width - networkStatusText.getLocalBounds().width) / 2, networkStatusShape.getPosition().y + width / 190));
 	}
 	else {
 		networkStatusShape = sf::RectangleShape(sf::Vector2f(width/6,height/12));
@@ -94,10 +104,10 @@ void runMenu(sf::RenderWindow& win, sf::Socket::Status online) {
 				for (button i : buttonList) {
 					if (i.hitbox.contains(mouseLocF)) {
 						if (i.des == 'm'){//if the button opens up a menu
-							i.fncPtr(win);
+							i.fncPtr(win,socket);
 						}
 						else if (i.des == 's') {
-							online = connectToServer(win);
+							online = connectToServer(socket,serverAddress,serverPort);
 						}
 					}
 				}

@@ -6,4 +6,4 @@
 
 #include "button.h"
 
-void runArenaFighterTeamsMenu(sf::RenderWindow &win);//run the menu
+void runArenaFighterTeamsMenu(sf::RenderWindow &win, sf::TcpSocket& socket);//run the menu

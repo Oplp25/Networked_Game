@@ -22,6 +22,7 @@
 #include "ConnectionFunctions/serverConnection.h"
 
 #include "Server/serverMain.h"
+#include "Server/serverAddresses.h"
 
 #include "testFolder(Temp)/clientTest.h"
 using namespace std;
@@ -69,8 +70,7 @@ int main() {
 
 
 		//use this if connecting over a LAN
-		sf::IpAddress address("Jakob_PC");//change IP address each time
-		getConnection(socket, address, 55001);
+		getConnection(socket, serverAddress, serverPort);
 		sendMessage(socket, "Hello World");
 
 		char buffer[1024];
@@ -91,13 +91,14 @@ int main() {
 	win.setFramerateLimit(60);
 	promise<sf::Socket::Status> serverConProm;
 	future<sf::Socket::Status> serverConFut = serverConProm.get_future();
-
-	thread serverConnectionThread(connectToServerThreaded, serverConProm);
+	thread serverConnectionThread(connectToServerThreaded, serverConProm, socket, serverAddress, serverPort);
 
 	runIntro(win);
 
 	sf::Socket::Status online = serverConFut.get();
 	serverConnectionThread.join();
-	runMenu(win, online);
+	
+	bool onlineBool = online == sf::Socket::Done;
+	runMenu(win, socket, onlineBool);
 	return 0;
 }

@@ -4,4 +4,4 @@
 
 struct button;
 
-void runMenu(sf::RenderWindow& win, sf::Socket::Status online);//main menu
+void runMenu(sf::RenderWindow& win, sf::TcpSocket& socket,bool online);//main menu

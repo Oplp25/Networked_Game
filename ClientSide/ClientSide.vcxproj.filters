@@ -221,5 +221,8 @@
     <ClInclude Include="Server\packetOverrides.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Server\serverAddresses.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

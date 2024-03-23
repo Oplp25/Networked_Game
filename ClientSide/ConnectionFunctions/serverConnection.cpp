@@ -10,3 +10,12 @@ void connectToServerThreaded(promise<sf::Socket::Status> prom, sf::TcpSocket& so
 	sf::Socket::Status status = socket.connect(address, port);
 	prom.set_value(status);
 }
+
+bool connectToServer(sf::TcpSocket& socket, sf::IpAddress address, int port)
+{
+	sf::Socket::Status status  = socket.connect(address, port);
+	if (status == sf::Socket::Done) {
+		return true;
+	}
+	return false;
+}
