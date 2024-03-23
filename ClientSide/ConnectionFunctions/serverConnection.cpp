@@ -2,13 +2,11 @@
 #include<future>
 #include<iostream>
 #include<SFML/Graphics.hpp>
+#include<SFML/Network.hpp>
 
 using namespace std;
 
-void connectToServerThreaded(promise<bool>) {
-	cout << "Reconnecting..." << endl;
-}
-bool connectToServer(sf::RenderWindow &win) {
-	cout << "Reconnecting..." << endl;
-	return false;
+void connectToServerThreaded(promise<sf::Socket::Status> prom, sf::TcpSocket& socket, sf::IpAddress address, int port) {
+	sf::Socket::Status status = socket.connect(address, port);
+	prom.set_value(status);
 }

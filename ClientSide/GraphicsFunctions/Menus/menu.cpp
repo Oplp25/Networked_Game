@@ -1,5 +1,4 @@
 #include "menu.h"
-#include<SFML\Graphics.hpp>
 #include<iostream>
 #include<vector>
 #include<future>
@@ -16,7 +15,7 @@ using namespace colours;
 
 const filesystem::path cwd = filesystem::current_path();
 
-void runMenu(sf::RenderWindow& win, bool online) {
+void runMenu(sf::RenderWindow& win, sf::Socket::Status online) {
 	int width = win.getSize().x;
 	int height = win.getSize().y;
 	sf::Font comicsans;

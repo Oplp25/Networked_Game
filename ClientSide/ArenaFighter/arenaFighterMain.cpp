@@ -9,6 +9,7 @@
 #include "../Entities/Enemies/enemyTemplates.h"
 #include "../GraphicsFunctions/gameOutcomes.h"
 #include "../GraphicsFunctions/Maze/mazeFuncs.h"
+#include "../Server/packetOverrides.h"
 //#include "../GraphicsFunctions/textureLoaders/textureLoaders.h"
 using namespace std;
 const filesystem::path cwd = filesystem::current_path();
@@ -42,11 +43,6 @@ void runArenaFighterSingle(sf::RenderWindow& win)
 	else if (result == "loss") {
 		spLoss(win);
 		}
-}
-
-void runArenaFighterMulti(sf::RenderWindow& win)
-{
-	character playerCharacter = characterCreator(win);
 }
 
 string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<character> charsArray,vector<enemy> enemyArray, mazeGraph currentMazeGraph)
@@ -314,7 +310,13 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	return string();
 }
 
-string multiArenaGameloop(sf::RenderWindow& win, character& player, vector<vector<vector<sf::Texture>>> textures)
+void runArenaFighterMulti(sf::RenderWindow& win)
+{
+	character playerCharacter = characterCreator(win);
+
+}
+
+string multiArenaGameloop(sf::RenderWindow& win, character& player)
 {
 	return string();
 }

@@ -170,6 +170,11 @@ void tickGame(lobby currentLobby) {
 					currentLobby.collisionRectsArray[curTile.x][curTile.y] = getCollisionRectangles(currentLobby.backgroundRectsArray[curTile.x][curTile.y]);
 				}
 			}
+			for (int j = 0; j < currentLobby.playerCount; j++) {
+				if (j != i && currentLobby.accessPlayer(j).playerChar.tile == curTile) {
+					currentLobby.accessPlayer(i).sendMessage(currentLobby.accessPlayer(j).playerChar);
+				}
+			}
 		}
 		//bot character behavior goes here
 			
