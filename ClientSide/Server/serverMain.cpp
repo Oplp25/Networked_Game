@@ -147,18 +147,18 @@ void tickGame(lobby currentLobby) {
 			}
 
 
-			newTile = checkMoveTile(currentLobby.accessPlayer(i).playerChar.localPosition, currentLobby.lobbyMaze.getNode(curTile), { static_cast<int>(backgroundRects[0].getSize().x),static_cast<int>(backgroundRects[0].getSize().y) });
+			newTile = checkMoveTile(currentLobby.accessPlayer(i).playerChar.localPosition, currentLobby.lobbyMaze.getNode(curTile), { static_cast<int>(currentLobby.backgroundRectsArray[0][0][0].getSize().x),static_cast<int>(currentLobby.backgroundRectsArray[0][0][0].getSize().y) });
 
 			if (newTile != curTile) {
 				check = { static_cast<int>(newTile.x - curTile.x),static_cast<int>(newTile.y - curTile.y) };
 				if (check == vector<int>({ 0, -1 })) {
-					currentLobby.accessPlayer(i).playerChar.localPosition = sf::Vector2f(currentLobby.accessPlayer(i).playerChar.localPosition.x, backgroundRects[0].getSize().y - 50);
+					currentLobby.accessPlayer(i).playerChar.localPosition = sf::Vector2f(currentLobby.accessPlayer(i).playerChar.localPosition.x, currentLobby.backgroundRectsArray[0][0][0].getSize().y - 50);
 				}
 				else if (check == vector<int>({ 0, 1 })) {
 					currentLobby.accessPlayer(i).playerChar.localPosition = sf::Vector2f(currentLobby.accessPlayer(i).playerChar.localPosition.x, 50);
 				}
 				else if (check == vector<int>({ -1, 0 })) {
-					currentLobby.accessPlayer(i).playerChar.localPosition = sf::Vector2f(backgroundRects[0].getSize().x - 50, currentLobby.accessPlayer(i).playerChar.localPosition.y);
+					currentLobby.accessPlayer(i).playerChar.localPosition = sf::Vector2f(currentLobby.backgroundRectsArray[0][0][0].getSize().x - 50, currentLobby.accessPlayer(i).playerChar.localPosition.y);
 				}
 				else if (check == vector<int>({ 1, 0 })) {
 					currentLobby.accessPlayer(i).playerChar.localPosition = sf::Vector2f(50, currentLobby.accessPlayer(i).playerChar.localPosition.y);
