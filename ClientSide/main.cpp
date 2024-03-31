@@ -28,28 +28,6 @@ using namespace std;
 
 int main() {
 
-	sf::TcpSocket socket;
-
-
-	//use this if testing on one computer
-	//getConnection(socket,sf::IpAddress::getLocalAddress(), 55001);
-
-
-	//use this if connecting over a LAN
-	sf::IpAddress address("Jakob_PC");//change IP address each time
-	getConnection(socket, address, 55001);
-	sendMessage(socket, "Hello World");
-
-	char buffer[1024];
-	std::size_t received = 0;
-	socket.receive(buffer, sizeof(buffer), received);
-	std::cout << "The server said: " << buffer << std::endl;
-
-	sendPacket(socket,"Packets are cool");
-	int x;
-	cin >> x;
-
-	/*
 	sf::RenderWindow win(sf::VideoMode(1920, 1080), "Welcome to the Arena");//the main window
 	//sf::RenderWindow win(sf::VideoMode(1920, 1080), "Welcome to the Arena",sf::Style::Fullscreen);
 	win.setFramerateLimit(60);
@@ -63,6 +41,5 @@ int main() {
 	//bool online = serverConFut.get();
 	bool online = false;
 	runMenu(win, online);
-	*/
 	return 0;
 }
