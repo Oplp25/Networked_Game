@@ -1,5 +1,6 @@
 #pragma once
 #include<SFML/Graphics.hpp>
+#include<SFML/Network.hpp>
 #include "../Entities/Characters/character.h"
 #include "../Entities/Enemies/enemy.h"
 #include "../GraphicsFunctions/Maze/mazeGraph.h"
