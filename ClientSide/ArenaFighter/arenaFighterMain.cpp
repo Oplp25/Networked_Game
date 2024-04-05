@@ -149,12 +149,16 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			}
 		}
 
+		//checks if the player should move tile
 		newTile = checkMoveTile(player.localPosition, currentMazeGraph.getNode(player.tile), {static_cast<int>(backgroundRects[0].getSize().x),static_cast<int>(backgroundRects[0].getSize().y)});
 
-		if (newTile != player.tile) {
+		if (newTile != player.tile) {//if the tile is changing
+			//changes newTile to relative coords
 			check = { static_cast<int>(newTile.x - player.tile.x),static_cast<int>(newTile.y - player.tile.y) };
+
+			//when the player changes tile, this changes their position to the opposite side, so it appears like they moved.
 			if (check == vector<int>({ 0, -1 })) {
-				player.localPosition = sf::Vector2f(player.localPosition.x, backgroundRects[0].getSize().y - 50);
+				player.localPosition = sf::Vector2f(player.localPosition.x, backgroundRects[0].getSize().y - 50);//50 instead of 49 so they are not caught in an endless loop of changing tile
 			}
 			else if (check == vector<int>({ 0, 1 })) {
 				player.localPosition = sf::Vector2f(player.localPosition.x, 50);
@@ -166,9 +170,11 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 				player.localPosition = sf::Vector2f(50, player.localPosition.y);
 			}
 			player.tile = newTile;
+			//update backgroundRects and collisionRectangles for the new tile
 			backgroundRects = getCellRects(currentMazeGraph.getNode(player.tile).pos, currentMazeGraph.getNode(player.tile).connections, win);
 			collisionRectangles = getCollisionRectangles(backgroundRects);
 		}
+
 		//bot character behavior. very outdated
 		for (character i : charsArray) {
 			//currentDir = characterBehavior(i);

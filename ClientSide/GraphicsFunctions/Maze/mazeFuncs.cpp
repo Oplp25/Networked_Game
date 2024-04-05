@@ -84,88 +84,63 @@ mazeGraph genGraph()//returns the mazeGraph of a newly generated maze
 
 
 vector<sf::RectangleShape> getCellRects(sf::Vector2f pos, std::vector < sf::Vector2f > conns, sf::RenderWindow& win) {
-    vector<vector<int>> connsSimp = {};
-    vector<sf::RectangleShape> ret;
+    
+    vector<vector<int>> connsSimp = {};//vector of connections, but relative instead of absolute
+    vector<sf::RectangleShape> ret;//the vector of rectangles for this tile. this is the variable that will be returned
 
-    for (sf::Vector2f i : conns) {
-        connsSimp.push_back({ static_cast<int>(i.x - pos.x),static_cast<int>(i.y - pos.y) });
+    for (sf::Vector2f i : conns) {// for every connection in the conns vector
+        connsSimp.push_back({ static_cast<int>(i.x - pos.x),static_cast<int>(i.y - pos.y) });//changing absolute to relative
     }
     
-    int width = win.getSize().x;
-    int height = win.getSize().y;
+    int width = win.getSize().x;//width of the window
+    int height = win.getSize().y;//height if the window
 
     
-
+    //Add a grey rectangle the same size as the window, to represent the walls
     ret.push_back(sf::RectangleShape(sf::Vector2f(width, height)));
     ret[ret.size()-1].setPosition(sf::Vector2f(0, 0));
     ret[ret.size()-1].setFillColor(colours::cinereous);
 
+    //add a green rectangle in the middle of screen, as every arrangement has a center rectangle.
     ret.push_back(sf::RectangleShape(sf::Vector2f(width / 3, height / 3)));
     ret[ret.size()-1].setFillColor(colours::hunterGreen);
     ret[ret.size()-1].setPosition(sf::Vector2f(width / 3, height / 3));
 
-    for (vector<int> i : connsSimp) {
-        ret.push_back(sf::RectangleShape(sf::Vector2f(width / 3, height / 3)));
-        ret[ret.size()-1].setFillColor(colours::hunterGreen);
-        ret[ret.size()-1].setPosition(sf::Vector2f(width / 3 + width/3 * i[0], height / 3 + height / 3 * i[1]));
-    }            
+    for (vector<int> i : connsSimp) {// for every connection
+        ret.push_back(sf::RectangleShape(sf::Vector2f(width / 3, height / 3)));// add a rectangle 1/3 the height and 1/3 the width of the window
+        ret[ret.size()-1].setFillColor(colours::hunterGreen);//set the colour to green
+        ret[ret.size()-1].setPosition(sf::Vector2f(width / 3 + width/3 * i[0], height / 3 + height / 3 * i[1]));//set the position of the rectangle
+    }
+
+    //TODO - Find a way to minimise the number of rectangles needed in ret.
     return ret;
 }
 
 std::vector<std::vector<int>> getCollisionRectangles(std::vector<sf::RectangleShape> backRects)
 {
-    vector<vector<int>> ret;
-    vector<int> temp;
-    backRects.erase(backRects.begin());
+    vector<vector<int>> ret;// the vector to return
+    backRects.erase(backRects.begin());// remove the first rectangle - this is the rectangle that covers the whole screen.
     for (sf::RectangleShape i : backRects) {
+        //pushes back {x,y,width.height} of the rectangle
         ret.push_back({static_cast<int>(i.getPosition().x),static_cast<int>(i.getPosition().y),static_cast<int>(i.getSize().x),static_cast<int>(i.getSize().y) });
 
     }
     return ret;
 }
 
-sf::Vector2f checkMoveTile(sf::Vector2f charPos,node currNode, vector<int> backgroundDimensions) {
-    vector<char> relativeConns;
-    sf::Vector2f check;
-    for (sf::Vector2f i : currNode.connections) {
-        check = sf::Vector2f(i.x-currNode.pos.x,i.y-currNode.pos.y);
-        if (check.x == 0 && check.y == -1) {
-            relativeConns.push_back('u');
-        }else if (check.x == 0 && check.y == 1) {
-            relativeConns.push_back('d');
-        }else if (check.x == 1 && check.y == 0) {
-            relativeConns.push_back('r');
-        }else if (check.x == -1 && check.y == 0) {
-            relativeConns.push_back('l');
-        }
-    }
+sf::Vector2f checkMoveTile(sf::Vector2f charPos, node currNode, vector<int> backgroundDimensions) {
+    //checks if you are within the boundaries of changing tile, then returns the tile you would move to
     if (charPos.y < 48) {
-        for (char i : relativeConns) {
-            if (i == 'u') {
-                return sf::Vector2f(currNode.pos.x,currNode.pos.y - 1);
-            }
-        }
+        return sf::Vector2f(currNode.pos.x, currNode.pos.y - 1);
     }
     else if (charPos.y > backgroundDimensions[1] - 48) {
-        for (char i : relativeConns) {
-            if (i == 'd') {
-                return  sf::Vector2f(currNode.pos.x,currNode.pos.y + 1);
-            }
-        }
+        return  sf::Vector2f(currNode.pos.x, currNode.pos.y + 1);
     }
     else if (charPos.x < 48) {
-        for (char i : relativeConns) {
-            if (i == 'l') {
-                return  sf::Vector2f(currNode.pos.x-1,currNode.pos.y);
-            }
-        }
+        return  sf::Vector2f(currNode.pos.x - 1, currNode.pos.y);
     }
     else if (charPos.x > backgroundDimensions[0] - 48) {
-        for (char i : relativeConns) {
-            if (i == 'r') {
-                return  sf::Vector2f(currNode.pos.x+1,currNode.pos.y);
-            }
-        }
+      return  sf::Vector2f(currNode.pos.x + 1, currNode.pos.y);
     }
-    return currNode.pos;
+    return currNode.pos;//if you are not moving, returns the current tile
 }
