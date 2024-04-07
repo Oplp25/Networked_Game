@@ -268,7 +268,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		for (sf::RectangleShape i : backgroundRects) {
 			win.draw(i);
 		}
-		win.draw(fullGreenBackground);
+		//win.draw(fullGreenBackground);
 		//to reflect a sprite, do sprite.setScale(-1,1)
 		win.draw(player.draw());
 		win.draw(player.currentWeapon.draw());
