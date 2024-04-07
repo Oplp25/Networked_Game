@@ -28,7 +28,7 @@ void runArenaFighterSingle(sf::RenderWindow& win)
 	sf::Vector2f starter = sf::Vector2f(win.getSize().x/3+32, win.getSize().y/ 3 + 32);
 	sf::Vector2f origin = sf::Vector2f(0, 0);
 	enemy x = enemy(orcSwordsman, starter, origin);
-	vector<enemy> enemyArrayP = {x};//Will be created by createArenaLayout, but for now will just be manually added
+	vector<enemy> enemyArrayP = {};//Will be created by createArenaLayout, but for now will just be manually added
 	
 	//vector<enemy> enemyArrayP = {};
 	vector<character> charsArrayP = {};//list of the AI controlled characters
@@ -72,6 +72,9 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	
 	sf::Vector2f newTile = player.tile;
 
+	sf::RectangleShape fullGreenBackground(sf::Vector2f(win.getSize().x, win.getSize().y));
+	fullGreenBackground.setFillColor(colours::hunterGreen);
+	fullGreenBackground.setPosition(sf::Vector2f(0, 0));
 
 	while (!finished) {
 		//player graphics
@@ -265,26 +268,11 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		for (sf::RectangleShape i : backgroundRects) {
 			win.draw(i);
 		}
-
+		win.draw(fullGreenBackground);
 		//to reflect a sprite, do sprite.setScale(-1,1)
 		win.draw(player.draw());
-		win.draw(player.currentWeapon.draw());
-		/*temp2.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
-		temp2.setOrigin(player.sprite.getOrigin());
-		temp2.setScale(player.sprite.getScale());
-		temp2.setRotation(player.sprite.getRotation());
-		temp6.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
-		temp6.setOrigin(player.sprite.getOrigin());
-		temp6.setScale(player.sprite.getScale());
-		temp6.setRotation(player.sprite.getRotation());
-		temp7.setPosition(player.currentWeapon.sprite.getPosition().x, player.currentWeapon.sprite.getPosition().y);
-		temp7.setOrigin(player.currentWeapon.sprite.getOrigin());
-		temp7.setScale(player.currentWeapon.sprite.getScale());
-		temp7.setRotation(player.currentWeapon.sprite.getRotation());
-		temp7.setSize(sf::Vector2f(player.currentWeapon.sprite.getLocalBounds().width, player.currentWeapon.sprite.getLocalBounds().height));
-		win.draw(temp6);
-		win.draw(temp7);
-		win.draw(temp2);*/
+		//win.draw(player.currentWeapon.draw());
+
 		for (character i : charsArray) {//draw bots
 			win.draw(i.draw());
 			win.draw(i.currentWeapon.draw());
@@ -292,21 +280,6 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		for (enemy i : enemyArray) {
 			if (i.tile == player.tile) {
 				win.draw(i.draw());//only draw if on same tile as player
-				/*temp3.setPosition(i.sprite.getPosition().x, i.sprite.getPosition().y);
-				temp3.setOrigin(i.sprite.getOrigin());
-				temp3.setScale(i.sprite.getScale());
-				temp3.setRotation(i.sprite.getRotation());
-				/*temp4.setPosition(i.sprite.getPosition().x, i.sprite.getPosition().y);
-				temp4.setOrigin(temp4.getGlobalBounds().width/2, temp4.getGlobalBounds().height / 2);
-				temp4.setScale(i.sprite.getScale());
-				temp4.setRotation(i.sprite.getRotation());
-				temp5.setPosition(i.sprite.getPosition().x, i.sprite.getPosition().y);
-				temp5.setOrigin(temp5.getGlobalBounds().width / 2, temp5.getGlobalBounds().height / 2);
-				temp5.setScale(i.sprite.getScale());
-				temp5.setRotation(i.sprite.getRotation());
-				win.draw(temp5);
-				win.draw(temp3);
-				win.draw(temp4);*/
 			}
 				
 		}
@@ -315,7 +288,6 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		if (spriteChangeCounter > spriteChangeInterval) {
 			spriteChangeCounter = 0;
 		}
-		//frames++;
 	}
 	return string();
 }

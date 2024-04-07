@@ -29,7 +29,7 @@ void entity::attack(entity &ent,int damage)
 
 void entity::move(char direction, vector<vector<sf::Vector2f*>> collObjs,vector<vector<int>> tileLayout)
 {
-	if (!checkEnd(direction,1,tileLayout)) {
+	if (!checkEnd(direction, 1, tileLayout)) {
 		return void();
 	}
 	if (direction == 'u') {
