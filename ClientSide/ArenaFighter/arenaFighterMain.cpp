@@ -28,7 +28,7 @@ void runArenaFighterSingle(sf::RenderWindow& win)
 	sf::Vector2f starter = sf::Vector2f(win.getSize().x/3+32, win.getSize().y/ 3 + 32);
 	sf::Vector2f origin = sf::Vector2f(0, 0);
 	enemy x = enemy(orcSwordsman, starter, origin);
-	vector<enemy> enemyArrayP = {};//Will be created by createArenaLayout, but for now will just be manually added
+	vector<enemy> enemyArrayP = {x};//Will be created by createArenaLayout, but for now will just be manually added
 	
 	//vector<enemy> enemyArrayP = {};
 	vector<character> charsArrayP = {};//list of the AI controlled characters
@@ -271,7 +271,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		win.draw(fullGreenBackground);
 		//to reflect a sprite, do sprite.setScale(-1,1)
 		win.draw(player.draw());
-		//win.draw(player.currentWeapon.draw());
+		win.draw(player.currentWeapon.draw());
 
 		for (character i : charsArray) {//draw bots
 			win.draw(i.draw());
