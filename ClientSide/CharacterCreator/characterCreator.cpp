@@ -179,7 +179,7 @@ string racePicker(sf::RenderWindow& win, string classStr)
 				}
 		}
 		textList.push_back(sf::Text(k,comicsans));
-		textList.back().setPosition(x,y);
+		textList[textList.size()-1].setPosition(x, y);
 		y += (3 * height / 4) / 9;
 	}
 	string currentSelection = "dwarf";
@@ -205,7 +205,7 @@ string racePicker(sf::RenderWindow& win, string classStr)
 				return "False";
 			}
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-				sf::Vector2i mouseLoc = sf::Mouse::getPosition();
+				sf::Vector2i mouseLoc = sf::Mouse::getPosition(win);
 				sf::Vector2f mouseLocF = sf::Vector2f(mouseLoc.x, mouseLoc.y);
 				for (int i = 0; i < 9; i++) {//iterate over the array containing the sprites
 					if (textList[i].getGlobalBounds().contains(mouseLocF)) {//if the user clicked this sprite

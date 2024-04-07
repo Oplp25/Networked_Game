@@ -5,7 +5,6 @@ using namespace std;
 const filesystem::path cwd = filesystem::current_path();
 
 void runArenaFighterMenu(sf::RenderWindow& win) {
-	
 	int width = win.getSize().x;
 	int height = win.getSize().y;
 	//setting up font
