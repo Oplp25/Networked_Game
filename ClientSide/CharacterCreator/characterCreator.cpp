@@ -281,7 +281,9 @@ string nameChooser(sf::RenderWindow& win)
 			}
 			if (event.type == sf::Event::TextEntered) {//If text is entered
 				if (static_cast<char>(event.text.unicode) == 8) {//if the character was a backspace
-					name.pop_back();//delete the last letter
+					if (name.size() > 0) {
+						name.pop_back();//delete the last letter
+					}
 				}
 				else {
 					name += static_cast<char>(event.text.unicode);//add the character the user typed to the name
