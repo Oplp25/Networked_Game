@@ -2,6 +2,7 @@
 #include<vector>
 #include<iostream>
 #include<filesystem>
+#include<fstream>
 #include "arenaFighterMain.h"
 #include "../CharacterCreator/characterCreator.h"
 #include "../GraphicsFunctions/Colours/colourConsts.h"
@@ -76,9 +77,11 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	fullGreenBackground.setFillColor(colours::hunterGreen);
 	fullGreenBackground.setPosition(sf::Vector2f(0, 0));
 
+	sf::Clock clock;
 	while (!finished) {
 		//player graphics
 		if (player.hpCurrent <= 0) {//if player is dead
+			sf::Time elapsed = clock.getElapsedTime();
 			return "loss";
 		}
 		currentDir = playerBehavior(win, player, enemyArray, collObjs, collisionRectangles);//get the direction of motion for the player
@@ -214,6 +217,11 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			if (enemyArray[i].hpCurrent <= 0) {//if they're dead
 				enemyArray.erase(enemyArray.begin()+i);
 				if (enemyArray.empty()) {
+					sf::Time elapsed = clock.getElapsedTime();
+					ofstream f;
+					f.open("HighScores.txt", ios::app);
+					f << elapsed.asSeconds() << endl;
+					f.close();
 					return "win";//if no enemies left
 				}
 				break;
