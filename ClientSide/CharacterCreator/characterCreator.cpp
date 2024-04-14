@@ -179,7 +179,7 @@ string racePicker(sf::RenderWindow& win, string classStr)
 				}
 		}
 		textList.push_back(sf::Text(k,comicsans));
-		textList.back().setPosition(x,y);
+		textList[textList.size()-1].setPosition(x, y);
 		y += (3 * height / 4) / 9;
 	}
 	string currentSelection = "dwarf";
@@ -205,7 +205,7 @@ string racePicker(sf::RenderWindow& win, string classStr)
 				return "False";
 			}
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-				sf::Vector2i mouseLoc = sf::Mouse::getPosition();
+				sf::Vector2i mouseLoc = sf::Mouse::getPosition(win);
 				sf::Vector2f mouseLocF = sf::Vector2f(mouseLoc.x, mouseLoc.y);
 				for (int i = 0; i < 9; i++) {//iterate over the array containing the sprites
 					if (textList[i].getGlobalBounds().contains(mouseLocF)) {//if the user clicked this sprite
@@ -281,7 +281,9 @@ string nameChooser(sf::RenderWindow& win)
 			}
 			if (event.type == sf::Event::TextEntered) {//If text is entered
 				if (static_cast<char>(event.text.unicode) == 8) {//if the character was a backspace
-					name.pop_back();//delete the last letter
+					if (name.size() > 0) {
+						name.pop_back();//delete the last letter
+					}
 				}
 				else {
 					name += static_cast<char>(event.text.unicode);//add the character the user typed to the name

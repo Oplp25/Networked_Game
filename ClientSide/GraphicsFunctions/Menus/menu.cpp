@@ -71,6 +71,13 @@ void runMenu(sf::RenderWindow& win, sf::TcpSocket& socket, bool online) {
 	button arenaButton = button(&runArenaFighterMenu, arenaButtonShape);
 	button dungeonButton = button(&runArenaFighterTeamsMenu, dungeonButtonShape);
 
+	/*sf::RectangleShape test(sf::Vector2f(arenaButton.hitbox.width, arenaButton.hitbox.height));
+	test.setFillColor(sf::Color::Transparent);
+	test.setOutlineColor(sf::Color::Red);
+	test.setOutlineThickness(-5);
+	test.setPosition(sf::Vector2f(arenaButton.hitbox.left, arenaButton.hitbox.top));
+	rectShapeList.push_back(test);*/
+	
 	vector<button> buttonList = {arenaButton,dungeonButton,networkStatusButton};
 
 	//text
@@ -114,7 +121,7 @@ void runMenu(sf::RenderWindow& win, sf::TcpSocket& socket, bool online) {
 			}
 		}
 		win.clear(pistachio);
-		for (sf::RectangleShape i: rectShapeList) {
+		for (sf::RectangleShape i : rectShapeList) {
 			win.draw(i);
 		}
 #

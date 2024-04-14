@@ -29,30 +29,6 @@ using namespace std;
 
 
 int main() {
-	/*
-	sf::TcpSocket socket;
-
-
-	//use this if testing on one computer
-	//getConnection(socket,sf::IpAddress::getLocalAddress(), 55001);
-
-
-	//use this if connecting over a LAN
-	sf::IpAddress address("Jakob_PC");//change IP address each time
-	getConnection(socket, address, 55001);
-	sendMessage(socket, "Hello World");
-
-	char buffer[1024];
-	std::size_t received = 0;
-	socket.receive(buffer, sizeof(buffer), received);
-	std::cout << "The server said: " << buffer << std::endl;
-
-	sendPacket(socket,"Packets are cool");
-	int x;
-	cin >> x;
-	*/
-	
-
 	cout << "Client(c) or Server(s)?" << endl;
 	string s;
 	cin >> s;
@@ -94,6 +70,7 @@ int main() {
 	thread serverConnectionThread(connectToServerThreaded, serverConProm, socket, serverAddress, serverPort);
 
 	runIntro(win);
+
 
 	sf::Socket::Status online = serverConFut.get();
 	serverConnectionThread.join();

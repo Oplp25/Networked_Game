@@ -2,6 +2,7 @@
 #include<vector>
 #include<iostream>
 #include<filesystem>
+#include<fstream>
 #include "arenaFighterMain.h"
 #include "../CharacterCreator/characterCreator.h"
 #include "../GraphicsFunctions/Colours/colourConsts.h"
@@ -68,10 +69,15 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	
 	sf::Vector2f newTile = player.tile;
 
+	sf::RectangleShape fullGreenBackground(sf::Vector2f(win.getSize().x, win.getSize().y));
+	fullGreenBackground.setFillColor(colours::hunterGreen);
+	fullGreenBackground.setPosition(sf::Vector2f(0, 0));
 
+	sf::Clock clock;
 	while (!finished) {
 		//player graphics
 		if (player.hpCurrent <= 0) {//if player is dead
+			sf::Time elapsed = clock.getElapsedTime();
 			return "loss";
 		}
 		currentDir = playerBehavior(win, player, enemyArray, collObjs, collisionRectangles);//get the direction of motion for the player
@@ -145,12 +151,16 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			}
 		}
 
+		//checks if the player should move tile
 		newTile = checkMoveTile(player.localPosition, currentMazeGraph.getNode(player.tile), {static_cast<int>(backgroundRects[0].getSize().x),static_cast<int>(backgroundRects[0].getSize().y)});
 
-		if (newTile != player.tile) {
+		if (newTile != player.tile) {//if the tile is changing
+			//changes newTile to relative coords
 			check = { static_cast<int>(newTile.x - player.tile.x),static_cast<int>(newTile.y - player.tile.y) };
+
+			//when the player changes tile, this changes their position to the opposite side, so it appears like they moved.
 			if (check == vector<int>({ 0, -1 })) {
-				player.localPosition = sf::Vector2f(player.localPosition.x, backgroundRects[0].getSize().y - 50);
+				player.localPosition = sf::Vector2f(player.localPosition.x, backgroundRects[0].getSize().y - 50);//50 instead of 49 so they are not caught in an endless loop of changing tile
 			}
 			else if (check == vector<int>({ 0, 1 })) {
 				player.localPosition = sf::Vector2f(player.localPosition.x, 50);
@@ -162,9 +172,11 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 				player.localPosition = sf::Vector2f(50, player.localPosition.y);
 			}
 			player.tile = newTile;
+			//update backgroundRects and collisionRectangles for the new tile
 			backgroundRects = getCellRects(currentMazeGraph.getNode(player.tile).pos, currentMazeGraph.getNode(player.tile).connections, win);
 			collisionRectangles = getCollisionRectangles(backgroundRects);
 		}
+
 		//bot character behavior. very outdated
 		for (character i : charsArray) {
 			//currentDir = characterBehavior(i);
@@ -201,6 +213,11 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			if (enemyArray[i].hpCurrent <= 0) {//if they're dead
 				enemyArray.erase(enemyArray.begin()+i);
 				if (enemyArray.empty()) {
+					sf::Time elapsed = clock.getElapsedTime();
+					ofstream f;
+					f.open("HighScores.txt", ios::app);
+					f << elapsed.asSeconds() << endl;
+					f.close();
 					return "win";//if no enemies left
 				}
 				break;
@@ -255,26 +272,11 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		for (sf::RectangleShape i : backgroundRects) {
 			win.draw(i);
 		}
-
+		//win.draw(fullGreenBackground);
 		//to reflect a sprite, do sprite.setScale(-1,1)
 		win.draw(player.draw());
 		win.draw(player.currentWeapon.draw());
-		/*temp2.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
-		temp2.setOrigin(player.sprite.getOrigin());
-		temp2.setScale(player.sprite.getScale());
-		temp2.setRotation(player.sprite.getRotation());
-		temp6.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
-		temp6.setOrigin(player.sprite.getOrigin());
-		temp6.setScale(player.sprite.getScale());
-		temp6.setRotation(player.sprite.getRotation());
-		temp7.setPosition(player.currentWeapon.sprite.getPosition().x, player.currentWeapon.sprite.getPosition().y);
-		temp7.setOrigin(player.currentWeapon.sprite.getOrigin());
-		temp7.setScale(player.currentWeapon.sprite.getScale());
-		temp7.setRotation(player.currentWeapon.sprite.getRotation());
-		temp7.setSize(sf::Vector2f(player.currentWeapon.sprite.getLocalBounds().width, player.currentWeapon.sprite.getLocalBounds().height));
-		win.draw(temp6);
-		win.draw(temp7);
-		win.draw(temp2);*/
+
 		for (character i : charsArray) {//draw bots
 			win.draw(i.draw());
 			win.draw(i.currentWeapon.draw());
@@ -282,21 +284,6 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		for (enemy i : enemyArray) {
 			if (i.tile == player.tile) {
 				win.draw(i.draw());//only draw if on same tile as player
-				/*temp3.setPosition(i.sprite.getPosition().x, i.sprite.getPosition().y);
-				temp3.setOrigin(i.sprite.getOrigin());
-				temp3.setScale(i.sprite.getScale());
-				temp3.setRotation(i.sprite.getRotation());
-				/*temp4.setPosition(i.sprite.getPosition().x, i.sprite.getPosition().y);
-				temp4.setOrigin(temp4.getGlobalBounds().width/2, temp4.getGlobalBounds().height / 2);
-				temp4.setScale(i.sprite.getScale());
-				temp4.setRotation(i.sprite.getRotation());
-				temp5.setPosition(i.sprite.getPosition().x, i.sprite.getPosition().y);
-				temp5.setOrigin(temp5.getGlobalBounds().width / 2, temp5.getGlobalBounds().height / 2);
-				temp5.setScale(i.sprite.getScale());
-				temp5.setRotation(i.sprite.getRotation());
-				win.draw(temp5);
-				win.draw(temp3);
-				win.draw(temp4);*/
 			}
 				
 		}
@@ -305,7 +292,6 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		if (spriteChangeCounter > spriteChangeInterval) {
 			spriteChangeCounter = 0;
 		}
-		//frames++;
 	}
 	return string();
 }

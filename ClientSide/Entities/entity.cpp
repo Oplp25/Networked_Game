@@ -29,7 +29,7 @@ void entity::attack(entity &ent,int damage)
 
 void entity::move(char direction, vector<vector<sf::Vector2f*>> collObjs,vector<vector<int>> tileLayout)
 {
-	if (!checkEnd(direction,1,tileLayout)) {
+	if (!checkEnd(direction, 1, tileLayout)) {
 		return void();
 	}
 	if (direction == 'u') {
@@ -133,6 +133,7 @@ void entity::switchTextArray(char direction, char d2, char d3)
 	}
 }
 
+
 void entity::changeSpriteTextServer(string textArgs) {
 	if (textArgs == "next") {
 		currentText++;
@@ -166,47 +167,57 @@ void entity::switchTextArrayServer(char direction) {
 }
 bool entity::checkEnd(char direction,int nums,vector<vector<int>> tileLayout)
 {
-	float comparisonCoord;
-	float limit;
+	float comparisonCoord; // the place the entity would be if it did the move
+	//this variable is so that if you have multiple rectangles in one column or row, you do not get a false result
+	sf::Uint16 limit;//the limit for how far a row or column has been checked
+
+	//sets limit and comparisonCoord based on the direction that you are moving in
 	if (direction == 'u') {
-		comparisonCoord = localPosition.y -32 -speed*nums;
-		limit = 65535;
-	}else if (direction == 'd') {
-		comparisonCoord = localPosition.y +32 +speed*nums;
+		comparisonCoord = localPosition.y - 32 - speed * nums; // starting position -32 to centre the coordinates, -speed*number of moves the entity will make
+		limit = 65535;//(2^16)-1
+	}
+	else if (direction == 'd') {
+		comparisonCoord = localPosition.y + 32 + speed * nums;
 		limit = 0;
 	}
 	else if (direction == 'r') {
-		comparisonCoord = localPosition.x +32+ speed * nums;
+		comparisonCoord = localPosition.x + 32 + speed * nums;
 		limit = 0;
 	}
 	else if (direction == 'l') {
-		comparisonCoord = localPosition.x-32 - speed * nums;
+		comparisonCoord = localPosition.x - 32 - speed * nums;
 		limit = 65535;
 	}
-	
-	for (vector<int> i : tileLayout) {
-		if (direction == 'u' && localPosition.x<i[0]+i[2] && localPosition.x>i[0] && i[1]<limit) {
+
+	for (vector<int> i : tileLayout) {// for each rectangle in the path
+		//if the entity is going up, within the x coords of i, and  the y coord is less than the limit
+		if (direction == 'u' && localPosition.x<i[0] + i[2] && localPosition.x>i[0] && i[1] < limit) {
+			//if comparisonCoord is < the y coord, then it might be in another rectangle, or out of the path, so we set the limit lower, and go to the next iteration. 
+			//if comparisonCoord is > the y cord, then it must be within the rectangle, as the entity is going up.
 			if (comparisonCoord < i[1]) {
 				limit = i[1];
 			}
 			else {
 				return true;
 			}
-		}else if (direction == 'd' && localPosition.x<i[0] + i[2] && localPosition.x>i[0] && i[1]+i[3] > limit) {
-			if (comparisonCoord > i[1]+i[3]) {
-				limit = i[1]+i[3];
+		}
+		else if (direction == 'd' && localPosition.x<i[0] + i[2] && localPosition.x>i[0] && i[1] + i[3] > limit) {
+			if (comparisonCoord > i[1] + i[3]) {
+				limit = i[1] + i[3];
 			}
 			else {
 				return true;
 			}
-		}else if (direction == 'r' && localPosition.y<i[1] + i[3] && localPosition.y>i[1] && i[0]+i[2] > limit) {
+		}
+		else if (direction == 'r' && localPosition.y<i[1] + i[3] && localPosition.y>i[1] && i[0] + i[2] > limit) {
 			if (comparisonCoord > i[0] + i[2]) {
 				limit = i[0] + i[2];
 			}
 			else {
 				return true;
 			}
-		}else if (direction == 'l' && localPosition.y<i[1] + i[3] && localPosition.y>i[1] && i[0] < limit) {
+		}
+		else if (direction == 'l' && localPosition.y<i[1] + i[3] && localPosition.y>i[1] && i[0] < limit) {
 			if (comparisonCoord < i[0]) {
 				limit = i[0];
 			}
@@ -216,23 +227,6 @@ bool entity::checkEnd(char direction,int nums,vector<vector<int>> tileLayout)
 		}
 	}
 	return false;
-
-	/*
-	
-	if (direction == 'u' && localPosition.y - 32 - speed*nums > 40) {
-		return true;
-	}
-	if (direction == 'd' && localPosition.y + 32 + speed*nums < 1040) {
-		return true;
-	}
-	if (direction == 'r' && localPosition.x + 32 + speed*nums < 1880) {
-		return true;
-	}
-	if (direction == 'l' && localPosition.x - 32  - speed*nums > 40) {
-		return true;
-	}
-	return false;
-	*/
 }
 
 void entity::changeSpriteText(string textArgs) {
