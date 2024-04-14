@@ -2,7 +2,6 @@
 #include<vector>
 #include<string>
 #include<iostream>
-//#include "../character.h"
 #include "../inventory.h"
 #include "../../../Items/Weapons/weapon.h"
 #include "../Races/raceIncluder.h"
@@ -10,14 +9,14 @@
 
 class archetype {//A parent class of all of the classes. so they are called archetypes.
 	public:
-		std::vector<std::string> weaponsProficient;
-		std::vector<std::string> armourProficient;
+		std::vector<std::string> weaponsProficient;//what weapons you can use
+		std::vector<std::string> armourProficient;//what armour you can use
 		std::vector<abilityScoresEnum> savesProficient;//must have an END at the end
-		bool canCastSpells;
-		std::string className;
-		int hitDiceType;
-		inventory startingEquipment;
-		virtual int getHitDiceType();
+		bool canCastSpells;//can this class cast spells
+		std::string className;//the name of the class
+		int hitDiceType;//the typ of dice used to determine hp as you level up
+		inventory startingEquipment;// your starting equipment, normally one weapon and one armour
+		virtual int getHitDiceType();// so you can pass it to the character object
 		virtual std::string getClassName();
 		virtual bool getCanCastSpells();
 		virtual inventory getStartingEquipment();
@@ -29,9 +28,6 @@ class archetype {//A parent class of all of the classes. so they are called arch
 		virtual void primary();
 		virtual void secondary();
 		virtual void defensive();
-		virtual void special();
-		virtual void buff();
-		virtual void ult();
 
 		//Level Up Functions
 		virtual void level2();
@@ -54,7 +50,6 @@ class archetype {//A parent class of all of the classes. so they are called arch
 		virtual void level19();
 		virtual void level20();
 
+		// list of level up function pointers
 		std::vector<void(archetype::*)()> classLevelUpFuncs = { &archetype::level2,&archetype::level3,&archetype::level4,&archetype::level5,&archetype::level6,&archetype::level7,&archetype::level8,&archetype::level9,&archetype::level10,&archetype::level11,&archetype::level13,&archetype::level14,&archetype::level15,&archetype::level16,&archetype::level17,&archetype::level18,&archetype::level19,&archetype::level20 };
-		//resistances/weaknesses
-		//need to add something for the passive(s) - perhaps in the child classes
 };

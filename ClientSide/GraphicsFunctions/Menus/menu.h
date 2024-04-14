@@ -3,4 +3,4 @@
 
 struct button;
 
-void runMenu(sf::RenderWindow& win, bool online);
+void runMenu(sf::RenderWindow& win, bool online);//main menu

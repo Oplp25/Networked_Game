@@ -2,8 +2,10 @@
 #include "archetype.h"
 #include<iostream>
 
+//the paladin class
 class paladin :public archetype {
 	public:
+		//override makes the function polymorphised
 		int getHitDiceType() override;
 		std::string getClassName() override;
 		bool getCanCastSpells() override;
@@ -13,9 +15,6 @@ class paladin :public archetype {
 		void primary() override;
 		void secondary() override;
 		void defensive() override;
-		void special() override;
-		void buff() override;
-		void ult() override;
 		inventory getStartingEquipment() override;
 		bool canCastSpells = true;
 		std::vector<abilityScoresEnum> savesProficient = { WIS,CON };
@@ -23,5 +22,5 @@ class paladin :public archetype {
 		int hitDiceType = 10;
 		std::vector<std::string> weaponsProficient;
 		std::vector<std::string> armourProficient;
-		inventory startingEquipment = inventory({weapon(swordTemplate)});
+		inventory startingEquipment = inventory({weapon(swordTemplate)});//starting equipment i sjust a sword
 };

@@ -2,6 +2,7 @@
 #include<filesystem>
 #include<iostream>
 #include<chrono>
+#include<thread>
 
 #include "../Colours/colourConsts.h"
 using namespace std;

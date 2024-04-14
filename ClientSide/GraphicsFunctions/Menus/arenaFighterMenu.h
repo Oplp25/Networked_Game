@@ -4,4 +4,4 @@
 #include "button.h"
 #include<SFML/Graphics.hpp>
 
-void runArenaFighterMenu(sf::RenderWindow& win);
+void runArenaFighterMenu(sf::RenderWindow& win);//run the menu

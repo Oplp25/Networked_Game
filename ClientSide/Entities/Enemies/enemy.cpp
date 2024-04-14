@@ -18,9 +18,9 @@ bool enemy::checkPatRange(char direction)
 		return true;
 	}
 	return false;
-}
+} 
 
-void enemy::behavior(entity &player)
+void enemy::behavior(entity &player,vector<vector<int>> tileLayout)
 {
 	if (pow((player.localPosition.x-localPosition.x),2)+pow((player.localPosition.y - localPosition.y),2)<pow(sight,2)) {//if player is within sight
 		if (pow((player.localPosition.x - localPosition.x), 2) + pow((player.localPosition.y - localPosition.y), 2) < pow(reach, 2)) {//if player is in reach
@@ -71,7 +71,7 @@ void enemy::behavior(entity &player)
 		char dir;
 		while (x) {
 			dir = dirs[distX(randGen)];
-			if (checkEnd(dir,tickMax) && checkPatRange(dir) && dir+currentDir!=217 && dir+currentDir != 222) {// if the direction is not the opposite direction, and ends within patrol range, and not outside of the area
+			if (checkEnd(dir,tickMax,tileLayout) && checkPatRange(dir) && dir+currentDir!=217 && dir+currentDir != 222) {// if the direction is not the opposite direction, and ends within patrol range, and not outside of the area
 				x = false;
 			}
 		}
@@ -149,5 +149,25 @@ void enemy::tick() {
 	directionTick++;
 	if (directionTick > tickMax+1){
 		directionTick = 0;
+	}
+}
+
+void enemy::move(char direction, vector<vector<sf::Vector2f*>> collObjs)
+{
+	if (direction == 'u') {
+		for (vector<sf::Vector2f*> i : collObjs) { if (*i[0] == tile && *i[1] != localPosition) { if (sf::Rect<float>(*i[1], sf::Vector2f(64, 64)).intersects(sf::Rect<float>(localPosition.x, localPosition.y - speed, 64, 64))) { return void(); } } }
+		localPosition.y -= speed;
+	}
+	else if (direction == 'd') {
+		for (vector<sf::Vector2f*> i : collObjs) { if (*i[0] == tile && *i[1] != localPosition) { if (sf::Rect<float>(*i[1], sf::Vector2f(64, 64)).intersects(sf::Rect<float>(localPosition.x, localPosition.y + speed, 64, 64))) { return void(); } } }
+		localPosition.y += speed;
+	}
+	else if (direction == 'r') {
+		for (vector<sf::Vector2f*> i : collObjs) { if (*i[0] == tile && *i[1] != localPosition) { if (sf::Rect<float>(*i[1], sf::Vector2f(64, 64)).intersects(sf::Rect<float>(localPosition.x + speed, localPosition.y, 64, 64))) { return void(); } } }
+		localPosition.x += speed;
+	}
+	else if (direction == 'l') {
+		for (vector<sf::Vector2f*> i : collObjs) { if (*i[0] == tile && *i[1] != localPosition) { if (sf::Rect<float>(*i[1], sf::Vector2f(64, 64)).intersects(sf::Rect<float>(localPosition.x - speed, localPosition.y, 64, 64))) { return void(); } } }
+		localPosition.x -= speed;
 	}
 }

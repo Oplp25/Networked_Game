@@ -126,7 +126,7 @@
       <PreprocessorDefinitions>SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\jakob\OneDrive\Documents\C++\SFML\SFML-2.5.1\include</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,11 +156,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArenaFighterTeams\arenaFighterTeamsMain.cpp" />
     <ClCompile Include="ArenaFighter\arenaFighterMain.cpp" />
     <ClCompile Include="Behavior\Player\playerBehavior.cpp" />
     <ClCompile Include="CharacterCreator\characterCreator.cpp" />
     <ClCompile Include="ConnectionFunctions\serverConnection.cpp" />
-    <ClCompile Include="DungeonCrawler\dungeonCrawlerMain.cpp" />
     <ClCompile Include="Entities\Characters\character.cpp" />
     <ClCompile Include="Entities\Characters\Classes\archetype.cpp" />
     <ClCompile Include="Entities\Characters\Classes\paladin.cpp" />
@@ -170,9 +170,13 @@
     <ClCompile Include="GraphicsFunctions\drawable\drawable.cpp" />
     <ClCompile Include="GraphicsFunctions\gameOutcomes.cpp" />
     <ClCompile Include="GraphicsFunctions\Intro\intro.cpp" />
+    <ClCompile Include="GraphicsFunctions\Maze\cell.cpp" />
+    <ClCompile Include="GraphicsFunctions\Maze\mazeFuncs.cpp" />
+    <ClCompile Include="GraphicsFunctions\Maze\mazeGraph.cpp" />
+    <ClCompile Include="GraphicsFunctions\Maze\node.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\arenaFighterMenu.cpp" />
+    <ClCompile Include="GraphicsFunctions\Menus\arenaFighterTeamsMenu.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\button.cpp" />
-    <ClCompile Include="GraphicsFunctions\Menus\dungeonCrawlerMenu.cpp" />
     <ClCompile Include="GraphicsFunctions\Menus\menu.cpp" />
     <ClCompile Include="Items\item.cpp" />
     <ClCompile Include="Items\Weapons\weapon.cpp" />
@@ -182,13 +186,14 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SFML_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="testFolder(Temp)\clientTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArenaFighterTeams\arenaFighterTeamsMain.h" />
     <ClInclude Include="ArenaFighter\arenaFighterMain.h" />
     <ClInclude Include="Behavior\Player\playerBehavior.h" />
     <ClInclude Include="CharacterCreator\characterCreator.h" />
     <ClInclude Include="ConnectionFunctions\serverConnection.h" />
-    <ClInclude Include="DungeonCrawler\dungeonCrawlerMain.h" />
     <ClInclude Include="Entities\Characters\abilityScoresEnum.h" />
     <ClInclude Include="Entities\Characters\character.h" />
     <ClInclude Include="Entities\Characters\Classes\archetype.h" />
@@ -205,14 +210,19 @@
     <ClInclude Include="GraphicsFunctions\drawable\drawable.h" />
     <ClInclude Include="GraphicsFunctions\gameOutcomes.h" />
     <ClInclude Include="GraphicsFunctions\Intro\intro.h" />
+    <ClInclude Include="GraphicsFunctions\Maze\cell.h" />
+    <ClInclude Include="GraphicsFunctions\Maze\mazeFuncs.h" />
+    <ClInclude Include="GraphicsFunctions\Maze\mazeGraph.h" />
+    <ClInclude Include="GraphicsFunctions\Maze\node.h" />
     <ClInclude Include="GraphicsFunctions\Menus\arenaFighterMenu.h" />
+    <ClInclude Include="GraphicsFunctions\Menus\arenaFighterTeamsMenu.h" />
     <ClInclude Include="GraphicsFunctions\Menus\button.h" />
-    <ClInclude Include="GraphicsFunctions\Menus\dungeonCrawlerMenu.h" />
     <ClInclude Include="GraphicsFunctions\Menus\menu.h" />
     <ClInclude Include="Items\item.h" />
     <ClInclude Include="Items\itemTemplates.h" />
     <ClInclude Include="Items\Weapons\weapon.h" />
     <ClInclude Include="Items\Weapons\weaponTemplates.h" />
+    <ClInclude Include="testFolder(Temp)\clientTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

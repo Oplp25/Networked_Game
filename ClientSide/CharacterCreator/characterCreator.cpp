@@ -33,7 +33,8 @@ character characterCreator(sf::RenderWindow& win)
 			continue;
 		}
 		string name;
-		name = "Jeff";// nameChooser(win);
+		//name = "Jeff";
+		name =  nameChooser(win);
 		happy = happyChooser(win,name,classChoiceString,raceChoiceString);
 		if (happy) {
 			myChar = character(raceChoiceString,classChoiceString,name,errorCode);
@@ -119,10 +120,10 @@ std::string classPicker(sf::RenderWindow& win)
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 				sf::Vector2i mouseLoc = sf::Mouse::getPosition();
 				sf::Vector2f mouseLocF = sf::Vector2f(mouseLoc.x, mouseLoc.y);
-				for (auto i : iconList) {
-					if (i.first.getGlobalBounds().contains(mouseLocF)) {
-						currentSelection = i.second;
-						selectionHighlight.setPosition(i.first.getPosition().x - 20, i.first.getPosition().y - 20);
+				for (auto i : iconList) {//iterating over the map
+					if (i.first.getGlobalBounds().contains(mouseLocF)) {//if the user clicked on this icon
+						currentSelection = i.second;//class name - string
+						selectionHighlight.setPosition(i.first.getPosition().x - 20, i.first.getPosition().y - 20);//place the outline on that icon
 					}
 				}
 				if (backButton.getGlobalBounds().contains(mouseLocF)) {
@@ -178,7 +179,7 @@ string racePicker(sf::RenderWindow& win, string classStr)
 				}
 		}
 		textList.push_back(sf::Text(k,comicsans));
-		textList.back().setPosition(x,y);
+		textList[textList.size()-1].setPosition(x, y);
 		y += (3 * height / 4) / 9;
 	}
 	string currentSelection = "dwarf";
@@ -204,19 +205,19 @@ string racePicker(sf::RenderWindow& win, string classStr)
 				return "False";
 			}
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-				sf::Vector2i mouseLoc = sf::Mouse::getPosition();
+				sf::Vector2i mouseLoc = sf::Mouse::getPosition(win);
 				sf::Vector2f mouseLocF = sf::Vector2f(mouseLoc.x, mouseLoc.y);
-				for (int i = 0; i < 9; i++) {
-					if (textList[i].getGlobalBounds().contains(mouseLocF)) {
-						currentSelection = raceList[i];
-						if (!currentImgText.loadFromFile(charPath.string() + currentSelection + ".png")) {
-							cout << "Error. Could not load file " + currentSelection + ".png" << endl;
-							if (!currentImgText.loadFromFile(cwd.string() + "/Resources/RaceIcons/characterUnavailable.png")) {
-								cout << "Error.Could not load file characterUnavailable.png" << endl;
+				for (int i = 0; i < 9; i++) {//iterate over the array containing the sprites
+					if (textList[i].getGlobalBounds().contains(mouseLocF)) {//if the user clicked this sprite
+						currentSelection = raceList[i];//class name
+						if (!currentImgText.loadFromFile(charPath.string() + currentSelection + ".png")) {//load image file from storage
+							cout << "Error. Could not load file " + currentSelection + ".png" << endl;//error message
+							if (!currentImgText.loadFromFile(cwd.string() + "/Resources/RaceIcons/characterUnavailable.png")) {//load the placeholder sprite
+								cout << "Error.Could not load file characterUnavailable.png" << endl;//error message
 							}
 						}
-						currentImgSprite.setTexture(currentImgText);
-						selectionHighlight.setPosition(sf::Vector2f(textList[i].getPosition().x-width/32, textList[i].getPosition().y-height/64));
+						currentImgSprite.setTexture(currentImgText);//set texture of figure on left of the screen
+						selectionHighlight.setPosition(sf::Vector2f(textList[i].getPosition().x-width/32, textList[i].getPosition().y-height/64));//highlight name on screen
 					}
 				}
 				if (exitButton.getGlobalBounds().contains(mouseLocF)) {
@@ -278,14 +279,17 @@ string nameChooser(sf::RenderWindow& win)
 					return name;
 				}
 			}
-			if (event.type == sf::Event::TextEntered) {
-				if (static_cast<char>(event.text.unicode) == 8) {
-					name.pop_back();
+			if (event.type == sf::Event::TextEntered) {//If text is entered
+				if (static_cast<char>(event.text.unicode) == 8) {//if the character was a backspace
+					if (name.size() > 0) {
+						name.pop_back();//delete the last letter
+					}
 				}
 				else {
-					name += static_cast<char>(event.text.unicode);
+					name += static_cast<char>(event.text.unicode);//add the character the user typed to the name
 				}
-				nameText.setString(name);
+				nameText.setString(name);//Update the onscreen name
+				//adjust position and size of name so that it stays in the text box
 				nameText.setPosition(sf::Vector2f(width / 4 + (width / 2 - nameText.getGlobalBounds().width) / 2, 15 * height / 32 + (height / 16 - nameText.getGlobalBounds().height) / 2));
 
 			}

@@ -1,5 +1,6 @@
 #pragma once
 
+// an enum that contains the ability scores
 enum abilityScoresEnum {
 	STR,
 	DEX,

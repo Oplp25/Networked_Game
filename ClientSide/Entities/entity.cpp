@@ -27,9 +27,9 @@ void entity::attack(entity &ent,int damage)
 	switchTextArray('a',dir);
 }
 
-void entity::move(char direction, vector<vector<sf::Vector2f*>> collObjs)
+void entity::move(char direction, vector<vector<sf::Vector2f*>> collObjs,vector<vector<int>> tileLayout)
 {
-	if (!checkEnd(direction)) {
+	if (!checkEnd(direction, 1, tileLayout)) {
 		return void();
 	}
 	if (direction == 'u') {
@@ -68,28 +68,28 @@ void entity::death()
 
 void entity::switchTextArray(char direction, char d2, char d3)
 {
-	if (direction != entityCurrentDirection) {
-		if (direction != 'a') {
+	if (direction != entityCurrentDirection) {//if you are changing direction
+		if (direction != 'a') {//if you are not attackin
 			entityCurrentDirection = direction;
 		}
-		currentText = 0;
-		if (direction == 'u') {
+		currentText = 0;//set the array to 0
+		if (direction == 'u') {//up
 			textArray = listOfTexts[0];
 			sprite.setScale(1, 1);
 		}
-		else if (direction == 'd') {
+		else if (direction == 'd') {//down
 			textArray = listOfTexts[1];
 			sprite.setScale(1, 1);
 		}
-		else if (direction == 'r') {
+		else if (direction == 'r') {//right
 			textArray = listOfTexts[2];
 			sprite.setScale(1, 1);
 		}
-		else if (direction == 'l') {
+		else if (direction == 'l') {//left
 			textArray = listOfTexts[2];
-			sprite.setScale(-1, 1);
+			sprite.setScale(-1, 1);//inverted right
 		}
-		else if (direction == 's') {
+		else if (direction == 's') {//still
 			textArray = listOfTexts[3];
 			sprite.setScale(1, 1);
 		}
@@ -127,20 +127,66 @@ void entity::switchTextArray(char direction, char d2, char d3)
 	}
 }
 
-bool entity::checkEnd(char direction,int nums)
+bool entity::checkEnd(char direction, int nums, vector<vector<int>> tileLayout)
 {
-	
-	if (direction == 'u' && localPosition.y - 32 - speed > 40) {
-		return true;
+	float comparisonCoord; // the place the entity would be if it did the move
+	//this variable is so that if you have multiple rectangles in one column or row, you do not get a false result
+	sf::Uint16 limit;//the limit for how far a row or column has been checked
+
+	//sets limit and comparisonCoord based on the direction that you are moving in
+	if (direction == 'u') {
+		comparisonCoord = localPosition.y - 32 - speed * nums; // starting position -32 to centre the coordinates, -speed*number of moves the entity will make
+		limit = 65535;//(2^16)-1
 	}
-	if (direction == 'd' && localPosition.y + 32 + speed < 1040) {
-		return true;
+	else if (direction == 'd') {
+		comparisonCoord = localPosition.y + 32 + speed * nums;
+		limit = 0;
 	}
-	if (direction == 'r' && localPosition.x + 32 + speed < 1880) {
-		return true;
+	else if (direction == 'r') {
+		comparisonCoord = localPosition.x + 32 + speed * nums;
+		limit = 0;
 	}
-	if (direction == 'l' && localPosition.x - 32  - speed > 40) {
-		return true;
+	else if (direction == 'l') {
+		comparisonCoord = localPosition.x - 32 - speed * nums;
+		limit = 65535;
+	}
+
+	for (vector<int> i : tileLayout) {// for each rectangle in the path
+		//if the entity is going up, within the x coords of i, and  the y coord is less than the limit
+		if (direction == 'u' && localPosition.x<i[0] + i[2] && localPosition.x>i[0] && i[1] < limit) {
+			//if comparisonCoord is < the y coord, then it might be in another rectangle, or out of the path, so we set the limit lower, and go to the next iteration. 
+			//if comparisonCoord is > the y cord, then it must be within the rectangle, as the entity is going up.
+			if (comparisonCoord < i[1]) {
+				limit = i[1];
+			}
+			else {
+				return true;
+			}
+		}
+		else if (direction == 'd' && localPosition.x<i[0] + i[2] && localPosition.x>i[0] && i[1] + i[3] > limit) {
+			if (comparisonCoord > i[1] + i[3]) {
+				limit = i[1] + i[3];
+			}
+			else {
+				return true;
+			}
+		}
+		else if (direction == 'r' && localPosition.y<i[1] + i[3] && localPosition.y>i[1] && i[0] + i[2] > limit) {
+			if (comparisonCoord > i[0] + i[2]) {
+				limit = i[0] + i[2];
+			}
+			else {
+				return true;
+			}
+		}
+		else if (direction == 'l' && localPosition.y<i[1] + i[3] && localPosition.y>i[1] && i[0] < limit) {
+			if (comparisonCoord < i[0]) {
+				limit = i[0];
+			}
+			else {
+				return true;
+			}
+		}
 	}
 	return false;
 }
@@ -154,7 +200,7 @@ void entity::changeSpriteText(string textArgs) {
 		if (currentText >= textArray.size()) {
 			currentText = 0;
 		}
-		sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
+		sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));//so that only a 64x64 texture is displayed
 		sprite.setTexture(textArray[currentText]);
 	}
 	else if (textArgs == "still") {

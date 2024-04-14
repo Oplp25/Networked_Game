@@ -1,6 +1,6 @@
 #pragma once
 #include<string>
-
+// template for items
 struct itemTemplate {
 	public:
 		std::string name;
@@ -8,7 +8,7 @@ struct itemTemplate {
 		int charges;
 		bool consumable;
 		std::string imagePath;
-		void construct(std::string pname,int pcost,int pcharges,bool pconsumable,std::string pimagePath) {
+		void construct(std::string pname,int pcost,int pcharges,bool pconsumable,std::string pimagePath) {//for child structs
 			name = pname;
 			cost = pcost;
 			charges = pcharges;

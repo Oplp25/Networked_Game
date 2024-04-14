@@ -43,12 +43,3 @@ void paladin::secondary() {
 void paladin::defensive() {
 	std::cout << "defensive" << std::endl;
 }
-void paladin::special() {
-	std::cout << "special" << std::endl;
-}
-void paladin::buff() {
-	std::cout << "buff" << std::endl;
-}
-void paladin::ult() {
-	std::cout << "ult" << std::endl;
-}
