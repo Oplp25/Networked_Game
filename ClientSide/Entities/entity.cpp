@@ -66,6 +66,12 @@ void entity::death()
 {
 }
 
+int entity::getCurrentText() const
+{
+	return currentText;
+
+}
+
 void entity::switchTextArray(char direction, char d2, char d3)
 {
 	if (direction != entityCurrentDirection) {//if you are changing direction
@@ -127,7 +133,39 @@ void entity::switchTextArray(char direction, char d2, char d3)
 	}
 }
 
-bool entity::checkEnd(char direction, int nums, vector<vector<int>> tileLayout)
+
+void entity::changeSpriteTextServer(string textArgs) {
+	if (textArgs == "next") {
+		currentText++;
+		if (currentText >= textArray.size()) {
+			currentText = 0;
+		}
+	}
+	else if (textArgs == "still") {
+		switchTextArrayServer('s');
+	}
+	else if (textArgs == "up") {
+		switchTextArrayServer('u');
+	}
+	else if (textArgs == "down") {
+		switchTextArrayServer('d');
+	}
+	else if (textArgs == "left") {
+		switchTextArrayServer('l');
+	}
+	else if (textArgs == "right") {
+		switchTextArrayServer('r');
+	}
+}
+void entity::switchTextArrayServer(char direction) {
+	if (direction != entityCurrentDirection) {//if you are changing direction
+		if (direction != 'a') {//if you are not attackin
+			entityCurrentDirection = direction;
+		}
+		currentText = 0;//set the array to 0
+	}
+}
+bool entity::checkEnd(char direction,int nums,vector<vector<int>> tileLayout)
 {
 	float comparisonCoord; // the place the entity would be if it did the move
 	//this variable is so that if you have multiple rectangles in one column or row, you do not get a false result

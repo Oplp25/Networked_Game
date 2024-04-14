@@ -21,7 +21,7 @@ class enemy :public entity {
 		int tickMax;//how many cycles it walks in one dicertion for
 
 		char currentDir;// current direction
-		void behavior(entity &player, std::vector<std::vector<int>> tileLayout);//method to determine what it will do
+		void behavior(std::vector<entity&> playerArray, std::vector<std::vector<int>> tileLayout);//method to determine what it will do
 		void tick();//increment the tick
 		void move(char direction, std::vector<std::vector<sf::Vector2f*>> collObjs);
 		enemy();//empty constructor

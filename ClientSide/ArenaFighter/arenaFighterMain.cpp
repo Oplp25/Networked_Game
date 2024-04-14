@@ -10,6 +10,7 @@
 #include "../Entities/Enemies/enemyTemplates.h"
 #include "../GraphicsFunctions/gameOutcomes.h"
 #include "../GraphicsFunctions/Maze/mazeFuncs.h"
+#include "../Server/packetOverrides.h"
 //#include "../GraphicsFunctions/textureLoaders/textureLoaders.h"
 using namespace std;
 const filesystem::path cwd = filesystem::current_path();
@@ -20,7 +21,7 @@ mazeGraph createArenaLayout()
 	return graph;
 }
 
-void runArenaFighterSingle(sf::RenderWindow& win)
+void runArenaFighterSingle(sf::RenderWindow& win, sf::TcpSocket& socket)
 {
 	character playerCharacter = characterCreator(win);//create the player character
 	//character player2 = playerCharacter;
@@ -43,11 +44,6 @@ void runArenaFighterSingle(sf::RenderWindow& win)
 	else if (result == "loss") {
 		spLoss(win);
 		}
-}
-
-void runArenaFighterMulti(sf::RenderWindow& win)
-{
-	character playerCharacter = characterCreator(win);
 }
 
 string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<character> charsArray,vector<enemy> enemyArray, mazeGraph currentMazeGraph)
@@ -229,7 +225,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 			if (enemyArray[i].tile == player.tile) {// only update texture if they on the same tile as the player
 				enemyArray[i].tick();
 				if (enemyArray[i].directionTick == enemyArray[i].tickMax && !enemyArray[i].attacking) {
-					enemyArray[i].behavior(player, collisionRectangles);
+					enemyArray[i].behavior({ player }, collisionRectangles);
 					if (enemyArray[i].currentDir == 'l') {
 						enemyArray[i].changeSpriteText("left");
 					}
@@ -300,7 +296,16 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	return string();
 }
 
-string multiArenaGameloop(sf::RenderWindow& win, character& player, vector<vector<vector<sf::Texture>>> textures)
+void runArenaFighterMulti(sf::RenderWindow& win, sf::TcpSocket& socket)
+{
+	if (socket.getRemotePort() == 0) {
+		return void();
+	}
+	character playerCharacter = characterCreator(win); 
+
+}
+
+string multiArenaGameloop(sf::RenderWindow& win, character& player)
 {
 	return string();
 }

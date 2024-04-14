@@ -4,7 +4,7 @@
 using namespace std;
 const filesystem::path cwd = filesystem::current_path();
 
-void runArenaFighterTeamsMenu(sf::RenderWindow& win) {
+void runArenaFighterTeamsMenu(sf::RenderWindow& win, sf::TcpSocket& socket) {
 	int width = win.getSize().x;
 	int height = win.getSize().y;
 	//setting up font
@@ -53,7 +53,7 @@ void runArenaFighterTeamsMenu(sf::RenderWindow& win) {
 				sf::Vector2f mouseLocF = sf::Vector2f(mouseLoc.x, mouseLoc.y);//convert to floats
 				for (button i : buttonList) {//iterate over the buttons
 					if (i.hitbox.contains(mouseLocF)) {//if clicked on that button
-						i.fncPtr(win);//run that buttons function
+						i.fncPtr(win,socket);//run that buttons function
 						run = false;
 					}
 				}
