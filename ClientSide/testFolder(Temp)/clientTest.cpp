@@ -23,10 +23,11 @@ void sendMessage(sf::TcpSocket& socket, std::string message)
 void sendPacket(sf::TcpSocket& socket, std::string message) {
 	sf::Packet packet;
 
-	packet << message;
+	packet << message; // add the message to the packets object
 
 	if (socket.send(packet) != sf::Socket::Done)
 	{
+		//if it doesn't work
 		cout << "Error. Message not sent." << endl;
 		throw std::invalid_argument("Message not sent");
 	}
