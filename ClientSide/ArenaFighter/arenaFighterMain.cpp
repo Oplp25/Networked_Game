@@ -25,8 +25,8 @@ void runArenaFighterSingle(sf::RenderWindow& win)
 	character playerCharacter = characterCreator(win);//create the player character
 	//character player2 = playerCharacter;
 	//player2.localPosition = sf::Vector2f(750,500);
-	mazeGraph layout = createArenaLayout();
-	sf::Vector2f starter = sf::Vector2f(win.getSize().x/3+32, win.getSize().y/ 3 + 32);
+	mazeGraph layout = createArenaLayout();//create layout from function
+	sf::Vector2f starter = sf::Vector2f(win.getSize().x/3+32, win.getSize().y/ 3 + 32);//coordinate to place the test enemy at
 	sf::Vector2f origin = sf::Vector2f(0, 0);
 	enemy x = enemy(orcSwordsman, starter, origin);
 	vector<enemy> enemyArrayP = {x};//Will be created by createArenaLayout, but for now will just be manually added
@@ -34,14 +34,14 @@ void runArenaFighterSingle(sf::RenderWindow& win)
 	//vector<enemy> enemyArrayP = {};
 	vector<character> charsArrayP = {};//list of the AI controlled characters
 	string result = singleArenaGameloop(win,playerCharacter, charsArrayP, enemyArrayP,layout);//run the gameloop
-	if (result == "exit") {
-		return void();
+	if (result == "exit") {//If the user terminstes the program
+		return void();//close
 	}
-	else if (result == "win") {
-		spWin(win);
+	else if (result == "win") {//if the player wins
+		spWin(win);//run win screen
 	}
-	else if (result == "loss") {
-		spLoss(win);
+	else if (result == "loss") {//if the player loses
+		spLoss(win);//run loss screen
 		}
 }
 
@@ -59,9 +59,11 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	int spriteChangeInterval = 12;
 	char currentDir = 's';
 	vector<int> check;
+
+	//Background Rects are to draw on the screen, dynamically generated based on tile.
 	vector<sf::RectangleShape> backgroundRects = getCellRects(currentMazeGraph.getNode(player.tile).pos, currentMazeGraph.getNode(player.tile).connections,win);
 
-	vector<vector<int>> collisionRectangles = getCollisionRectangles(backgroundRects);
+	vector<vector<int>> collisionRectangles = getCollisionRectangles(backgroundRects);//BackgroundRecs but for collision
 	vector<vector<sf::Vector2f*>> collObjs;//collision objects. 
 
 	for (int i = 0; i < enemyArray.size();i++) {
@@ -73,6 +75,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 	
 	sf::Vector2f newTile = player.tile;
 
+	//testing variable for if the background is just green
 	sf::RectangleShape fullGreenBackground(sf::Vector2f(win.getSize().x, win.getSize().y));
 	fullGreenBackground.setFillColor(colours::hunterGreen);
 	fullGreenBackground.setPosition(sf::Vector2f(0, 0));
@@ -216,20 +219,21 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 		for (int i = 0; i < enemyArray.size();i++) {//iterate through enemy array
 			if (enemyArray[i].hpCurrent <= 0) {//if they're dead
 				enemyArray.erase(enemyArray.begin()+i);
-				if (enemyArray.empty()) {
+				if (enemyArray.empty()) {//if no enemies left
 					sf::Time elapsed = clock.getElapsedTime();
 					ofstream f;
 					f.open("HighScores.txt", ios::app);
 					f << elapsed.asSeconds() << endl;
 					f.close();
-					return "win";//if no enemies left
+					return "win";
 				}
 				break;
 			}
 			if (enemyArray[i].tile == player.tile) {// only update texture if they on the same tile as the player
 				enemyArray[i].tick();
-				if (enemyArray[i].directionTick == enemyArray[i].tickMax && !enemyArray[i].attacking) {
-					enemyArray[i].behavior(player, collisionRectangles);
+				if (enemyArray[i].directionTick == enemyArray[i].tickMax && !enemyArray[i].attacking) {//if the enemy needs to change direction
+					enemyArray[i].behavior(player, collisionRectangles);//enemy behaviour algorithm
+					//update textures
 					if (enemyArray[i].currentDir == 'l') {
 						enemyArray[i].changeSpriteText("left");
 					}
@@ -247,7 +251,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 					enemyArray[i].move(enemyArray[i].currentDir,collObjs);//move
 				}
 				if (spriteChangeCounter == spriteChangeInterval) {
-					if (enemyArray[i].attacking) {
+					if (enemyArray[i].attacking) {//if they are attacking
 						enemyArray[i].attackTick++;
 						if (enemyArray[i].attackTick == enemyArray[i].maxAttackTick) {
 							enemyArray[i].attacking = false;
@@ -259,7 +263,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 					//increment texture
 					enemyArray[i].changeSpriteText("next");
 				}
-				if (enemyArray[i].damaged) {
+				if (enemyArray[i].damaged) {//if they are damaged
 					enemyArray[i].damageTick++;
 					if (enemyArray[i].damageTick == 61) {
 						enemyArray[i].damaged = false;
@@ -292,6 +296,7 @@ string singleArenaGameloop(sf::RenderWindow& win, character& player, vector<char
 				
 		}
 		win.display();
+		//increment sprite change counter
 		spriteChangeCounter++;
 		if (spriteChangeCounter > spriteChangeInterval) {
 			spriteChangeCounter = 0;

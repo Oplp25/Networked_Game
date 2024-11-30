@@ -8,6 +8,7 @@
 using namespace std;
 const filesystem::path cwd = filesystem::current_path();
 
+//function to compare 2 sprite objects, for use in an ordered map
 bool spriteComp::operator()(const sf::Sprite& a, const sf::Sprite& b)const {
 	if (a.getGlobalBounds().top == b.getGlobalBounds().top) {
 		return a.getGlobalBounds().left < b.getGlobalBounds().left;
@@ -16,18 +17,19 @@ bool spriteComp::operator()(const sf::Sprite& a, const sf::Sprite& b)const {
 }
 character characterCreator(sf::RenderWindow& win)
 {
+	//setting up variables
 	bool happy = false;
 	character myChar;
 	char errorCode = 'n';
 	while (!happy) {
 		//string classChoiceString = "paladin";
-		string classChoiceString = classPicker(win);
-		if(classChoiceString == "False"){
+		string classChoiceString = classPicker(win);// get the class choice
+		if(classChoiceString == "False"){//if the user closes the window
 			errorCode = 'e';
 			break;
 		}
 		//string raceChoiceString = "dwarf";
-		string raceChoiceString = racePicker(win, classChoiceString);
+		string raceChoiceString = racePicker(win, classChoiceString); // get the race choice
 		if (raceChoiceString == "Unhappy") {
 
 			continue;
@@ -46,6 +48,7 @@ character characterCreator(sf::RenderWindow& win)
 
 std::string classPicker(sf::RenderWindow& win)
 {
+	//setting up variables
 	vector<sf::Texture> textureList = {};
 	map < sf::Sprite, string, spriteComp> iconList = {};//a map of sprites to strings, with the strings being the name of the class represented by the sprite. spriteComp is a method that compares sprites by their y position, then their x position
 	vector<sf::Sprite> spriteList;
@@ -56,18 +59,21 @@ std::string classPicker(sf::RenderWindow& win)
 	int y = height / 5;
 	int count = 0;
 	sf::Sprite s;
-	for (string i : classList) {//need to do textureList and iconList in seperate functions
-		textureList.push_back(sf::Texture());
+	for (string i : classList) {//for every string in ClassList from classIncluder.h
+		textureList.push_back(sf::Texture());//append an empty texture
 		s = sf::Sprite();
-		if (!textureList.back().loadFromFile(cwd.string() + "/Resources/ClassIcons/" + i + ".jpeg")) {
+		if (!textureList.back().loadFromFile(cwd.string() + "/Resources/ClassIcons/" + i + ".jpeg")) {//load the correct texture
+			//if it failed, make a white square texture
 			cout << "Error: Failed to load \"" + i + ".jpeg\" from file" << endl;
 			sf::Texture t;
 			t.create(120, 120);
 			textureList.back() = t;
 		}
+		//set the correct size and position
 		s.setScale(iconD / 120, iconD / 120);
 		s.setPosition(x, y);
 		spriteList.push_back(s);
+		//increment position of next variable
 		x += iconD / 2;
 		x += iconD;
 		count++;
@@ -78,6 +84,7 @@ std::string classPicker(sf::RenderWindow& win)
 
 		}
 	}
+
 	for (int i = 0; i < classList.size(); i++) {
 		spriteList[i].setTexture(textureList[i]);
 		iconList.emplace(spriteList[i],classList[i]);
@@ -89,6 +96,8 @@ std::string classPicker(sf::RenderWindow& win)
 	if (!comicsans.loadFromFile(cwd.string() + "\\Resources\\Fonts\\ComicSans.ttf")) {
 		cout << "Error. Failed to load font Comic Sans" << endl;
 	}
+
+	//set up onscreen objects
 	sf::Text backText = sf::Text("Back",comicsans,60);
 	backText.setStyle(sf::Text::Bold);
 	backText.setFillColor(sf::Color(0,0,0));
@@ -113,6 +122,7 @@ std::string classPicker(sf::RenderWindow& win)
 	sf::Event event;
 	while (!selected) {
 		while (win.pollEvent(event)) {
+			//if window closed
 			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 				win.close();
 				return "False";

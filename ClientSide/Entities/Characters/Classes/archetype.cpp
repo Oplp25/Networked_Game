@@ -1,7 +1,9 @@
 #include "archetype.h"
 #include<iostream>
 
+//Abstract class, so methods are deined but do nothing except getters
 
+//Getters
 int archetype::getHitDiceType()
 {
 	return hitDiceType;
@@ -37,6 +39,8 @@ std::vector<std::string> archetype::getWeaponsProficient()
 	return weaponsProficient;
 }
 
+
+
 void archetype::primary() {
 	std::cout << "primary" << std::endl;
 }
@@ -53,7 +57,6 @@ void archetype::level2()
 void archetype::level3()
 {
 }
-
 
 void archetype::level4()
 {

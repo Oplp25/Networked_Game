@@ -63,15 +63,15 @@ void runArenaFighterMenu(sf::RenderWindow& win) {
 		}
 		win.clear(colours::pistachio);//fill the creen that colour
 		for (sf::RectangleShape i : rectShapeList) {
-			win.draw(i);
+			win.draw(i);//draw the rectangles
 		}
 #
 		for (sf::Sprite i : spriteList) {
-			win.draw(i);
+			win.draw(i);//draw the sprites
 		}
 
 		for (sf::Text i : textList) {
-			win.draw(i);
+			win.draw(i);//draw the text
 		}
 		win.display();
 	}
